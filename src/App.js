@@ -14,6 +14,8 @@ import PvcIdCard from "./pages/PvcIdCard/PvcIdCard";
 import MobileCase from "./pages/MobileCase/MobileCase";
 import VisitingCard from "./pages/VisitingCard/VisitingCard";
 import BillBook from "./pages/BillBook/BillBook";
+import { Toaster } from "react-hot-toast";
+
 const Home = lazy(() => import("./pages/Home/Home"));
 
 AOS.init({
@@ -29,6 +31,7 @@ function App() {
         <Router>
           <ScrollToTopButton />
           <ScrollToTopOnPageChange />
+          <Toaster position="top-center" />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutUs />} />

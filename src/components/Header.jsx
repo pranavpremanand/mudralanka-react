@@ -5,28 +5,73 @@ import {
   FaWhatsapp,
   FaYoutube,
 } from "react-icons/fa";
-import { IoMail } from "react-icons/io5";
+import { IoClose, IoMail } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { headerLinks, socialMediaLinks } from "../constant";
 import { Link, useLocation } from "react-router-dom";
+import Drawer from "react-modern-drawer";
+import 'react-modern-drawer/dist/index.css'
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const { pathname } = useLocation();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [openSubMenus, setOpenSubMenus] = useState({}); // To track sub-menu states
 
-  // Toggle main menu
-  const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev);
+  const toggleDrawer = () => {
+    setIsOpen(!isOpen);
   };
+  // document.addEventListener("DOMContentLoaded", function () {
+  //   var navigationBox = document.querySelector(
+  //     ".main-navigation .navigation-box"
+  //   );
 
-  // Toggle a specific sub-menu
-  const toggleSubMenu = (menuIndex) => {
-    setOpenSubMenus((prev) => ({
-      ...prev,
-      [menuIndex]: !prev[menuIndex],
-    }));
-  };
+  //   if (navigationBox) {
+  //     var mainNavToggler = document.querySelector(
+  //       ".header-navigation .menu-toggler"
+  //     );
+  //     var subNavTogglers = document.querySelectorAll(
+  //       ".main-navigation"
+  //     );
+
+  //     // Helper function to toggle animation
+  //     function toggleMenu(menu) {
+  //       if (menu.classList.contains("showen")) {
+  //         menu.style.maxHeight = null;
+  //         menu.style.opacity = "0";
+  //         setTimeout(() => menu.classList.remove("showen"), 300); // Match transition time
+  //       } else {
+  //         menu.style.maxHeight = menu.scrollHeight + "px";
+  //         menu.style.opacity = "1";
+  //         menu.classList.add("showen");
+  //       }
+  //     }
+
+  //     // Handle main menu toggle
+  //     if (mainNavToggler) {
+  //       mainNavToggler.addEventListener("click", function (event) {
+  //         event.preventDefault();
+  //         var menuSelector = this.getAttribute("data-target");
+  //         var menu = document.querySelector(menuSelector);
+
+  //         if (menu) {
+  //           toggleMenu(menu);
+  //         }
+  //       });
+  //     }
+
+  //     // Handle sub-navigation togglers
+  //     subNavTogglers.forEach(function (subNavToggler) {
+  //       subNavToggler.addEventListener("click", function (event) {
+  //         event.preventDefault();
+  //         var subMenu =
+  //           this.parentElement.parentElement.querySelector(".sub-menu");
+
+  //         if (subMenu) {
+  //           toggleMenu(subMenu);
+  //         }
+  //       });
+  //     });
+  //   }
+  // });
 
   return (
     <header className="site-header header-one">
@@ -52,7 +97,7 @@ const Header = () => {
               />
             </Link>
           </div>
-          <div className="right-block">
+          <div className="d-md-flex d-none right-block">
             <a href="mailto:mudralankashop@gmail.com">
               <IoMail className="text-white fill-primary mr-2" size={20} />
               mudralankashop@gmail.com
@@ -70,60 +115,19 @@ const Header = () => {
       <nav className="navbar navbar-expand-lg navbar-light header-navigation stricky">
         <div className="container clearfix">
           <div className="logo-box clearfix">
-            <button
-              className="menu-toggler"
-              onClick={toggleMenu}
-              aria-expanded={isMenuOpen}
-            >
+            <button onClick={toggleDrawer} className="menu-toggler" data-target="#main-nav-bar">
               <GiHamburgerMenu size={28} />
             </button>
           </div>
 
-          <div
-            className={`main-navigation ${
-              isMenuOpen ? "showen" : ""
-            }`}
-            id="main-nav-bar"
-          >
+          <div className="main-navigation" id="main-nav-bar">
             <ul className="navigation-box">
-              {headerLinks.map((link, index) => (
+              {headerLinks.map((link) => (
                 <li
                   key={link.path}
-                  className={`${
-                    link.path === pathname ? "current" : ""
-                  } ${
-                    openSubMenus[index] ? "sub-menu-open" : ""
-                  }`}
+                  className={`${link.path === pathname && "current"}`}
                 >
                   <Link to={link.path}>{link.title}</Link>
-
-                  {/* Example sub-menu */}
-                  {link.subMenu && (
-                    <>
-                      <button
-                        className="sub-nav-toggler"
-                        onClick={() => toggleSubMenu(index)}
-                      >
-                        ▼
-                      </button>
-                      <ul
-                        className="sub-menu"
-                        style={{
-                          display: openSubMenus[index]
-                            ? "block"
-                            : "none",
-                        }}
-                      >
-                        {link.subMenu.map((subLink) => (
-                          <li key={subLink.path}>
-                            <Link to={subLink.path}>
-                              {subLink.title}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
                 </li>
               ))}
             </ul>
@@ -143,6 +147,34 @@ const Header = () => {
           </div>
         </div>
       </nav>
+      <Drawer
+        open={isOpen}
+        onClose={toggleDrawer}
+        direction="right"
+        className="px-4"
+      >
+        <div className="mb-6 d-flex align-items-center justify-content-end py-3">
+          <button
+            onClick={() => setIsOpen(false)}
+            className="text-black fs-4 close-btn"
+          >
+            <IoClose size={30}/>
+          </button>
+        </div>
+        <div className="d-flex flex-column">
+          {headerLinks.map(({ title, path }) => (
+            <Link
+              onClick={() => setIsOpen(false)}
+              key={title}
+              className="mb-3 fs-2 text-dark"
+              style={{fontSize:'1.5rem'}}
+              to={path}
+            >
+              {title}
+            </Link>
+          ))}
+        </div>
+      </Drawer>
     </header>
   );
 };

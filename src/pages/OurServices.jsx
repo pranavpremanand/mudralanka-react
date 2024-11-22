@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import WhatWeCanDo from "../components/WhatWeCanDo";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 const OurServices = () => {
   return (
@@ -28,38 +29,38 @@ const OurServices = () => {
                 <div class="service-four__icon">
                   <img
                     src="images/icons/wall-sticker-1-1.png"
-                    alt="Awesome Image"
+                    alt="Pic"
                   />
                 </div>
                 <h3 class="service-four__title">
-                  <a href="single-service.html">Sticker Printing</a>
+                  <Link to='/services'>Sticker Printing</Link>
                 </h3>
                 <p class="service-four__text">
                   Lorem ipsum is simply free text dolor sit amett adipiscing
                   elit anned printer simp is took of type and scrambled it to
                   make.
                 </p>
-                <a href="single-service.html" class="service-four__link">
+                <Link to='/services' class="service-four__link">
                   Read More
-                </a>
+                </Link>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="service-four__single content-margin-60">
                 <div class="service-four__icon">
-                  <img src="images/icons/id-card-1-1.png" alt="Awesome Image" />
+                  <img src="images/icons/id-card-1-1.png" alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
-                  <a href="single-service.html">PVC ID Card</a>
+                  <Link to='/services'>PVC ID Card</Link>
                 </h3>
                 <p class="service-four__text">
                   Lorem ipsum is simply free text dolor sit amett adipiscing
                   elit anned printer simp is took of type and scrambled it to
                   make.
                 </p>
-                <a href="single-service.html" class="service-four__link">
+                <Link to='/services' class="service-four__link">
                   Read More
-                </a>
+                </Link>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12">
@@ -67,20 +68,20 @@ const OurServices = () => {
                 <div class="service-four__icon">
                   <img
                     src="images/icons/mobile-case-1-1.png"
-                    alt="Awesome Image"
+                    alt="Pic"
                   />
                 </div>
                 <h3 class="service-four__title">
-                  <a href="single-service.html">Mobile Case Printing</a>
+                  <Link to='/services'>Mobile Case Printing</Link>
                 </h3>
                 <p class="service-four__text">
                   Lorem ipsum is simply free text dolor sit amett adipiscing
                   elit anned printer simp is took of type and scrambled it to
                   make.
                 </p>
-                <a href="single-service.html" class="service-four__link">
+                <Link to='/services' class="service-four__link">
                   Read More
-                </a>
+                </Link>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12">
@@ -88,20 +89,20 @@ const OurServices = () => {
                 <div class="service-four__icon">
                   <img
                     src="images/icons/visiting-card-1-1.png"
-                    alt="Awesome Image"
+                    alt="Pic"
                   />
                 </div>
                 <h3 class="service-four__title">
-                  <a href="single-service.html">Visiting Card</a>
+                  <Link to='/services'>Visiting Card</Link>
                 </h3>
                 <p class="service-four__text">
                   Lorem ipsum is simply free text dolor sit amett adipiscing
                   elit anned printer simp is took of type and scrambled it to
                   make.
                 </p>
-                <a href="single-service.html" class="service-four__link">
+                <Link to='/services' class="service-four__link">
                   Read More
-                </a>
+                </Link>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12">
@@ -109,20 +110,20 @@ const OurServices = () => {
                 <div class="service-four__icon">
                   <img
                     src="images/icons/accounting-book-1-1.png"
-                    alt="Awesome Image"
+                    alt="Pic"
                   />
                 </div>
                 <h3 class="service-four__title">
-                  <a href="single-service.html">Billbook</a>
+                  <Link to='/services'>Billbook</Link>
                 </h3>
                 <p class="service-four__text">
                   Lorem ipsum is simply free text dolor sit amett adipiscing
                   elit anned printer simp is took of type and scrambled it to
                   make.
                 </p>
-                <a href="single-service.html" class="service-four__link">
+                <Link to='/services' class="service-four__link">
                   Read More
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -133,12 +134,12 @@ const OurServices = () => {
           <h3 class="cta-four__title content-margin-30">
             Looking for Design with printing?
           </h3>
-          <a
-            href="service.html"
+          <Link
+            to="/services"
             class="content-margin-30 thm-btn cta-four__btn"
           >
             Learn More
-          </a>
+          </Link>
         </div>
       </section>
       <WhatWeCanDo />

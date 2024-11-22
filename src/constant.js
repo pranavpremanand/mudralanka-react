@@ -1,3 +1,7 @@
+// send email link
+export const sendEmailLink =
+  "https://mudralanka-sendmail.vercel.app/api/send-email";
+
 // header links
 export const headerLinks = [
   {
@@ -28,22 +32,22 @@ export const services = [
   {
     image: "images/icons/id-card-1-1.png",
     title: "PVC ID Card",
-    path: "#",
+    path: "/pvcidcard",
   },
   {
     image: "images/icons/mobile-case-1-1.png",
     title: "Mobile Case Printing",
-    path: "#",
+    path: "/mobilecase",
   },
   {
     image: "images/icons/visiting-card-1-1.png",
     title: "Visiting Card",
-    path: "#",
+    path: "/visitingcard",
   },
   {
     image: "images/icons/accounting-book-1-1.png",
     title: "Billbook",
-    path: "#",
+    path: "/billbook",
   },
 ];
 

@@ -131,6 +131,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  outline: none;
+  cursor: pointer;
 }
 .satisfaction {
   width: 100%;
