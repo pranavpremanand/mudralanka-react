@@ -69,7 +69,7 @@ const Banner = () => {
         {[sliderImg1, sliderImg2].map((img, index) => (
           <SwiperSlide key={index}>
             <div
-              className="slide"
+              className="slide px-4"
               style={{
                 backgroundImage: `url(${img})`,
                 minHeight: "100vh",

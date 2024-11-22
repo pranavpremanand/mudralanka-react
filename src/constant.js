@@ -28,7 +28,7 @@ export const services = [
   {
     image: "images/icons/id-card-1-1.png",
     title: "PVC ID Card",
-    path: "#",
+    path: "services/pvc-id-card",
   },
   {
     image: "images/icons/mobile-case-1-1.png",

@@ -18,7 +18,7 @@ const FAQs = () => {
                 inthe majority have suffer freedom text some.
               </p>
               <div class="faq-one__image">
-                <img src="images/resources/faq-1-1.jpg" alt="Awesome Image" />
+                <img src="images/resources/faq-1-1.jpg" alt="Pic" />
               </div>
             </div>
           </div>

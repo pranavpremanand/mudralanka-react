@@ -18,7 +18,7 @@ const WhatWeCanDo = () => {
               </div>
               <div className="service-one__text-block">
                 <h3 className="service-one__title">
-                  <a href="single-service.html">Sticker Printing</a>
+                  <Link to="/sticker-printing">Sticker Printing</Link>
                 </h3>
 
                 <p className="service-one__text">
@@ -40,7 +40,7 @@ const WhatWeCanDo = () => {
               </div>
               <div className="service-one__text-block">
                 <h3 className="service-one__title">
-                  <a href="single-service.html">Visiting Card</a>
+                  <Link to="/services/visiting-card">Visiting Card</Link>
                 </h3>
 
                 <p className="service-one__text">
@@ -48,7 +48,7 @@ const WhatWeCanDo = () => {
                   identity and leave a lasting impression on everyone.
                 </p>
 
-                <Link to="#" className="service-one__link">
+                <Link to="/services/visiting-card" className="service-one__link">
                   <PiCaretRightBold className="text-white" size={19} />
                 </Link>
               </div>
@@ -61,7 +61,7 @@ const WhatWeCanDo = () => {
               </div>
               <div className="service-one__text-block">
                 <h3 className="service-one__title">
-                  <a href="single-service.html">PVC ID Card</a>
+                  <Link to="/services/pvc-id-card">PVC ID Card</Link>
                 </h3>
 
                 <p className="service-one__text">
@@ -70,7 +70,7 @@ const WhatWeCanDo = () => {
                   customizable!
                 </p>
 
-                <Link to="#" className="service-one__link">
+                <Link to="/services/pvc-id-card" className="service-one__link">
                   <PiCaretRightBold className="text-white" size={19} />
                 </Link>
               </div>

@@ -2,8 +2,8 @@ html {
   scroll-behavior: smooth;
 }
 
-button {
-  cursor: pointer;
+*{
+  outline: none;
 }
 
 .color-primary {
@@ -84,4 +84,11 @@ button {
   100% {
     height: 4px;
   }
+}
+
+/* hamburger menu close button */
+.close-btn {
+  background: transparent;
+  border: none;
+  outline: none;
 }
