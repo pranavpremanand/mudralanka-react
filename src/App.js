@@ -10,6 +10,9 @@ import ContactUs from "./pages/ContactUs";
 import { LoadingSpinner } from "./components/LoadingSpinner";
 import ScrollToTopOnPageChange from "./components/ScrollToTopOnPageChange";
 import StickerPrinting from "./pages/StickerPrinting/StickerPrinting";
+import PvcIdCard from "./pages/PvcIdCard/PvcIdCard";
+import MobileCase from "./pages/MobileCase/MobileCase";
+import VisitingCard from "./pages/VisitingCard/VisitingCard";
 const Home = lazy(() => import("./pages/Home/Home"));
 
 AOS.init({
@@ -33,6 +36,9 @@ function App() {
 
             {/* Service details pages */}
             <Route path="/sticker-printing" element={<StickerPrinting />} />
+            <Route path="/pvcidcard" element={<PvcIdCard />} />
+            <Route path="/mobilecase" element={<MobileCase />} />
+            <Route path="/visitingcard" element={<VisitingCard />} />
           </Routes>
         </Router>
       </Suspense>

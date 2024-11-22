@@ -54,3 +54,42 @@ export const socialMediaLinks = {
   instagram:
     "https://www.instagram.com/printshop.mudralanka/profilecard/?igsh=d2hvaTk2a2ZpYmV5",
 };
+
+export const relatedProducts = [
+  {
+    id: 1,
+    img: "images/service-stickerPrinting/related-productone.png",
+    title: "Sheet Stickers",
+    text: "24 starting at ₹160.00",
+  },
+  {
+    id: 2,
+    img: "images/service-stickerPrinting/related-producttwo.png",
+    title: "Product & Packaging Labels",
+    text: "24 starting at ₹160.00",
+  },
+  {
+    id: 3,
+    img: "images/service-stickerPrinting/related-productthree.png",
+    title: "Name Tags",
+    text: "10 starting at ₹140.00",
+  },
+  {
+    id: 4,
+    img: "images/service-stickerPrinting/related-productfour.png",
+    title: "Custom Car Stickers",
+    text: "5 starting at ₹240.00",
+  },
+  {
+    id: 5,
+    img: "images/service-stickerPrinting/related-productfive.png",
+    title: "Custom Shape Stickers",
+    text: "10 starting at ₹190.00",
+  },
+  {
+    id: 6,
+    img: "images/service-stickerPrinting/related-productsix.png",
+    title: "Sticker Singles",
+    text: "50 starting at ₹245.00",
+  },
+];
