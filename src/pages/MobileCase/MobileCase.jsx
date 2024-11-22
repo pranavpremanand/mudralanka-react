@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import "../StickerPrinting/StickerPrinting.css";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
@@ -9,10 +9,99 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import { relatedProducts } from "../../constant";
+import { relatedProducts, sendEmailLink } from "../../constant";
+import toast from "react-hot-toast";
+import { SpinnerContext } from "../../components/SpinnerContext";
 
+const brand = ["Apple", "Samsung", "OnePlus", "Nothing"];
 const MobileCase = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [screenGuard, setScreenGuard] = useState(false);
+  const [keyChain, setKeyChain] = useState(false);
+  const formData = new FormData();
+  const imgRef = useRef();
+  const [data, setData] = useState({
+    quantity: 1,
+    brand: "",
+    file: "",
+  });
+  const { setLoading } = useContext(SpinnerContext);
+
+  // on image change
+  const onImgChange = (file) => {
+    if (file.target.files && file.target.files[0]) {
+      const selectedFile = file.target.files[0];
+      if (
+        selectedFile.type === "image/png" ||
+        selectedFile.type === "image/jpeg" ||
+        selectedFile.type === "image/jpg"
+      ) {
+        // Validate file size (max size: 5MB)
+        const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+        if (selectedFile.size <= maxSizeInBytes) {
+          setData((prev) => ({ ...prev, file: selectedFile }));
+          formData.append("file", selectedFile);
+          sendMail();
+        } else {
+          toast("File size should not exceed 5MB");
+        }
+      } else {
+        toast("Select an image file");
+      }
+    }
+    file.target.value = "";
+  };
+  console.log(data, "aldsfkjaklsdfj");
+  // handle upload button click
+  const handleButtonClick = () => {
+    if (!data.brand) {
+      return toast("Please select a brand", { id: "brand" });
+    }
+    imgRef.current.click();
+  };
+
+  // handle send mail
+  const sendMail = async () => {
+    if (!data.brand) {
+      return toast("Please select a brand", { id: "brand" });
+    }
+    const { quantity, brand } = data;
+    let body = `
+      Screenguard: ${screenGuard ? "✅" : "❌"}\n
+      Keychain: ${keyChain ? "✅" : "❌"}\n
+      Quantity: ${quantity}\n\n
+      Brand: ${brand}\n\n`;
+    formData.append("body", body);
+
+    try {
+      setLoading(true);
+      const response = await fetch(sendEmailLink, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        toast.success("Order placed successfully");
+        setData({ quantity: 1, brand: "", file: "" });
+        setKeyChain(false);
+        setScreenGuard(false);
+      } else {
+        toast.error("Error placing order");
+      }
+    } catch (error) {
+      toast.error("Error placing order " + error.message, { id: "error" });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleScreenGuardChange = (e) => {
+    setScreenGuard(e.target.checked);
+  };
+
+  const handleKeyChainChange = (e) => {
+    setKeyChain(e.target.checked);
+  };
   return (
     <div class="page-wrapper">
       <Header />
@@ -48,7 +137,7 @@ const MobileCase = () => {
                 navigation={true}
                 thumbs={{ swiper: thumbsSwiper }}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className="mySwiper2"
+                className="mySwiper22"
               >
                 <SwiperSlide>
                   <img
@@ -101,7 +190,7 @@ const MobileCase = () => {
                 freeMode={true}
                 watchSlidesProgress={true}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className="mySwiper"
+                className="mySwiper1"
               >
                 <SwiperSlide>
                   <img
@@ -182,13 +271,54 @@ const MobileCase = () => {
               <div class="dropdown-Heading">
                 <h4 class="fw-bold fs-5">Mobile Brand</h4>
               </div>
-              <select class="options-container">
+
+              <div class="dropdown">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenu2"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  style={{ background: "white" }}
+                >
+                  Select Mobile Brand
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  {brand.map((item) => (
+                    <button
+                      class="dropdown-item"
+                      type="button"
+                      value={item}
+                      key={item}
+                      onClick={() =>
+                        setData((prev) => ({ ...prev, brand: item }))
+                      }
+                    >
+                      {item}
+                    </button>
+                  ))}
+                  {/* <button class="dropdown-item" type="button">
+                    Apple
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    Samsung
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    OnePlus
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    Nothing
+                  </button> */}
+                </div>
+              </div>
+              {/* <select class="options-container">
                 <option selected>Select Mobile Brand</option>
                 <option>Apple</option>
                 <option>Samsung</option>
                 <option>OnePlus</option>
                 <option>Nothing</option>
-              </select>
+              </select> */}
             </div>
 
             {/* <h4 class="fw-bold fs-5">Quality</h4> */}
@@ -255,11 +385,17 @@ const MobileCase = () => {
                   type="checkbox"
                   name="flexible-glass"
                   value="flexible-glass"
+                  onChange={handleScreenGuardChange}
                 />
                 Add Flexible Glass Screen Guard <s>99.00</s> 29.00
               </label>
               <label className="addonitems">
-                <input type="checkbox" name="key-chain" value="key-chain" />
+                <input
+                  type="checkbox"
+                  name="key-chain"
+                  value="key-chain"
+                  onChange={handleKeyChainChange}
+                />
                 Add Same Design Key Chain 99.00 29.00
               </label>
             </div>
@@ -274,7 +410,15 @@ const MobileCase = () => {
             </div>
 
             <h4 class="fw-bold fs-5">Upload Design</h4>
-            <button>
+            <input
+              name="myImg"
+              hidden
+              accept="image/png,image/jpeg,image/jpg"
+              onChange={(e) => onImgChange(e)}
+              ref={imgRef}
+              type="file"
+            />
+            <button onClick={handleButtonClick}>
               Have a design? Upload and edit it
               <img
                 src="images/service-stickerPrinting/svg/UploadIcon.svg"

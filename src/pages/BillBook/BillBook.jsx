@@ -13,19 +13,21 @@ import { relatedProducts, sendEmailLink } from "../../constant";
 import toast from "react-hot-toast";
 import { SpinnerContext } from "../../components/SpinnerContext";
 
+const sizes = ["'3.8' x '7.8'", "'4' x '5.5'", "'5.5' x '8.5'", "'8.5' x '11'"];
 const quantity = [
-  "1 (170.00 / Unit)",
-  "2 (130.00 / Unit)",
-  "3 (110.00 / Unit)",
-  "4 (100.00 / Unit)",
+  "1(200.00 / unit)",
+  "2(200.00 / unit)",
+  "3(200.00 / unit)",
+  "4(200.00 / unit)",
 ];
-
-const PvcIdCard = () => {
+const BillBook = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
   const formData = new FormData();
   const imgRef = useRef();
   const [data, setData] = useState({
-    quantity: "",
+    size: "",
+    quantity: "1(200.00 / unit)",
     file: "",
   });
   const { setLoading } = useContext(SpinnerContext);
@@ -55,22 +57,22 @@ const PvcIdCard = () => {
     file.target.value = "";
   };
   console.log(data, "aldsfkjaklsdfj");
-
   // handle upload button click
   const handleButtonClick = () => {
-    if (!data.quantity) {
-      return toast("Please select a quantity", { id: "quantity" });
+    if (!data.size) {
+      return toast("Please select a size", { id: "size" });
     }
     imgRef.current.click();
   };
 
   // handle send mail
   const sendMail = async () => {
-    if (!data.quantity) {
-      return toast("Please select a quantity", { id: "quantity" });
+    if (!data.size || !data.quantity) {
+      return toast("Please select a size and quantity", { id: "size" });
     }
-    const { quantity } = data;
+    const { size, quantity } = data;
     let body = `
+      Size: ${size}\n
       Quantity: ${quantity}\n\n`;
     formData.append("body", body);
 
@@ -83,7 +85,7 @@ const PvcIdCard = () => {
 
       if (response.ok) {
         toast.success("Order placed successfully");
-        setData({ quantity: "", file: "" });
+        setData({ size: "", quantity: "1(200.00 / unit)", file: "" });
       } else {
         toast.error("Error placing order");
       }
@@ -99,7 +101,7 @@ const PvcIdCard = () => {
       <div class="main-container">
         <div class="inner-banner thm-black-bg text-center">
           <div class="container">
-            <h2 class="inner-banner__title">PVC ID CARD</h2>
+            <h2 class="inner-banner__title">Bill Book</h2>
             <ul class="thm-breadcrumb">
               <li class="thm-breadcrumb__item">
                 <Link to="/">Home</Link>
@@ -108,7 +110,7 @@ const PvcIdCard = () => {
                 <Link to="/services">Services</Link>
               </li>
               <li class="thm-breadcrumb__item">
-                <span>PVC Id Card</span>
+                <span>Bill Book</span>
               </li>
             </ul>
           </div>
@@ -132,25 +134,25 @@ const PvcIdCard = () => {
               >
                 <SwiperSlide>
                   <img
-                    src="images/service-pvcidcard/service-pvcidcard1.png"
+                    src="images/service-billbook/service-billbook1.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-pvcidcard/service-pvcidcard2.png"
+                    src="images/service-billbook/service-billbook2.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-pvcidcard/service-pvcidcard3.png"
+                    src="images/service-billbook/service-billbook3.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-pvcidcard/service-pvcidcard4.png"
+                    src="images/service-billbook/service-billbook4.png"
                     alt="similar product"
                     style={{
                       height: "100% !important",
@@ -162,13 +164,13 @@ const PvcIdCard = () => {
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-pvcidcard/service-pvcidcard5.png"
+                    src="images/service-billbook/service-billbook5.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-pvcidcard/service-pvcidcard6.png"
+                    src="images/service-billbook/service-billbook6.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
@@ -185,39 +187,39 @@ const PvcIdCard = () => {
               >
                 <SwiperSlide>
                   <img
-                    src="images/service-pvcidcard/service-pvcidcard1.png"
+                    src="images/service-billbook/service-billbook1.png"
                     alt="similar product"
                     style={{ height: "100%" }}
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-pvcidcard/service-pvcidcard2.png"
+                    src="images/service-billbook/service-billbook2.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-pvcidcard/service-pvcidcard3.png"
+                    src="images/service-billbook/service-billbook3.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-pvcidcard/service-pvcidcard4.png"
+                    src="images/service-billbook/service-billbook4.png"
                     alt="similar product"
                     style={{ height: "100% !important" }}
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-pvcidcard/service-pvcidcard5.png"
+                    src="images/service-billbook/service-billbook5.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-pvcidcard/service-pvcidcard6.png"
+                    src="images/service-billbook/service-billbook6.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
@@ -226,45 +228,38 @@ const PvcIdCard = () => {
           </div>
 
           <div class="details-container">
-            <h2 class="main-heading">PVC ID CARD</h2>
-            <p class="fw-normal fs-5 mb-4">
-              Crafting Unique ID Cards to Reflect Your Identity
-            </p>
-            <h3 class="fw-semibold fs-6">Cash on Delivery available</h3>
-            <ul class="fw-medium fs-6 mb-3">
-              <li>Material: PVC 0.8 mm thickness card</li>
-              <li>Finish: Semi-Gloss</li>
-              <li>Size: 8.5 cm x 5.4 cm</li>
-              <li>Both side printing available</li>
-              <li>Decoration Technology: Digital Printing</li>
+            <h2 class="main-heading">Bill Book</h2>
+            <h5 class="fw-normal fs-5 mb-4">
+              Perfect for invoices or using as receipt books
+            </h5>
+            <ul class="fw-medium fs-6 mb-3 visitingcardlist">
+              <li>50 sheets per pad</li>
+              <li>Available in 4 sizes</li>
+              <li>90 gsm acid-free paper</li>
+              <li>Magnetic option for fridges or desks</li>
               <li>
-                Looking for Personalised Lanyards?
-                <Link href="#" class="text-primary text-decoration-underline">
-                  Click here
-                </Link>
+                Upload your own bill book design or customize with your logo and
+                address
               </li>
+              <li>Can also be used as – Notepads.</li>
               <li>
-                Please do not print Aadhar Cards/PAN cards/Voter IDs/Driving
-                License or any ID Cards/Lanyards belonging to
-                Government/Government Authorities/Quasi Government bodies.
-              </li>
-              <li>
-                You are solely accountable/liable for the product and its
-                utilization in the event that it is found to be offensive,
-                harmful, harassing, libelous, threatening, obscene, malicious,
-                or otherwise objectionable or illegal.
+                <strong>
+                  We don’t provide carbon copy OR pink / yellow copies OR serial
+                  numbers
+                </strong>
               </li>
             </ul>
-            {/* <p class="fw-medium fs-6">
+            <i class="fw-semibold fs-6">Cash on Delivery available</i>
+            <h5 class="fw-medium fs-6">
               Price below is MRP (inclusive of all taxes)
-            </p> */}
+            </h5>
             {/* <ul>
               <li >
                 View Specs & Templates to create your print-ready file. Fetching
                 compatible options Quantity
               </li>
             </ul> */}
-            <div className="seeDetails">
+            {/* <div className="seeDetails">
               <span class="fw-bold text-decoration-underline ms-3">
                 See Details
               </span>
@@ -274,13 +269,15 @@ const PvcIdCard = () => {
               <span class="fw-bold text-decoration-underline ms-2">
                 to create your print-ready file.
               </span>
+            </div> */}
+            {/* <div className="billbookselection-container"> */}
+            {/* <div class="dropdown-section option mb-4"> */}
+            <div class="dropdown-Heading">
+              <h4 class="fw-bold fs-5">Size</h4>
             </div>
-            <div class="dropdown-section mb-4">
-              <div class="dropdown-Heading">
-                <h4 class="fw-bold fs-5">Quality</h4>
-              </div>
 
-              <div class="dropdown">
+            <div className="billbookselection-container">
+              <div class="dropdown drop">
                 <button
                   class="btn btn-secondary dropdown-toggle"
                   type="button"
@@ -290,7 +287,50 @@ const PvcIdCard = () => {
                   aria-expanded="false"
                   style={{ background: "white" }}
                 >
-                  Select Quantity
+                  Select Size
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  {sizes.map((item) => (
+                    <button
+                      class="dropdown-item"
+                      type="button"
+                      value={item}
+                      key={item}
+                      onClick={() =>
+                        setData((prev) => ({ ...prev, size: item }))
+                      }
+                    >
+                      {item}
+                    </button>
+                  ))}
+                  {/* <button class="dropdown-item" type="button">
+                    100
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    200
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    300
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    400
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    500
+                  </button> */}
+                </div>
+              </div>
+              <div class="dropdown drop">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenu2"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  style={{ background: "white" }}
+                >
+                  Select Size
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                   {quantity.map((item) => (
@@ -307,109 +347,130 @@ const PvcIdCard = () => {
                     </button>
                   ))}
                   {/* <button class="dropdown-item" type="button">
-                    1(170.00/ Unit)
+                    100
                   </button>
                   <button class="dropdown-item" type="button">
-                    2(130.00/ Unit)
+                    200
                   </button>
                   <button class="dropdown-item" type="button">
-                    3(110.00/ Unit)
+                    300
                   </button>
                   <button class="dropdown-item" type="button">
-                    4(100.00/ Unit)
+                    400
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    500
                   </button> */}
                 </div>
               </div>
-              {/* <select
-                onChange={(e) =>
-                  setData((prev) => ({ ...prev, quantity: e.target.value }))
-                }
-                class="options-container"
-              >
-                <option value={""} selected>
-                  Select Quantity
-                </option>
-                {quantity.map((item) => (
-                  <option value={item} key={item}>
-                    {item}
-                  </option>
-                ))}
-              </select> */}
-              {/* <select class="options-container">
-                <option selected>Select Quantity</option>
-                <option>1(170.00/ Unit)</option>
-                <option>2(130.00/ Unit)</option>
-                <option>3(110.00/ Unit)</option>
-                <option>4(100.00/ Unit)</option>
-              </select> */}
             </div>
+            {/* <select class="options-container">
+                  <option selected>Select Size</option>
+                  <option>100</option>
+                  <option>200</option>
+                  <option>300</option>
+                  <option>400</option>
+                  <option>500</option>
+                </select> */}
+            {/* </div> */}
+            {/* <div class="dropdown-section option mb-4">
+                <div class="dropdown-Heading">
+                  <h4 class="fw-bold fs-5">Quantity</h4>
+                </div>
+                <select class="options-container">
+                  <option selected>Select Quantity</option>
+                  <option>100</option>
+                  <option>200</option>
+                  <option>300</option>
+                  <option>400</option>
+                  <option>500</option>
+                </select>
+              </div> */}
+            {/* </div> */}
 
             {/* <h4 class="fw-bold fs-5">Quality</h4> */}
             {/* <div class="list-group">
               <div class="quality-list-container">
                 <div class="quality-list-first">
-                  <span>24</span>
+                  <span>100</span>
                   <div class="text-end">
-                    <p class="mb-0 fw-medium">₹940.00</p>
-                    <small class="quality-list-small">₹39.17 / unit</small>
+                    <p class="mb-0 fw-medium">₹200.00</p>
+                    <small class="quality-list-small">₹2.00 / unit</small>
                   </div>
                 </div>
               </div>
               <div class="quality-list-container">
                 <div class="quality-list-first">
-                  <span>48</span>
+                  <span>200</span>
                   <span class="quality-list-chip">Recommended</span>
                   <div class="text-end">
-                    <p class="mb-0 fw-medium">₹1870.00</p>
-                    <small class="quality-list-small">₹38.96 / unit</small>
+                    <p class="mb-0 fw-medium">340.00</p>
+                    <small class="quality-list-small">₹1.70 / unit</small>
                   </div>
                 </div>
+                <small class="text-secondary">15% savings</small>
               </div>
               <div class="quality-list-container">
                 <div class="quality-list-first">
-                  <span>72</span>
+                  <span>300</span>
                   <div class="text-end">
-                    <p class="mb-0 fw-medium">₹2740.00</p>
-                    <small class="quality-list-small">₹38.06 / unit</small>
+                    <p class="mb-0 fw-medium">430.00</p>
+                    <small class="quality-list-small">₹1.60 / unit</small>
                   </div>
                 </div>
-                <small class="text-secondary">2% savings</small>
+                <small class="text-secondary">20% savings</small>
+              </div>
+
+              <div class="quality-list-container">
+                <div class="quality-list-first">
+                  <span>400</span>
+                  <div class="text-end">
+                    <p class="mb-0 fw-medium">600.00</p>
+                    <small class="quality-list-small">₹1.50 / unit</small>
+                  </div>
+                </div>
+                <small class="text-secondary">25% savings</small>
               </div>
               <div class="quality-list-container">
                 <div class="quality-list-first">
-                  <span>96</span>
+                  <span>500</span>
                   <div class="text-end">
-                    <p class="mb-0 fw-medium">₹3650.00</p>
-                    <small class="quality-list-small">₹38.03 / unit</small>
+                    <p class="mb-0 fw-medium">700.00</p>
+                    <small class="quality-list-small">₹1.40 / unit</small>
                   </div>
                 </div>
-                <small class="text-secondary">2% savings</small>
-              </div>
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>120</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹4450.00</p>
-                    <small class="quality-list-small">₹37.09 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">2% savings</small>
+                <small class="text-secondary">30% savings</small>
               </div>
             </div> */}
 
-            {/* <p class="starting-price">
-              24 starting at ₹940.00
-              <span class="">See more quantities</span>
-              <span class="">FREE Shipping</span>
-            </p> */}
-            <div className="seeDetails">
+            <p class="starting-price">
+              1 starting at 150.00
+              {/* <span class="">See more quantities</span>
+              <span class="">FREE Shipping</span> */}
+            </p>
+            {/* <div>
+              <label className="addonitems">
+                <input
+                  type="checkbox"
+                  name="flexible-glass"
+                  value="flexible-glass"
+                />
+                Add Flexible Glass Screen Guard <s>99.00</s> 29.00
+              </label>
+              <label className="addonitems">
+                <input type="checkbox" name="key-chain" value="key-chain" />
+                Add Same Design Key Chain 99.00 29.00
+              </label>
+            </div> */}
+
+            {/* <div className="seeDetails">
               <span class="fw-bold text-decoration-underline ms-3">
                 See more quantities
               </span>
               <span class="fw-bold text-decoration-underline ms-2">
                 FREE Shipping
               </span>
-            </div>
+            </div> */}
 
             <h4 class="fw-bold fs-5">Upload Design</h4>
             <input
@@ -420,13 +481,14 @@ const PvcIdCard = () => {
               ref={imgRef}
               type="file"
             />
-            <button onClick={handleButtonClick}>
-              Have a design? Upload it
+            <button button onClick={handleButtonClick}>
+              Have a design? Upload and edit it
               <img
                 src="images/service-stickerPrinting/svg/UploadIcon.svg"
                 alt="upload"
               />
             </button>
+            {/*
             <p class="satisfaction">
               <img
                 src="images/service-stickerPrinting/svg/guaranteedsatisfaction.svg
@@ -434,7 +496,7 @@ const PvcIdCard = () => {
                 alt="upload"
               />
               100% satisfaction guaranteed
-            </p>
+            </p> */}
           </div>
         </div>
         <div class="section-twoContainer">
@@ -444,61 +506,61 @@ const PvcIdCard = () => {
           <div class="details-container">
             <div class="section-two-details">
               <div>
-                <h3>
-                  Design and print custom ID cards that reflect your
-                  organisation's brand and identity.
-                </h3>
+                <h3>Custom bill books for your daily business transactions.</h3>
                 <p>
-                  Are you seeking a reliable and efficient solution for creating
-                  and printing custom ID cards that mirror your organisation's
-                  distinct brand and identity? Look no further! MudraLanka
-                  specialises in providing top-notch ID card printing services
-                  tailored to your unique requirements. Whether you need
-                  employee ID cards or student IDs, we've got you covered.
+                  Looking for an easy and unexpected way to build your personal
+                  or professional brand? Consider custom bill books or notepads
+                  featuring your name and logo.
                 </p>
                 <p>
-                  Our professional ID cards can include essential details such
-                  as photos, names, titles, and any other relevant information
-                  you require. We understand the importance of a secure and
-                  professional Identity card and guarantee that your cards will
-                  meet these standards.
+                  Having a customized bill book or notepad adds a dash of
+                  professionalism to your approach. At MudraLanka , you can
+                  design Bill Books, Receipts Books or Notepads online, without
+                  taking the effort of visiting your local vendor. Get
+                  customized bill books or notepads, with premium quality paper
+                  and hundreds of colorful designs that suit your business.
+                  Choose from a variety of themes available with us or you can
+                  upload your own design. You can go with a cardboard backside
+                  or a magnetic backing to hang them on desks.
                 </p>
                 <p>
-                  Ready to order your custom office ID cards? Our user-friendly
-                  online platform makes it a breeze. We guarantee sharp,
-                  vibrant, and long-lasting ID cards using top-of-the-line
-                  printing technology. Simply upload your company logo, employee
-                  name, message, photo, or any other specifications, and witness
-                  them come to life on your identity cards online. Once you've
-                  finalised your design, sit back and relax—let us handle the
-                  rest, ensuring a seamless printing and delivery process.
+                  Ready to create? Start by browsing our assortment of fully
+                  customisable designs. Once you’ve found a favourite, make it
+                  yours by adding custom touches and choosing the option that
+                  works best for you. After that, we’ll take care of the rest –
+                  professionally printing and shipping your order. Your custom
+                  creation will arrive looking crisp, polished and ready for its
+                  first entry.
                 </p>
-                <h5>
-                  Note: We do NOT print any Government ID Cards / Aadhar Cards
-                  /PAN cards / Voter IDs / Driving License. You may also be
-                  asked to provide an authorisation letter.
-                </h5>
+                <h3>Creative ways to use your Bill Books.</h3>
+                <p>
+                  Are you looking for something specific? Check out these
+                  on-trend templates for top industries - Food & Beverage,Travel
+                  & Accommodation,Automotive & Transportation,Health &
+                  Wellness,Education Services,Construction and Real
+                  Estate,Jewellery,Entertainment & Recreation,Household
+                  Services, and ,more.
+                </p>
 
-                <p>
-                  Identity cards are thick PVC cards with a Semi Glossy finish
-                  and are customisable on both sides. They come with a sturdy
-                  and transparent PVC holder but without a lanyard (strap worn
-                  around the neck).
-                </p>
-                <p>
+                <i>
                   MudraLanka India customizes all its products in facilities
                   located within India. Some of our raw materials, intermediate
                   components, and consumables used in the manufacturing of the
                   final product could be from one or more countries. As we
                   follow Global Sourcing, one product is likely to have a
                   different country of origin depending on the batch sold.
+                </i>
+
+                <h5>Country of Origin: India</h5>
+                <p>
+                  MudraLanka offers  Bill Books design templates in assorted
+                  styles.
                 </p>
-                <h5>Country of origin: India</h5>
               </div>
             </div>
             <div class="section-two-imageContainer">
               <img
-                src="images/service-pvcidcard/service-details-image.png"
+                src="images/service-billbook/service-details-image.png"
                 alt="details"
                 class=""
               />
@@ -564,4 +626,4 @@ const PvcIdCard = () => {
   );
 };
 
-export default PvcIdCard;
+export default BillBook;
