@@ -85,7 +85,7 @@ const Home = () => {
                     ✔ Totally safe for laser printers{" "}
                   </li>
                 </ul>
-                <Link to="#" className="thm-btn cta-two__btn">
+                <Link to="/about" className="thm-btn cta-two__btn">
                   Learn More
                 </Link>
               </div>
@@ -229,12 +229,12 @@ const Home = () => {
                   papers and finishes for yourself. It’s free! Print full color
                   on both <br /> sides of your business cards.
                 </p>
-                <a
-                  href="contact.html"
+                <Link
+                  to="/contact"
                   className="thm-btn thm-btn__base-bg cta-one__btn"
                 >
                   Contact Us
-                </a>
+                </Link>
               </div>
             </div>
             <div className="col-lg-6">

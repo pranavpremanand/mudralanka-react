@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import "./StickerPrinting.css";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
@@ -9,10 +9,85 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import { relatedProducts } from "../../constant";
+import { relatedProducts, sendEmailLink } from "../../constant";
+import toast from "react-hot-toast";
+import { SpinnerContext } from "../../components/SpinnerContext";
+
+const sizes = ["48x34", "72x34", "96x34", "120x34"];
+
 const StickerPrinting = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const formData = new FormData();
+  const imgRef = useRef();
+  const [data, setData] = useState({
+    size: "",
+    quantity: 1,
+    file: "",
+  });
+  const { setLoading } = useContext(SpinnerContext);
 
+  // on image change
+  const onImgChange = (file) => {
+    if (file.target.files && file.target.files[0]) {
+      const selectedFile = file.target.files[0];
+      if (
+        selectedFile.type === "image/png" ||
+        selectedFile.type === "image/jpeg" ||
+        selectedFile.type === "image/jpg"
+      ) {
+        // Validate file size (max size: 5MB)
+        const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+        if (selectedFile.size <= maxSizeInBytes) {
+          setData((prev) => ({ ...prev, file: selectedFile }));
+          formData.append("file", selectedFile);
+          sendMail();
+        } else {
+          toast("File size should not exceed 5MB");
+        }
+      } else {
+        toast("Select an image file");
+      }
+    }
+  };
+
+  // handle upload button click
+  const handleButtonClick = () => {
+    if (!data.size) {
+      return toast("Please select a size", { id: "size" });
+    }
+    imgRef.current.click();
+  };
+
+  // handle send mail
+  const sendMail = async () => {
+    if (!data.size) {
+      return toast("Please select a size", { id: "size" });
+    }
+    const { size, quantity } = data;
+    let body = `
+      Size: ${size}\n
+      Quantity: ${quantity}\n\n`;
+    formData.append("body", body);
+
+    try {
+      setLoading(true);
+      const response = await fetch(sendEmailLink, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        toast.success("Order placed successfully");
+        setData({ size: "", quantity: 1, file: "" });
+      } else {
+        toast.error("Error placing order");
+      }
+    } catch (error) {
+      toast.error("Error placing order " + error.message, { id: "error" });
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div class="page-wrapper">
       <Header />
@@ -183,12 +258,18 @@ const StickerPrinting = () => {
                   to create your print-ready file.
                 </span> */}
               </div>
-              <select class="options-container">
-                <option selected>Select Size</option>
-                <option>48 x 34</option>
-                <option>72 x 34</option>
-                <option>96 x 34</option>
-                <option>120 x 34</option>
+              <select
+                onChange={(e) =>
+                  setData((prev) => ({ ...prev, size: e.target.value }))
+                }
+                class="options-container"
+              >
+                <option value={''} selected>Select Size</option>
+                {sizes.map((item) => (
+                  <option value={item} key={item}>
+                    {item}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -252,8 +333,16 @@ const StickerPrinting = () => {
             </p> */}
 
             <h4 class="fw-bold fs-5">Upload Design</h4>
-            <button>
-              Have a design? Upload and edit it
+            <input
+              name="myImg"
+              hidden
+              accept="image/png,image/jpeg,image/jpg"
+              onChange={(e) => onImgChange(e)}
+              ref={imgRef}
+              type="file"
+            />
+            <button onClick={handleButtonClick}>
+              Have a design? Upload it
               <img
                 src="images/service-stickerPrinting/svg/UploadIcon.svg"
                 alt="upload"
