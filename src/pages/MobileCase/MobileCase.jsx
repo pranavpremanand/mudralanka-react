@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./StickerPrinting.css";
+import "../StickerPrinting/StickerPrinting.css";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -10,16 +10,16 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { relatedProducts } from "../../constant";
-const StickerPrinting = () => {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
+const MobileCase = () => {
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
     <div class="page-wrapper">
       <Header />
       <div class="main-container">
         <div class="inner-banner thm-black-bg text-center">
           <div class="container">
-            <h2 class="inner-banner__title">Sticker Printing</h2>
+            <h2 class="inner-banner__title">Mobile Case Printing</h2>
             <ul class="thm-breadcrumb">
               <li class="thm-breadcrumb__item">
                 <Link to="/">Home</Link>
@@ -28,7 +28,7 @@ const StickerPrinting = () => {
                 <Link to="/services">Services</Link>
               </li>
               <li class="thm-breadcrumb__item">
-                <span>Sticker Printing</span>
+                <span>Mobile Case Printing</span>
               </li>
             </ul>
           </div>
@@ -52,25 +52,25 @@ const StickerPrinting = () => {
               >
                 <SwiperSlide>
                   <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg1.png"
+                    src="images/service-mobilecase/service-mobilecase1.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg2.png"
+                    src="images/service-mobilecase/service-mobilecase2.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg3.png"
+                    src="images/service-mobilecase/service-mobilecase3.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg4.png"
+                    src="images/service-mobilecase/service-mobilecase4.png"
                     alt="similar product"
                     style={{
                       height: "100% !important",
@@ -82,13 +82,13 @@ const StickerPrinting = () => {
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg5.png"
+                    src="images/service-mobilecase/service-mobilecase5.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg6.png"
+                    src="images/service-mobilecase/service-mobilecase6.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
@@ -105,39 +105,39 @@ const StickerPrinting = () => {
               >
                 <SwiperSlide>
                   <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg1.png"
+                    src="images/service-mobilecase/service-mobilecase1.png"
                     alt="similar product"
                     style={{ height: "100%" }}
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg2.png"
+                    src="images/service-mobilecase/service-mobilecase2.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg3.png"
+                    src="images/service-mobilecase/service-mobilecase3.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg4.png"
+                    src="images/service-mobilecase/service-mobilecase4.png"
                     alt="similar product"
                     style={{ height: "100% !important" }}
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg5.png"
+                    src="images/service-mobilecase/service-mobilecase5.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg6.png"
+                    src="images/service-mobilecase/service-mobilecase6.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
@@ -146,54 +146,53 @@ const StickerPrinting = () => {
           </div>
 
           <div class="details-container">
-            <h2 class="main-heading">UV Ink Transfer Stickers</h2>
+            <h2 class="main-heading">Custom Case Printing</h2>
             <p class="fw-normal fs-5 mb-4">
-              Unlock limitless creativity with our cutting-edge UV Ink Transfer
-              Stickers.
+              Crafting Unique ID Cards to Reflect Your Identity
             </p>
             <h3 class="fw-semibold fs-6">Cash on Delivery available</h3>
             <ul class="fw-medium fs-6 mb-3">
-              <li>
-                Designed for hassle-free, long-lasting application, our stickers
-                adhere effortlessly to any flat or cylindrical surface.
-              </li>
-              <li>Impressive raised effect, with vibrant colours.</li>
-              <li>Transfer your logos, photos, and text in 3 simple steps.</li>
-              <li>
-                For Steps to transfer Ink on your product, refer to guidelines
-                in the overview section.
-              </li>
-              <li>
-                For optimal results, upload files without a white or transparent
-                background, or utilise the 'Remove Background' feature in the
-                design studio.
-              </li>
+              <li>Thin & light Poly-carbonate case</li>
+              <li>Smooth & seam-free surface</li>
+              <li>Photo-realistic print quality</li>
+              <li>Hassle-free replacements</li>
+              <li>Delivery in 5-7 working days</li>
             </ul>
             {/* <p class="fw-medium fs-6">
               Price below is MRP (inclusive of all taxes)
             </p> */}
-
+            {/* <ul>
+              <li >
+                View Specs & Templates to create your print-ready file. Fetching
+                compatible options Quantity
+              </li>
+            </ul> */}
+            {/* <div className="seeDetails">
+              <span class="fw-bold text-decoration-underline ms-3">
+                See Details
+              </span>
+              <span class="fw-bold text-decoration-underline ms-3">
+                View Specs & Templates
+              </span>
+              <span class="fw-bold text-decoration-underline ms-2">
+                to create your print-ready file.
+              </span>
+            </div> */}
             <div class="dropdown-section mb-4">
               <div class="dropdown-Heading">
-                <h4 class="d-inline fw-bold fs-5">Size</h4>
-                {/* <span class="fw-bold text-decoration-underline ms-3">
-                  View Specs & Templates
-                </span>
-                <span class="fw-bold text-decoration-underline ms-2">
-                  to create your print-ready file.
-                </span> */}
+                <h4 class="fw-bold fs-5">Mobile Brand</h4>
               </div>
               <select class="options-container">
-                <option selected>Select Size</option>
-                <option>48 x 34</option>
-                <option>72 x 34</option>
-                <option>96 x 34</option>
-                <option>120 x 34</option>
+                <option selected>Select Mobile Brand</option>
+                <option>Apple</option>
+                <option>Samsung</option>
+                <option>OnePlus</option>
+                <option>Nothing</option>
               </select>
             </div>
 
-            <h4 class="fw-bold fs-5">Quality</h4>
-            <div class="list-group">
+            {/* <h4 class="fw-bold fs-5">Quality</h4> */}
+            {/* <div class="list-group">
               <div class="quality-list-container">
                 <div class="quality-list-first">
                   <span>24</span>
@@ -243,13 +242,36 @@ const StickerPrinting = () => {
                 </div>
                 <small class="text-secondary">2% savings</small>
               </div>
-            </div>
+            </div> */}
 
             {/* <p class="starting-price">
               24 starting at ₹940.00
               <span class="">See more quantities</span>
               <span class="">FREE Shipping</span>
             </p> */}
+            <div>
+              <label className="addonitems">
+                <input
+                  type="checkbox"
+                  name="flexible-glass"
+                  value="flexible-glass"
+                />
+                Add Flexible Glass Screen Guard <s>99.00</s> 29.00
+              </label>
+              <label className="addonitems">
+                <input type="checkbox" name="key-chain" value="key-chain" />
+                Add Same Design Key Chain 99.00 29.00
+              </label>
+            </div>
+
+            <div className="seeDetails">
+              <span class="fw-bold text-decoration-underline ms-3">
+                See more quantities
+              </span>
+              <span class="fw-bold text-decoration-underline ms-2">
+                FREE Shipping
+              </span>
+            </div>
 
             <h4 class="fw-bold fs-5">Upload Design</h4>
             <button>
@@ -276,59 +298,58 @@ const StickerPrinting = () => {
           <div class="details-container">
             <div class="section-two-details">
               <div>
-                <h3>
-                  Make Your Brand Stand Out with Custom Ink Transfer Stickers.
-                </h3>
+                <h3>Additional Information</h3>
                 <p>
-                  Looking for a versatile and eye-catching way to showcase your
-                  brand? Look no further than our UV Ink Transfer Stickers.
-                  These UV DTF stickers are perfect for both flat and
-                  cylindrical surfaces, indoors or outdoors, and offer an
-                  impressive, raised effect with vibrant colours that will make
-                  your logo, photos, and text pop. With just three simple steps,
-                  you can transfer your design onto any hard surface, giving
-                  your products a professional and personalised touch. Don't
-                  settle for ordinary stickers – upgrade to UV Ink Transfer
-                  Stickers and make a lasting impression.
-                </p>
-                <h5>Steps to Transfer Ink on Your Product</h5>
-                <ul>
-                  <li>Step 1: Peel off the white backing paper.</li>
-                  <li>
-                    Step 2: Hold the transparent masking tape with your fingers
-                    and place it on the desired location.
-                  </li>
-                  <li>
-                    Step 3: Gently rub the surface from all sides for 30-40
-                    seconds.
-                  </li>
-                  <li>
-                    Step 4: Peel off the transparent plastic film slowly leaving
-                    behind the ink on the surface.
-                  </li>
-                </ul>
-                <p>
-                  Note: UV Ink transfer stickers do not work on Paper products
-                </p>
-                <h5>Application guidelines:</h5>
-                <p>
-                  Suitable for flat and cylindrical surfaces that are hard in
-                  nature.Ideal for indoor and outdoor use
+                  <strong>MATERIAL:</strong> Impact resistant and highly durable
+                  polycarbonate.
                 </p>
                 <p>
-                  MudraLanka India customizes all its products in facilities
-                  located within India. Some of our raw materials, intermediate
-                  components, and consumables used in the manufacturing of the
-                  final product could be from one or more countries. As we
-                  follow Global Sourcing, one product is likely to have a
-                  different country of origin depending on the batch sold.
+                  <strong> PRINT:</strong> Matte finish ultra HD Lifetime
+                  warranty on print. Super-bright colors embedded directly into
+                  the case. Made with high precision to get a crisp clear print.
+                  The Colorful patterns let you express your unique personality.
+                  Our Unique Edge-to-edge Printing technology provides a smooth
+                  clean look that really stands out from ordinary Mobile Back
+                  Covers & Cases.
                 </p>
-                <h5>Country of origin: India</h5>
+                <p>
+                  <strong> PRODUCT SPECIALITY:</strong> Slim fitting with design
+                  wrapping around side of the case and full access to ports.
+                </p>
+                <p>Compatible with standard wireless charging.</p>
+                <p>
+                  Despite a very thin profile and Weight 15 Gram(
+                  <strong>Negligible Weight</strong>)
+                </p>
+                <p>the case is much stronger than it looks at first sight.</p>
+                <p>
+                  <strong> PRODUCT DETAILS:</strong> Slim, One-piece, Clip-on,
+                  Light, Durable Polycarbonate Protective Hard Case.
+                </p>
+                <p>
+                  Includes cut-outs for your regular charger and headphones.
+                  Provides Easy Protection for Your Smartphone.
+                </p>
+                <p>
+                  All side design Case covers 100% of the outer surface of the
+                  phone.
+                </p>
+                <p>Precision molded with no seams or sharp edges.</p>
+                <p>
+                  High quality printing No peeling, chipping, or wearing off.
+                </p>
+                <p>
+                  <strong>Please Note:</strong>
+                  Colors May Slightly Vary Depending on Your Screen Brightness.
+                </p>
+                <p>Additional Product Information</p>
+                <h5>Net quantity: 1 </h5>
+                <h5>Country of Origin: India</h5>
               </div>
             </div>
             <div class="section-two-imageContainer">
               <img
-                src="images/service-stickerPrinting/services-details-image.png"
+                src="images/service-mobilecase/service-details-image.png"
                 alt="details"
                 class=""
               />
@@ -394,4 +415,4 @@ const StickerPrinting = () => {
   );
 };
 
-export default StickerPrinting;
+export default MobileCase;

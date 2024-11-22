@@ -186,43 +186,47 @@ button {
 
 /* Image Gallery Container */
 .image-gallery {
-  background-color: #f8f9fa; /* Bootstrap light background color */
-  padding: 1rem; /* Padding for the container */
-  border-radius: 0.5rem; /* Rounded corners */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Main Image Section */
 .image-gallery .main-image {
-  margin-bottom: 1rem; /* Space below the main image */
+  margin-bottom: 1rem;
 }
-
+.seeDetails {
+  display: flex;
+  gap: 15px;
+}
+.seeDetails span {
+  text-decoration: underline;
+}
 .image-gallery .main-image img {
-  width: 100%; /* Ensure it spans the full container width */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 0.5rem; /* Rounded corners for the main image */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Thumbnail Image List */
 .image-gallery .image-list {
-  display: flex; /* Arrange thumbnails in a row */
-  justify-content: space-between; /* Distribute thumbnails evenly */
-  gap: 0.5rem; /* Add spacing between thumbnails */
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
 
 .image-gallery .image-list img {
-  width: calc(100% / 6 - 0.5rem); /* Evenly size thumbnails */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 0.25rem; /* Rounded corners for thumbnails */
-  cursor: pointer; /* Indicate clickable thumbnails */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth interactions */
+  width: calc(100% / 6 - 0.5rem);
+  height: auto;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Hover Effects for Thumbnails */
 .image-gallery .image-list img:hover {
-  transform: scale(1.05); /* Slightly enlarge on hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add depth on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .section-twoContainer {
@@ -232,6 +236,7 @@ button {
   padding-inline: 1rem;
   display: flex;
   flex-direction: column;
+  margin-top: 7rem;
 }
 .section-twoContainer .tab {
   width: 100%;
@@ -250,6 +255,7 @@ button {
   width: 100%;
   padding: 0;
   margin-top: 20px;
+  gap: 40px;
 }
 .section-two-details {
   width: 50%;
@@ -290,21 +296,24 @@ button {
 }
 .section-threeContainer .relatedproduct-container {
   display: grid;
-  grid-template-columns: repeat(6, 1fr); /* Default: 6 items per row */
+  grid-template-columns: repeat(6, 1fr);
   gap: 20px;
-  max-width: 100%; /* Ensure it doesn't exceed the container width */
-  margin: 0 auto; /* Center align the grid container */
-  overflow: hidden; /* Prevent content overflow */
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
   box-sizing: border-box;
 }
 .relatedproduct-container .relatedproducd-one {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  justify-content: space-between;
 }
 .relatedproducd-one h4 {
   margin-bottom: 0;
   color: black;
+  font-size: 16px;
+  font-weight: 600;
 }
 .relatedproducd-one p {
   margin-bottom: 0;
@@ -358,6 +367,9 @@ button {
   .dropdown-Heading {
     flex-direction: column;
   }
+  .seeDetails {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 576px) {
@@ -375,4 +387,88 @@ button {
     font-size: 8px;
     height: 15px;
   }
+  .details-container button {
+    font-size: 13px;
+  }
+}
+
+/**
+SWIPER STYLE START HERE**/
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper {
+  width: 100%;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.swiper-slide {
+  background-size: cover;
+  background-position: center;
+}
+
+.mySwiper2 {
+  height: 80%;
+  width: 100%;
+  align-items: center !important;
+  display: flex;
+  align-items: center;
+  max-height: 80vh;
+}
+
+.mySwiper {
+  height: 20%;
+  box-sizing: border-box;
+  padding: 10px 0;
+}
+.mySwiper .swiper-wrapper {
+  align-items: center;
+}
+.mySwiper2 .swiper-wrapper {
+  object-fit: cover;
+  align-items: center;
+}
+.mySwiper .swiper-slide {
+  width: 25%;
+  height: 100% !important;
+  opacity: 0.4;
+}
+
+.mySwiper .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.addonitems input {
+  margin-right: 5px;
 }
