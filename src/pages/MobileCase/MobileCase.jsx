@@ -22,7 +22,7 @@ const MobileCase = () => {
   const imgRef = useRef();
   const [data, setData] = useState({
     quantity: 1,
-    brand: "",
+    brand: "Select Mobile Brand",
     file: "",
   });
   const { setLoading } = useContext(SpinnerContext);
@@ -51,18 +51,19 @@ const MobileCase = () => {
     }
     file.target.value = "";
   };
-  console.log(data, "aldsfkjaklsdfj");
+  console.log(data.brand !== "Select Mobile Brand", "aldsfkjaklsdfj");
   // handle upload button click
   const handleButtonClick = () => {
-    if (!data.brand) {
+    if (data.brand === "Select Mobile Brand") {
       return toast("Please select a brand", { id: "brand" });
+    } else {
+      imgRef.current.click();
     }
-    imgRef.current.click();
   };
 
   // handle send mail
   const sendMail = async () => {
-    if (!data.brand) {
+    if (!data.brand && data.brand === "Select Mobile Brand") {
       return toast("Please select a brand", { id: "brand" });
     }
     const { quantity, brand } = data;
@@ -82,7 +83,7 @@ const MobileCase = () => {
 
       if (response.ok) {
         toast.success("Order placed successfully");
-        setData({ quantity: 1, brand: "", file: "" });
+        setData({ quantity: 1, brand: "Select Mobile Brand", file: "" });
         setKeyChain(false);
         setScreenGuard(false);
       } else {
@@ -282,7 +283,7 @@ const MobileCase = () => {
                   aria-expanded="false"
                   style={{ background: "white" }}
                 >
-                  Select Mobile Brand
+                  {data.brand}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                   {brand.map((item) => (
@@ -384,7 +385,7 @@ const MobileCase = () => {
                 <input
                   type="checkbox"
                   name="flexible-glass"
-                  value="flexible-glass"
+                  checked={screenGuard}
                   onChange={handleScreenGuardChange}
                 />
                 Add Flexible Glass Screen Guard <s>99.00</s> 29.00
@@ -393,7 +394,7 @@ const MobileCase = () => {
                 <input
                   type="checkbox"
                   name="key-chain"
-                  value="key-chain"
+                  checked={keyChain}
                   onChange={handleKeyChainChange}
                 />
                 Add Same Design Key Chain 99.00 29.00

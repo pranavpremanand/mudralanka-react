@@ -20,7 +20,7 @@ const StickerPrinting = () => {
   const formData = new FormData();
   const imgRef = useRef();
   const [data, setData] = useState({
-    size: "",
+    size: "Select Size",
     quantity: 1,
     file: "",
   });
@@ -53,7 +53,7 @@ const StickerPrinting = () => {
   console.log(data, "aldsfkjaklsdfj");
   // handle upload button click
   const handleButtonClick = () => {
-    if (!data.size) {
+    if (data.size === "Select Size") {
       return toast("Please select a size and quantity", { id: "size" });
     }
     imgRef.current.click();
@@ -61,7 +61,7 @@ const StickerPrinting = () => {
 
   // handle send mail
   const sendMail = async () => {
-    if (!data.size) {
+    if (data.size === "Select Size") {
       return toast("Please select a size and quantity", { id: "size" });
     }
     const { size, quantity } = data;
@@ -77,10 +77,10 @@ const StickerPrinting = () => {
         method: "POST",
         body: formData,
       });
-
+      // const response = { ok: true };
       if (response.ok) {
         toast.success("Order placed successfully");
-        setData({ size: "", quantity: 1, file: "" });
+        setData({ size: "Select Size", quantity: 1, file: "" });
       } else {
         toast.error("Error placing order");
       }
@@ -271,7 +271,7 @@ const StickerPrinting = () => {
                   aria-expanded="false"
                   style={{ background: "white" }}
                 >
-                  Select Size
+                  {data.size}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                   {sizes.map((item) => (
@@ -325,11 +325,20 @@ const StickerPrinting = () => {
               </select> */}
             </div>
 
-            <h4 class="fw-bold fs-5">Quality</h4>
+            <h4 class="fw-bold fs-5">Quantity</h4>
             <div class="list-group">
               <div
-                class="quality-list-container"
-                onClick={() => setData((prev) => ({ ...prev, quantity: "24" }))}
+                class={`${
+                  data.quantity === "24"
+                    ? "quality-list-container-activelink"
+                    : "quality-list-container"
+                }`}
+                onClick={() =>
+                  setData((prev) => ({
+                    ...prev,
+                    quantity: prev.quantity === "24" ? "" : "24",
+                  }))
+                }
               >
                 <div class="quality-list-first">
                   <span>24</span>
@@ -339,9 +348,19 @@ const StickerPrinting = () => {
                   </div>
                 </div>
               </div>
+
               <div
-                class="quality-list-container"
-                onClick={() => setData((prev) => ({ ...prev, quantity: "48" }))}
+                class={`${
+                  data.quantity === "48"
+                    ? "quality-list-container-activelink"
+                    : "quality-list-container"
+                }`}
+                onClick={() =>
+                  setData((prev) => ({
+                    ...prev,
+                    quantity: prev.quantity === "48" ? "" : "48",
+                  }))
+                }
               >
                 <div class="quality-list-first">
                   <span>48</span>
@@ -352,9 +371,19 @@ const StickerPrinting = () => {
                   </div>
                 </div>
               </div>
+
               <div
-                class="quality-list-container"
-                onClick={() => setData((prev) => ({ ...prev, size: "72" }))}
+                class={`${
+                  data.quantity === "72"
+                    ? "quality-list-container-activelink"
+                    : "quality-list-container"
+                }`}
+                onClick={() =>
+                  setData((prev) => ({
+                    ...prev,
+                    quantity: prev.quantity === "72" ? "" : "72",
+                  }))
+                }
               >
                 <div class="quality-list-first">
                   <span>72</span>
@@ -365,9 +394,19 @@ const StickerPrinting = () => {
                 </div>
                 <small class="text-secondary">2% savings</small>
               </div>
+
               <div
-                class="quality-list-container"
-                onClick={() => setData((prev) => ({ ...prev, size: "96" }))}
+                class={`${
+                  data.quantity === "96"
+                    ? "quality-list-container-activelink"
+                    : "quality-list-container"
+                }`}
+                onClick={() =>
+                  setData((prev) => ({
+                    ...prev,
+                    quantity: prev.quantity === "96" ? "" : "96",
+                  }))
+                }
               >
                 <div class="quality-list-first">
                   <span>96</span>
@@ -378,9 +417,19 @@ const StickerPrinting = () => {
                 </div>
                 <small class="text-secondary">2% savings</small>
               </div>
+
               <div
-                class="quality-list-container"
-                onClick={() => setData((prev) => ({ ...prev, size: "120" }))}
+                class={`${
+                  data.quantity === "120"
+                    ? "quality-list-container-activelink"
+                    : "quality-list-container"
+                }`}
+                onClick={() =>
+                  setData((prev) => ({
+                    ...prev,
+                    quantity: prev.quantity === "120" ? "" : "120",
+                  }))
+                }
               >
                 <div class="quality-list-first">
                   <span>120</span>

@@ -22,7 +22,7 @@ const VisitingCard = () => {
   const imgRef = useRef();
   const [data, setData] = useState({
     size: "",
-    quantity: 1,
+    quantity: "",
     file: "",
   });
   const { setLoading } = useContext(SpinnerContext);
@@ -82,7 +82,7 @@ const VisitingCard = () => {
 
       if (response.ok) {
         toast.success("Order placed successfully");
-        setData({ size: "", quantity: 1, file: "" });
+        setData({ size: "", quantity: "", file: "" });
       } else {
         toast.error("Error placing order");
       }
@@ -320,9 +320,16 @@ const VisitingCard = () => {
             {/* <h4 class="fw-bold fs-5">Quality</h4> */}
             <div class="list-group">
               <div
-                class="quality-list-container"
+                class={`${
+                  data.quantity === "100"
+                    ? "quality-list-container-activelink"
+                    : "quality-list-container"
+                }`}
                 onClick={() =>
-                  setData((prev) => ({ ...prev, quantity: "100" }))
+                  setData((prev) => ({
+                    ...prev,
+                    quantity: prev.quantity === "100" ? "" : "100",
+                  }))
                 }
               >
                 <div class="quality-list-first">
@@ -334,9 +341,16 @@ const VisitingCard = () => {
                 </div>
               </div>
               <div
-                class="quality-list-container"
+                class={`${
+                  data.quantity === "200"
+                    ? "quality-list-container-activelink"
+                    : "quality-list-container"
+                }`}
                 onClick={() =>
-                  setData((prev) => ({ ...prev, quantity: "200" }))
+                  setData((prev) => ({
+                    ...prev,
+                    quantity: prev.quantity === "200" ? "" : "200",
+                  }))
                 }
               >
                 <div class="quality-list-first">
@@ -350,15 +364,22 @@ const VisitingCard = () => {
                 <small class="text-secondary">15% savings</small>
               </div>
               <div
-                class="quality-list-container"
+                class={`${
+                  data.quantity === "300"
+                    ? "quality-list-container-activelink"
+                    : "quality-list-container"
+                }`}
                 onClick={() =>
-                  setData((prev) => ({ ...prev, quantity: "300" }))
+                  setData((prev) => ({
+                    ...prev,
+                    quantity: prev.quantity === "300" ? "" : "300",
+                  }))
                 }
               >
                 <div class="quality-list-first">
                   <span>300</span>
                   <div class="text-end">
-                    <p class="mb-0 fw-medium">430.00</p>
+                    <p class="mb-0 fw-medium">480.00</p>
                     <small class="quality-list-small">₹1.60 / unit</small>
                   </div>
                 </div>
@@ -366,9 +387,16 @@ const VisitingCard = () => {
               </div>
 
               <div
-                class="quality-list-container"
+                class={`${
+                  data.quantity === "400"
+                    ? "quality-list-container-activelink"
+                    : "quality-list-container"
+                }`}
                 onClick={() =>
-                  setData((prev) => ({ ...prev, quantity: "400" }))
+                  setData((prev) => ({
+                    ...prev,
+                    quantity: prev.quantity === "400" ? "" : "400",
+                  }))
                 }
               >
                 <div class="quality-list-first">
@@ -381,9 +409,16 @@ const VisitingCard = () => {
                 <small class="text-secondary">25% savings</small>
               </div>
               <div
-                class="quality-list-container"
+                class={`${
+                  data.quantity === "500"
+                    ? "quality-list-container-activelink"
+                    : "quality-list-container"
+                }`}
                 onClick={() =>
-                  setData((prev) => ({ ...prev, quantity: "500" }))
+                  setData((prev) => ({
+                    ...prev,
+                    quantity: prev.quantity === "500" ? "" : "500",
+                  }))
                 }
               >
                 <div class="quality-list-first">

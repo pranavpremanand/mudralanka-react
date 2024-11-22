@@ -26,8 +26,8 @@ const BillBook = () => {
   const formData = new FormData();
   const imgRef = useRef();
   const [data, setData] = useState({
-    size: "",
-    quantity: "1(200.00 / unit)",
+    size: "Select Size",
+    quantity: "Select Quantity",
     file: "",
   });
   const { setLoading } = useContext(SpinnerContext);
@@ -59,15 +59,15 @@ const BillBook = () => {
   console.log(data, "aldsfkjaklsdfj");
   // handle upload button click
   const handleButtonClick = () => {
-    if (!data.size) {
-      return toast("Please select a size", { id: "size" });
+    if (data.size === "Select Size" || data.quantity === "Select Quantity") {
+      return toast("Please select a size and quantity", { id: "size" });
     }
     imgRef.current.click();
   };
 
   // handle send mail
   const sendMail = async () => {
-    if (!data.size || !data.quantity) {
+    if (data.size === "Select Size" || data.quantity === "Select Quantity") {
       return toast("Please select a size and quantity", { id: "size" });
     }
     const { size, quantity } = data;
@@ -86,7 +86,7 @@ const BillBook = () => {
 
       if (response.ok) {
         toast.success("Order placed successfully");
-        setData({ size: "", quantity: "1(200.00 / unit)", file: "" });
+        setData({ size: "Select Size", quantity: "Select Quantity", file: "" });
       } else {
         toast.error("Error placing order");
       }
@@ -288,7 +288,7 @@ const BillBook = () => {
                   aria-expanded="false"
                   style={{ background: "white" }}
                 >
-                  Select Size
+                  {data.size}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                   {sizes.map((item) => (
@@ -331,7 +331,7 @@ const BillBook = () => {
                   aria-expanded="false"
                   style={{ background: "white" }}
                 >
-                  Select Size
+                  {data.quantity}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                   {quantity.map((item) => (

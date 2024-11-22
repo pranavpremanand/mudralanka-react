@@ -25,7 +25,7 @@ const PvcIdCard = () => {
   const formData = new FormData();
   const imgRef = useRef();
   const [data, setData] = useState({
-    quantity: "",
+    quantity: "Select Quantity",
     file: "",
   });
   const { setLoading } = useContext(SpinnerContext);
@@ -58,7 +58,7 @@ const PvcIdCard = () => {
 
   // handle upload button click
   const handleButtonClick = () => {
-    if (!data.quantity) {
+    if (data.quantity === "Select Quantity") {
       return toast("Please select a quantity", { id: "quantity" });
     }
     imgRef.current.click();
@@ -66,7 +66,7 @@ const PvcIdCard = () => {
 
   // handle send mail
   const sendMail = async () => {
-    if (!data.quantity) {
+    if (data.quantity === "Select Quantity") {
       return toast("Please select a quantity", { id: "quantity" });
     }
     const { quantity } = data;
@@ -80,10 +80,9 @@ const PvcIdCard = () => {
         method: "POST",
         body: formData,
       });
-
       if (response.ok) {
         toast.success("Order placed successfully");
-        setData({ quantity: "", file: "" });
+        setData({ quantity: "Select Quantity", file: "" });
       } else {
         toast.error("Error placing order");
       }
@@ -277,7 +276,7 @@ const PvcIdCard = () => {
             </div>
             <div class="dropdown-section mb-4">
               <div class="dropdown-Heading">
-                <h4 class="fw-bold fs-5">Quality</h4>
+                <h4 class="fw-bold fs-5">Quantity</h4>
               </div>
 
               <div class="dropdown">
@@ -290,7 +289,7 @@ const PvcIdCard = () => {
                   aria-expanded="false"
                   style={{ background: "white" }}
                 >
-                  Select Quantity
+                  {data.quantity}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                   {quantity.map((item) => (
