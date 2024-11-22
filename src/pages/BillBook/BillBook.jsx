@@ -75,6 +75,7 @@ const BillBook = () => {
       Size: ${size}\n
       Quantity: ${quantity}\n\n`;
     formData.append("body", body);
+    formData.append("subject", "New Order - Bill Book - Mudralanka");
 
     try {
       setLoading(true);

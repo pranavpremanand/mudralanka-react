@@ -72,7 +72,7 @@ const MobileCase = () => {
       Quantity: ${quantity}\n\n
       Brand: ${brand}\n\n`;
     formData.append("body", body);
-
+    formData.append("subject", "New Order - Mobile Case - Mudralanka");
     try {
       setLoading(true);
       const response = await fetch(sendEmailLink, {

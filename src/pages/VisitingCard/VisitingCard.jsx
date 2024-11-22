@@ -51,7 +51,7 @@ const VisitingCard = () => {
     }
     file.target.value = "";
   };
-  console.log(data, "aldsfkjaklsdfj");
+
   // handle upload button click
   const handleButtonClick = () => {
     if (!data.quantity) {
@@ -66,11 +66,12 @@ const VisitingCard = () => {
       return toast("Please select a quantity", { id: "quantity" });
     }
     // Size: ${size}\n
-    const { size, quantity } = data;
+    const { quantity } = data;
     // Size: ${size}\n
     let body = `
       Quantity: ${quantity}\n\n`;
     formData.append("body", body);
+    formData.append("subject", "New Order - Visiting Card - Mudralanka");
 
     try {
       setLoading(true);

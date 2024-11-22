@@ -73,7 +73,7 @@ const PvcIdCard = () => {
     let body = `
       Quantity: ${quantity}\n\n`;
     formData.append("body", body);
-
+    formData.append("subject", "New Order - PVC ID Card - Mudralanka");
     try {
       setLoading(true);
       const response = await fetch(sendEmailLink, {

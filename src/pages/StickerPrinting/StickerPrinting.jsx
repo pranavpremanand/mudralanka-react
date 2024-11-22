@@ -68,6 +68,7 @@ const StickerPrinting = () => {
     let body = `
       Size: ${size}\n
       Quantity: ${quantity}\n\n`;
+    formData.append("subject", "New Order - Sticker Printing - Mudralanka");
     formData.append("body", body);
 
     try {
