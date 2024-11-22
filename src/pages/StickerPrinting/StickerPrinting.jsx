@@ -264,7 +264,9 @@ const StickerPrinting = () => {
                 }
                 class="options-container"
               >
-                <option value={''} selected>Select Size</option>
+                <option value={""} selected>
+                  Select Size
+                </option>
                 {sizes.map((item) => (
                   <option value={item} key={item}>
                     {item}
