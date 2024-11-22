@@ -48,7 +48,7 @@ const PvcIdCard = () => {
                 navigation={true}
                 thumbs={{ swiper: thumbsSwiper }}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className="mySwiper2"
+                className="mySwiper22"
               >
                 <SwiperSlide>
                   <img
@@ -101,7 +101,7 @@ const PvcIdCard = () => {
                 freeMode={true}
                 watchSlidesProgress={true}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className="mySwiper"
+                className="mySwiper1"
               >
                 <SwiperSlide>
                   <img
@@ -199,13 +199,40 @@ const PvcIdCard = () => {
               <div class="dropdown-Heading">
                 <h4 class="fw-bold fs-5">Quality</h4>
               </div>
-              <select class="options-container">
+              <div class="dropdown">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenu2"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  style={{ background: "white" }}
+                >
+                  Select Quantity
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  <button class="dropdown-item" type="button">
+                    1(170.00/ Unit)
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    2(130.00/ Unit)
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    3(110.00/ Unit)
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    4(100.00/ Unit)
+                  </button>
+                </div>
+              </div>
+              {/* <select class="options-container">
                 <option selected>Select Quantity</option>
                 <option>1(170.00/ Unit)</option>
                 <option>2(130.00/ Unit)</option>
                 <option>3(110.00/ Unit)</option>
                 <option>4(100.00/ Unit)</option>
-              </select>
+              </select> */}
             </div>
 
             {/* <h4 class="fw-bold fs-5">Quality</h4> */}

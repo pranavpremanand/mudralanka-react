@@ -11,7 +11,7 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { relatedProducts } from "../../constant";
 
-const MobileCase = () => {
+const BillBook = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
     <div class="page-wrapper">
@@ -19,7 +19,7 @@ const MobileCase = () => {
       <div class="main-container">
         <div class="inner-banner thm-black-bg text-center">
           <div class="container">
-            <h2 class="inner-banner__title">Mobile Case Printing</h2>
+            <h2 class="inner-banner__title">Bill Book</h2>
             <ul class="thm-breadcrumb">
               <li class="thm-breadcrumb__item">
                 <Link to="/">Home</Link>
@@ -28,7 +28,7 @@ const MobileCase = () => {
                 <Link to="/services">Services</Link>
               </li>
               <li class="thm-breadcrumb__item">
-                <span>Mobile Case Printing</span>
+                <span>Bill Book</span>
               </li>
             </ul>
           </div>
@@ -52,25 +52,25 @@ const MobileCase = () => {
               >
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase1.png"
+                    src="images/service-billbook/service-billbook1.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase2.png"
+                    src="images/service-billbook/service-billbook2.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase3.png"
+                    src="images/service-billbook/service-billbook3.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase4.png"
+                    src="images/service-billbook/service-billbook4.png"
                     alt="similar product"
                     style={{
                       height: "100% !important",
@@ -82,13 +82,13 @@ const MobileCase = () => {
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase5.png"
+                    src="images/service-billbook/service-billbook5.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase6.png"
+                    src="images/service-billbook/service-billbook6.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
@@ -105,39 +105,39 @@ const MobileCase = () => {
               >
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase1.png"
+                    src="images/service-billbook/service-billbook1.png"
                     alt="similar product"
                     style={{ height: "100%" }}
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase2.png"
+                    src="images/service-billbook/service-billbook2.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase3.png"
+                    src="images/service-billbook/service-billbook3.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase4.png"
+                    src="images/service-billbook/service-billbook4.png"
                     alt="similar product"
                     style={{ height: "100% !important" }}
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase5.png"
+                    src="images/service-billbook/service-billbook5.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase6.png"
+                    src="images/service-billbook/service-billbook6.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
@@ -146,21 +146,31 @@ const MobileCase = () => {
           </div>
 
           <div class="details-container">
-            <h2 class="main-heading">Custom Case Printing</h2>
-            <p class="fw-normal fs-5 mb-4">
-              Crafting Unique ID Cards to Reflect Your Identity
-            </p>
-            <h3 class="fw-semibold fs-6">Cash on Delivery available</h3>
-            <ul class="fw-medium fs-6 mb-3">
-              <li>Thin & light Poly-carbonate case</li>
-              <li>Smooth & seam-free surface</li>
-              <li>Photo-realistic print quality</li>
-              <li>Hassle-free replacements</li>
-              <li>Delivery in 5-7 working days</li>
+            <h2 class="main-heading">Bill Book</h2>
+            <h5 class="fw-normal fs-5 mb-4">
+              Perfect for invoices or using as receipt books
+            </h5>
+            <ul class="fw-medium fs-6 mb-3 visitingcardlist">
+              <li>50 sheets per pad</li>
+              <li>Available in 4 sizes</li>
+              <li>90 gsm acid-free paper</li>
+              <li>Magnetic option for fridges or desks</li>
+              <li>
+                Upload your own bill book design or customize with your logo and
+                address
+              </li>
+              <li>Can also be used as – Notepads.</li>
+              <li>
+                <strong>
+                  We don’t provide carbon copy OR pink / yellow copies OR serial
+                  numbers
+                </strong>
+              </li>
             </ul>
-            {/* <p class="fw-medium fs-6">
+            <i class="fw-semibold fs-6">Cash on Delivery available</i>
+            <h5 class="fw-medium fs-6">
               Price below is MRP (inclusive of all taxes)
-            </p> */}
+            </h5>
             {/* <ul>
               <li >
                 View Specs & Templates to create your print-ready file. Fetching
@@ -178,106 +188,127 @@ const MobileCase = () => {
                 to create your print-ready file.
               </span>
             </div> */}
-            <div class="dropdown-section mb-4">
-              <div class="dropdown-Heading">
-                <h4 class="fw-bold fs-5">Mobile Brand</h4>
-              </div>
-
-              <div class="dropdown">
-                <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenu2"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  style={{ background: "white" }}
-                >
-                  Select Mobile Brand
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  <button class="dropdown-item" type="button">
-                    Apple
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    Samsung
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    OnePlus
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    Nothing
-                  </button>
+            <div className="billbookselection-container">
+              <div class="dropdown-section option mb-4">
+                <div class="dropdown-Heading">
+                  <h4 class="fw-bold fs-5">Size</h4>
                 </div>
+
+                <div class="dropdown">
+                  <button
+                    class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenu2"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    style={{ background: "white" }}
+                  >
+                    Select Size
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" type="button">
+                      100
+                    </button>
+                    <button class="dropdown-item" type="button">
+                      200
+                    </button>
+                    <button class="dropdown-item" type="button">
+                      300
+                    </button>
+                    <button class="dropdown-item" type="button">
+                      400
+                    </button>
+                    <button class="dropdown-item" type="button">
+                      500
+                    </button>
+                  </div>
+                </div>
+                {/* <select class="options-container">
+                  <option selected>Select Size</option>
+                  <option>100</option>
+                  <option>200</option>
+                  <option>300</option>
+                  <option>400</option>
+                  <option>500</option>
+                </select> */}
               </div>
-              {/* <select class="options-container">
-                <option selected>Select Mobile Brand</option>
-                <option>Apple</option>
-                <option>Samsung</option>
-                <option>OnePlus</option>
-                <option>Nothing</option>
-              </select> */}
+              <div class="dropdown-section option mb-4">
+                <div class="dropdown-Heading">
+                  <h4 class="fw-bold fs-5">Quantity</h4>
+                </div>
+                <select class="options-container">
+                  <option selected>Select Quantity</option>
+                  <option>100</option>
+                  <option>200</option>
+                  <option>300</option>
+                  <option>400</option>
+                  <option>500</option>
+                </select>
+              </div>
             </div>
 
             {/* <h4 class="fw-bold fs-5">Quality</h4> */}
             {/* <div class="list-group">
               <div class="quality-list-container">
                 <div class="quality-list-first">
-                  <span>24</span>
+                  <span>100</span>
                   <div class="text-end">
-                    <p class="mb-0 fw-medium">₹940.00</p>
-                    <small class="quality-list-small">₹39.17 / unit</small>
+                    <p class="mb-0 fw-medium">₹200.00</p>
+                    <small class="quality-list-small">₹2.00 / unit</small>
                   </div>
                 </div>
               </div>
               <div class="quality-list-container">
                 <div class="quality-list-first">
-                  <span>48</span>
+                  <span>200</span>
                   <span class="quality-list-chip">Recommended</span>
                   <div class="text-end">
-                    <p class="mb-0 fw-medium">₹1870.00</p>
-                    <small class="quality-list-small">₹38.96 / unit</small>
+                    <p class="mb-0 fw-medium">340.00</p>
+                    <small class="quality-list-small">₹1.70 / unit</small>
                   </div>
                 </div>
+                <small class="text-secondary">15% savings</small>
               </div>
               <div class="quality-list-container">
                 <div class="quality-list-first">
-                  <span>72</span>
+                  <span>300</span>
                   <div class="text-end">
-                    <p class="mb-0 fw-medium">₹2740.00</p>
-                    <small class="quality-list-small">₹38.06 / unit</small>
+                    <p class="mb-0 fw-medium">430.00</p>
+                    <small class="quality-list-small">₹1.60 / unit</small>
                   </div>
                 </div>
-                <small class="text-secondary">2% savings</small>
+                <small class="text-secondary">20% savings</small>
+              </div>
+
+              <div class="quality-list-container">
+                <div class="quality-list-first">
+                  <span>400</span>
+                  <div class="text-end">
+                    <p class="mb-0 fw-medium">600.00</p>
+                    <small class="quality-list-small">₹1.50 / unit</small>
+                  </div>
+                </div>
+                <small class="text-secondary">25% savings</small>
               </div>
               <div class="quality-list-container">
                 <div class="quality-list-first">
-                  <span>96</span>
+                  <span>500</span>
                   <div class="text-end">
-                    <p class="mb-0 fw-medium">₹3650.00</p>
-                    <small class="quality-list-small">₹38.03 / unit</small>
+                    <p class="mb-0 fw-medium">700.00</p>
+                    <small class="quality-list-small">₹1.40 / unit</small>
                   </div>
                 </div>
-                <small class="text-secondary">2% savings</small>
-              </div>
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>120</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹4450.00</p>
-                    <small class="quality-list-small">₹37.09 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">2% savings</small>
+                <small class="text-secondary">30% savings</small>
               </div>
             </div> */}
 
-            {/* <p class="starting-price">
-              24 starting at ₹940.00
-              <span class="">See more quantities</span>
-              <span class="">FREE Shipping</span>
-            </p> */}
-            <div>
+            <p class="starting-price">
+              1 starting at 150.00
+              {/* <span class="">See more quantities</span>
+              <span class="">FREE Shipping</span> */}
+            </p>
+            {/* <div>
               <label className="addonitems">
                 <input
                   type="checkbox"
@@ -290,18 +321,18 @@ const MobileCase = () => {
                 <input type="checkbox" name="key-chain" value="key-chain" />
                 Add Same Design Key Chain 99.00 29.00
               </label>
-            </div>
+            </div> */}
 
-            <div className="seeDetails">
+            {/* <div className="seeDetails">
               <span class="fw-bold text-decoration-underline ms-3">
                 See more quantities
               </span>
               <span class="fw-bold text-decoration-underline ms-2">
                 FREE Shipping
               </span>
-            </div>
+            </div> */}
 
-            <h4 class="fw-bold fs-5">Upload Design</h4>
+            {/* <h4 class="fw-bold fs-5">Upload Design</h4>
             <button>
               Have a design? Upload and edit it
               <img
@@ -316,7 +347,7 @@ const MobileCase = () => {
                 alt="upload"
               />
               100% satisfaction guaranteed
-            </p>
+            </p> */}
           </div>
         </div>
         <div class="section-twoContainer">
@@ -326,58 +357,61 @@ const MobileCase = () => {
           <div class="details-container">
             <div class="section-two-details">
               <div>
-                <h3>Additional Information</h3>
+                <h3>Custom bill books for your daily business transactions.</h3>
                 <p>
-                  <strong>MATERIAL:</strong> Impact resistant and highly durable
-                  polycarbonate.
+                  Looking for an easy and unexpected way to build your personal
+                  or professional brand? Consider custom bill books or notepads
+                  featuring your name and logo.
                 </p>
                 <p>
-                  <strong> PRINT:</strong> Matte finish ultra HD Lifetime
-                  warranty on print. Super-bright colors embedded directly into
-                  the case. Made with high precision to get a crisp clear print.
-                  The Colorful patterns let you express your unique personality.
-                  Our Unique Edge-to-edge Printing technology provides a smooth
-                  clean look that really stands out from ordinary Mobile Back
-                  Covers & Cases.
+                  Having a customized bill book or notepad adds a dash of
+                  professionalism to your approach. At MudraLanka , you can
+                  design Bill Books, Receipts Books or Notepads online, without
+                  taking the effort of visiting your local vendor. Get
+                  customized bill books or notepads, with premium quality paper
+                  and hundreds of colorful designs that suit your business.
+                  Choose from a variety of themes available with us or you can
+                  upload your own design. You can go with a cardboard backside
+                  or a magnetic backing to hang them on desks.
                 </p>
                 <p>
-                  <strong> PRODUCT SPECIALITY:</strong> Slim fitting with design
-                  wrapping around side of the case and full access to ports.
+                  Ready to create? Start by browsing our assortment of fully
+                  customisable designs. Once you’ve found a favourite, make it
+                  yours by adding custom touches and choosing the option that
+                  works best for you. After that, we’ll take care of the rest –
+                  professionally printing and shipping your order. Your custom
+                  creation will arrive looking crisp, polished and ready for its
+                  first entry.
                 </p>
-                <p>Compatible with standard wireless charging.</p>
+                <h3>Creative ways to use your Bill Books.</h3>
                 <p>
-                  Despite a very thin profile and Weight 15 Gram(
-                  <strong>Negligible Weight</strong>)
+                  Are you looking for something specific? Check out these
+                  on-trend templates for top industries - Food & Beverage,Travel
+                  & Accommodation,Automotive & Transportation,Health &
+                  Wellness,Education Services,Construction and Real
+                  Estate,Jewellery,Entertainment & Recreation,Household
+                  Services, and ,more.
                 </p>
-                <p>the case is much stronger than it looks at first sight.</p>
-                <p>
-                  <strong> PRODUCT DETAILS:</strong> Slim, One-piece, Clip-on,
-                  Light, Durable Polycarbonate Protective Hard Case.
-                </p>
-                <p>
-                  Includes cut-outs for your regular charger and headphones.
-                  Provides Easy Protection for Your Smartphone.
-                </p>
-                <p>
-                  All side design Case covers 100% of the outer surface of the
-                  phone.
-                </p>
-                <p>Precision molded with no seams or sharp edges.</p>
-                <p>
-                  High quality printing No peeling, chipping, or wearing off.
-                </p>
-                <p>
-                  <strong>Please Note:</strong>
-                  Colors May Slightly Vary Depending on Your Screen Brightness.
-                </p>
-                <p>Additional Product Information</p>
-                <h5>Net quantity: 1 </h5>
+
+                <i>
+                  MudraLanka India customizes all its products in facilities
+                  located within India. Some of our raw materials, intermediate
+                  components, and consumables used in the manufacturing of the
+                  final product could be from one or more countries. As we
+                  follow Global Sourcing, one product is likely to have a
+                  different country of origin depending on the batch sold.
+                </i>
+
                 <h5>Country of Origin: India</h5>
+                <p>
+                  MudraLanka offers  Bill Books design templates in assorted
+                  styles.
+                </p>
               </div>
             </div>
             <div class="section-two-imageContainer">
               <img
-                src="images/service-mobilecase/service-details-image.png"
+                src="images/service-billbook/service-details-image.png"
                 alt="details"
                 class=""
               />
@@ -443,4 +477,4 @@ const MobileCase = () => {
   );
 };
 
-export default MobileCase;
+export default BillBook;

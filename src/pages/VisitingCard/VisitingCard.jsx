@@ -48,50 +48,44 @@ const VisitingCard = () => {
                 navigation={true}
                 thumbs={{ swiper: thumbsSwiper }}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className="mySwiper2"
+                className="mySwiper22"
               >
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase1.png"
+                    src="images/service-visitingcard/service-visitingcard1.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase2.png"
+                    src="images/service-visitingcard/service-visitingcard2.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase3.png"
+                    src="images/service-visitingcard/service-visitingcard3.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase4.png"
-                    alt="similar product"
-                    style={{
-                      height: "100% !important",
-                      // aspectRatio: "1/1",
-                      marginTop: "auto",
-                      marginBottom: "auto",
-                    }}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-mobilecase/service-mobilecase5.png"
+                    src="images/service-visitingcard/service-visitingcard4.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase6.png"
+                    src="images/service-visitingcard/service-visitingcard5.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
+                {/* <SwiperSlide>
+                  <img
+                    src="images/service-visitingcard/service-visitingcard6.png"
+                    alt="similar product"
+                  />
+                </SwiperSlide> */}
               </Swiper>
               <Swiper
                 onSwiper={setThumbsSwiper}
@@ -101,46 +95,46 @@ const VisitingCard = () => {
                 freeMode={true}
                 watchSlidesProgress={true}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className="mySwiper"
+                className="mySwiper1"
               >
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase1.png"
+                    src="images/service-visitingcard/service-visitingcard1.png"
                     alt="similar product"
                     style={{ height: "100%" }}
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase2.png"
+                    src="images/service-visitingcard/service-visitingcard2.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase3.png"
+                    src="images/service-visitingcard/service-visitingcard3.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase4.png"
+                    src="images/service-visitingcard/service-visitingcard4.png"
                     alt="similar product"
                     style={{ height: "100% !important" }}
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase5.png"
+                    src="images/service-visitingcard/service-visitingcard5.png"
                     alt="similar product"
                   />
                 </SwiperSlide>
-                <SwiperSlide>
+                {/* <SwiperSlide>
                   <img
-                    src="images/service-mobilecase/service-mobilecase6.png"
+                    src="images/service-visitingcard/service-visitingcard6.png"
                     alt="similar product"
                   />
-                </SwiperSlide>
+                </SwiperSlide> */}
               </Swiper>
             </div>
           </div>
@@ -150,7 +144,7 @@ const VisitingCard = () => {
             <h5 class="fw-normal fs-5 mb-4">
               Personalized cards with a professional look.
             </h5>
-            <ul class="fw-medium fs-6 mb-3">
+            <ul class="fw-medium fs-6 mb-3 visitingcardlist">
               <li>4000+ design options available</li>
               <li>
                 Dimension shown on the design page includes bleed area (safety
@@ -169,7 +163,7 @@ const VisitingCard = () => {
               </li>
               <li>
                 Need help in designing? You can avail our{" "}
-                <Link>Design Services</Link>
+                <Link to={"#"}>Design Services</Link>
               </li>
               <li>
                 <strong>
@@ -178,7 +172,7 @@ const VisitingCard = () => {
                 </strong>
               </li>
             </ul>
-            <h3 class="fw-semibold fs-6">Cash on Delivery available</h3>
+            <i class="fw-semibold fs-6">Cash on Delivery available</i>
             {/* <p class="fw-medium fs-6">
               Price below is MRP (inclusive of all taxes)
             </p> */}
@@ -201,76 +195,110 @@ const VisitingCard = () => {
             </div> */}
             <div class="dropdown-section mb-4">
               <div class="dropdown-Heading">
-                <h4 class="fw-bold fs-5">Mobile Brand</h4>
+                <h4 class="fw-bold fs-5">Visiting card</h4>
               </div>
-              <select class="options-container">
-                <option selected>Select Mobile Brand</option>
-                <option>Apple</option>
-                <option>Samsung</option>
-                <option>OnePlus</option>
-                <option>Nothing</option>
-              </select>
+
+              <div class="dropdown">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenu2"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  style={{ background: "white" }}
+                >
+                  Select Quantity
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  <button class="dropdown-item" type="button">
+                    100
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    200
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    300
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    400
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    500
+                  </button>
+                </div>
+              </div>
+              {/* <select class="options-container">
+                <option selected>Select Quantity</option>
+                <option>100</option>
+                <option>200</option>
+                <option>300</option>
+                <option>400</option>
+                <option>500</option>
+              </select> */}
             </div>
 
             {/* <h4 class="fw-bold fs-5">Quality</h4> */}
-            {/* <div class="list-group">
+            <div class="list-group">
               <div class="quality-list-container">
                 <div class="quality-list-first">
-                  <span>24</span>
+                  <span>100</span>
                   <div class="text-end">
-                    <p class="mb-0 fw-medium">₹940.00</p>
-                    <small class="quality-list-small">₹39.17 / unit</small>
+                    <p class="mb-0 fw-medium">₹200.00</p>
+                    <small class="quality-list-small">₹2.00 / unit</small>
                   </div>
                 </div>
               </div>
               <div class="quality-list-container">
                 <div class="quality-list-first">
-                  <span>48</span>
+                  <span>200</span>
                   <span class="quality-list-chip">Recommended</span>
                   <div class="text-end">
-                    <p class="mb-0 fw-medium">₹1870.00</p>
-                    <small class="quality-list-small">₹38.96 / unit</small>
+                    <p class="mb-0 fw-medium">340.00</p>
+                    <small class="quality-list-small">₹1.70 / unit</small>
                   </div>
                 </div>
+                <small class="text-secondary">15% savings</small>
               </div>
               <div class="quality-list-container">
                 <div class="quality-list-first">
-                  <span>72</span>
+                  <span>300</span>
                   <div class="text-end">
-                    <p class="mb-0 fw-medium">₹2740.00</p>
-                    <small class="quality-list-small">₹38.06 / unit</small>
+                    <p class="mb-0 fw-medium">430.00</p>
+                    <small class="quality-list-small">₹1.60 / unit</small>
                   </div>
                 </div>
-                <small class="text-secondary">2% savings</small>
+                <small class="text-secondary">20% savings</small>
               </div>
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>96</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹3650.00</p>
-                    <small class="quality-list-small">₹38.03 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">2% savings</small>
-              </div>
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>120</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹4450.00</p>
-                    <small class="quality-list-small">₹37.09 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">2% savings</small>
-              </div>
-            </div> */}
 
-            {/* <p class="starting-price">
-              24 starting at ₹940.00
-              <span class="">See more quantities</span>
-              <span class="">FREE Shipping</span>
-            </p> */}
-            <div>
+              <div class="quality-list-container">
+                <div class="quality-list-first">
+                  <span>400</span>
+                  <div class="text-end">
+                    <p class="mb-0 fw-medium">600.00</p>
+                    <small class="quality-list-small">₹1.50 / unit</small>
+                  </div>
+                </div>
+                <small class="text-secondary">25% savings</small>
+              </div>
+              <div class="quality-list-container">
+                <div class="quality-list-first">
+                  <span>500</span>
+                  <div class="text-end">
+                    <p class="mb-0 fw-medium">700.00</p>
+                    <small class="quality-list-small">₹1.40 / unit</small>
+                  </div>
+                </div>
+                <small class="text-secondary">30% savings</small>
+              </div>
+            </div>
+
+            <p class="starting-price">
+              100 starting at 200.00
+              {/* <span class="">See more quantities</span>
+              <span class="">FREE Shipping</span> */}
+            </p>
+            {/* <div>
               <label className="addonitems">
                 <input
                   type="checkbox"
@@ -283,18 +311,18 @@ const VisitingCard = () => {
                 <input type="checkbox" name="key-chain" value="key-chain" />
                 Add Same Design Key Chain 99.00 29.00
               </label>
-            </div>
+            </div> */}
 
-            <div className="seeDetails">
+            {/* <div className="seeDetails">
               <span class="fw-bold text-decoration-underline ms-3">
                 See more quantities
               </span>
               <span class="fw-bold text-decoration-underline ms-2">
                 FREE Shipping
               </span>
-            </div>
+            </div> */}
 
-            <h4 class="fw-bold fs-5">Upload Design</h4>
+            {/* <h4 class="fw-bold fs-5">Upload Design</h4>
             <button>
               Have a design? Upload and edit it
               <img
@@ -309,7 +337,7 @@ const VisitingCard = () => {
                 alt="upload"
               />
               100% satisfaction guaranteed
-            </p>
+            </p> */}
           </div>
         </div>
         <div class="section-twoContainer">
@@ -319,58 +347,54 @@ const VisitingCard = () => {
           <div class="details-container">
             <div class="section-two-details">
               <div>
-                <h3>Additional Information</h3>
+                <h3>
+                  Your business is one of a kind. Now your Visiting Card can be,
+                  too.
+                </h3>
                 <p>
-                  <strong>MATERIAL:</strong> Impact resistant and highly durable
-                  polycarbonate.
+                  With a fresh box of professional visiting cards comes
+                  confidence – the knowledge that you’re prepared for every
+                  opportunity that comes your way. Whether you’re making first
+                  impressions, rewarding regulars with a loyalty card or giving
+                  satisfied clients your contact info for next time, we’re here
+                  to help you look and feel ready to impress.
                 </p>
                 <p>
-                  <strong> PRINT:</strong> Matte finish ultra HD Lifetime
-                  warranty on print. Super-bright colors embedded directly into
-                  the case. Made with high precision to get a crisp clear print.
-                  The Colorful patterns let you express your unique personality.
-                  Our Unique Edge-to-edge Printing technology provides a smooth
-                  clean look that really stands out from ordinary Mobile Back
-                  Covers & Cases.
+                  As you design, we’ll offer you a wide range of personalisation
+                  options – including paper stocks and finish options – that
+                  could work for your style, business and budget.
+                </p>
+                <h3>Creative ways to use your visiting cards.</h3>
+                <p>
+                  Are you looking for something specific? Check out these
+                  on-trend templates for top industries –Legal,Accounting & Tax
+                  Advice,Bakeries,Auto Dealers,Music,Beauty & Spa,Agriculture &
+                  Farming,Medical Professionals,Taxi Service,Graphic
+                  Design,Courier Services, and ,more
                 </p>
                 <p>
-                  <strong> PRODUCT SPECIALITY:</strong> Slim fitting with design
-                  wrapping around side of the case and full access to ports.
+                  For Bulk orders exceeding Rs. 20,000 in value, contact our
+                  Customer Care for any assistance.
                 </p>
-                <p>Compatible with standard wireless charging.</p>
-                <p>
-                  Despite a very thin profile and Weight 15 Gram(
-                  <strong>Negligible Weight</strong>)
-                </p>
-                <p>the case is much stronger than it looks at first sight.</p>
-                <p>
-                  <strong> PRODUCT DETAILS:</strong> Slim, One-piece, Clip-on,
-                  Light, Durable Polycarbonate Protective Hard Case.
-                </p>
-                <p>
-                  Includes cut-outs for your regular charger and headphones.
-                  Provides Easy Protection for Your Smartphone.
-                </p>
-                <p>
-                  All side design Case covers 100% of the outer surface of the
-                  phone.
-                </p>
-                <p>Precision molded with no seams or sharp edges.</p>
-                <p>
-                  High quality printing No peeling, chipping, or wearing off.
-                </p>
-                <p>
-                  <strong>Please Note:</strong>
-                  Colors May Slightly Vary Depending on Your Screen Brightness.
-                </p>
-                <p>Additional Product Information</p>
-                <h5>Net quantity: 1 </h5>
+                <i>
+                  MudraLanka India customizes all its products in facilities
+                  located within India. Some of our raw materials, intermediate
+                  components, and consumables used in the manufacturing of the
+                  final product could be from one or more countries. As we
+                  follow Global Sourcing, one product is likely to have a
+                  different country of origin depending on the batch sold.
+                </i>
+
                 <h5>Country of Origin: India</h5>
+                <p>
+                  MudraLanka offers Standard Visiting Cards design templates in
+                  assorted styles.
+                </p>
               </div>
             </div>
             <div class="section-two-imageContainer">
               <img
-                src="images/service-mobilecase/service-details-image.png"
+                src="images/service-visitingcard/service-details-image.png"
                 alt="details"
                 class=""
               />

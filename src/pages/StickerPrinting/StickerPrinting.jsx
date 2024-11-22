@@ -48,7 +48,7 @@ const StickerPrinting = () => {
                 navigation={true}
                 thumbs={{ swiper: thumbsSwiper }}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className="mySwiper2"
+                className="mySwiper22"
               >
                 <SwiperSlide>
                   <img
@@ -101,7 +101,7 @@ const StickerPrinting = () => {
                 freeMode={true}
                 watchSlidesProgress={true}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className="mySwiper"
+                className="mySwiper1"
               >
                 <SwiperSlide>
                   <img
@@ -183,13 +183,40 @@ const StickerPrinting = () => {
                   to create your print-ready file.
                 </span> */}
               </div>
-              <select class="options-container">
+              <div class="dropdown">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenu2"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  style={{ background: "white" }}
+                >
+                  Select Size
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  <button class="dropdown-item" type="button">
+                    "2" x "2"
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    "2" x "4"
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    "3" x "3"
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    "3" x "6"
+                  </button>
+                </div>
+              </div>
+              {/* <select class="options-container">
                 <option selected>Select Size</option>
                 <option>48 x 34</option>
                 <option>72 x 34</option>
                 <option>96 x 34</option>
                 <option>120 x 34</option>
-              </select>
+              </select> */}
             </div>
 
             <h4 class="fw-bold fs-5">Quality</h4>
