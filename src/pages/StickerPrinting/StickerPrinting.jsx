@@ -48,12 +48,13 @@ const StickerPrinting = () => {
         toast("Select an image file");
       }
     }
+    file.target.value = "";
   };
-
+  console.log(data, "aldsfkjaklsdfj");
   // handle upload button click
   const handleButtonClick = () => {
     if (!data.size) {
-      return toast("Please select a size", { id: "size" });
+      return toast("Please select a size and quantity", { id: "size" });
     }
     imgRef.current.click();
   };
@@ -61,7 +62,7 @@ const StickerPrinting = () => {
   // handle send mail
   const sendMail = async () => {
     if (!data.size) {
-      return toast("Please select a size", { id: "size" });
+      return toast("Please select a size and quantity", { id: "size" });
     }
     const { size, quantity } = data;
     let body = `
@@ -272,7 +273,20 @@ const StickerPrinting = () => {
                   Select Size
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  <button class="dropdown-item" type="button">
+                  {sizes.map((item) => (
+                    <button
+                      class="dropdown-item"
+                      type="button"
+                      value={item}
+                      key={item}
+                      onClick={() =>
+                        setData((prev) => ({ ...prev, size: item }))
+                      }
+                    >
+                      {item}
+                    </button>
+                  ))}
+                  {/* <button class="dropdown-item" type="button">
                     "2" x "2"
                   </button>
                   <button class="dropdown-item" type="button">
@@ -283,7 +297,7 @@ const StickerPrinting = () => {
                   </button>
                   <button class="dropdown-item" type="button">
                     "3" x "6"
-                  </button>
+                  </button> */}
                 </div>
               </div>
               {/* <select
@@ -310,7 +324,10 @@ const StickerPrinting = () => {
 
             <h4 class="fw-bold fs-5">Quality</h4>
             <div class="list-group">
-              <div class="quality-list-container">
+              <div
+                class="quality-list-container"
+                onClick={() => setData((prev) => ({ ...prev, quantity: "24" }))}
+              >
                 <div class="quality-list-first">
                   <span>24</span>
                   <div class="text-end">
@@ -319,7 +336,10 @@ const StickerPrinting = () => {
                   </div>
                 </div>
               </div>
-              <div class="quality-list-container">
+              <div
+                class="quality-list-container"
+                onClick={() => setData((prev) => ({ ...prev, quantity: "48" }))}
+              >
                 <div class="quality-list-first">
                   <span>48</span>
                   <span class="quality-list-chip">Recommended</span>
@@ -329,7 +349,10 @@ const StickerPrinting = () => {
                   </div>
                 </div>
               </div>
-              <div class="quality-list-container">
+              <div
+                class="quality-list-container"
+                onClick={() => setData((prev) => ({ ...prev, size: "72" }))}
+              >
                 <div class="quality-list-first">
                   <span>72</span>
                   <div class="text-end">
@@ -339,7 +362,10 @@ const StickerPrinting = () => {
                 </div>
                 <small class="text-secondary">2% savings</small>
               </div>
-              <div class="quality-list-container">
+              <div
+                class="quality-list-container"
+                onClick={() => setData((prev) => ({ ...prev, size: "96" }))}
+              >
                 <div class="quality-list-first">
                   <span>96</span>
                   <div class="text-end">
@@ -349,7 +375,10 @@ const StickerPrinting = () => {
                 </div>
                 <small class="text-secondary">2% savings</small>
               </div>
-              <div class="quality-list-container">
+              <div
+                class="quality-list-container"
+                onClick={() => setData((prev) => ({ ...prev, size: "120" }))}
+              >
                 <div class="quality-list-first">
                   <span>120</span>
                   <div class="text-end">

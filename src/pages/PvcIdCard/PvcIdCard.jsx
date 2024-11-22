@@ -52,7 +52,9 @@ const PvcIdCard = () => {
         toast("Select an image file");
       }
     }
+    file.target.value = "";
   };
+  console.log(data, "aldsfkjaklsdfj");
 
   // handle upload button click
   const handleButtonClick = () => {
@@ -291,7 +293,20 @@ const PvcIdCard = () => {
                   Select Quantity
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  <button class="dropdown-item" type="button">
+                  {quantity.map((item) => (
+                    <button
+                      class="dropdown-item"
+                      type="button"
+                      value={item}
+                      key={item}
+                      onClick={() =>
+                        setData((prev) => ({ ...prev, quantity: item }))
+                      }
+                    >
+                      {item}
+                    </button>
+                  ))}
+                  {/* <button class="dropdown-item" type="button">
                     1(170.00/ Unit)
                   </button>
                   <button class="dropdown-item" type="button">
@@ -302,7 +317,7 @@ const PvcIdCard = () => {
                   </button>
                   <button class="dropdown-item" type="button">
                     4(100.00/ Unit)
-                  </button>
+                  </button> */}
                 </div>
               </div>
               {/* <select

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import "../StickerPrinting/StickerPrinting.css";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
@@ -9,10 +9,89 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import { relatedProducts } from "../../constant";
+import { relatedProducts, sendEmailLink } from "../../constant";
+import toast from "react-hot-toast";
+import { SpinnerContext } from "../../components/SpinnerContext";
+
+const quantity = ["100", "200", "300", "400", "500"];
 
 const VisitingCard = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
+  const formData = new FormData();
+  const imgRef = useRef();
+  const [data, setData] = useState({
+    size: "",
+    quantity: 1,
+    file: "",
+  });
+  const { setLoading } = useContext(SpinnerContext);
+
+  // on image change
+  const onImgChange = (file) => {
+    if (file.target.files && file.target.files[0]) {
+      const selectedFile = file.target.files[0];
+      if (
+        selectedFile.type === "image/png" ||
+        selectedFile.type === "image/jpeg" ||
+        selectedFile.type === "image/jpg"
+      ) {
+        // Validate file size (max size: 5MB)
+        const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+        if (selectedFile.size <= maxSizeInBytes) {
+          setData((prev) => ({ ...prev, file: selectedFile }));
+          formData.append("file", selectedFile);
+          sendMail();
+        } else {
+          toast("File size should not exceed 5MB");
+        }
+      } else {
+        toast("Select an image file");
+      }
+    }
+    file.target.value = "";
+  };
+  console.log(data, "aldsfkjaklsdfj");
+  // handle upload button click
+  const handleButtonClick = () => {
+    if (!data.quantity) {
+      return toast("Please select a  quantity", { id: "quantity" });
+    }
+    imgRef.current.click();
+  };
+
+  // handle send mail
+  const sendMail = async () => {
+    if (!data.quantity) {
+      return toast("Please select a quantity", { id: "quantity" });
+    }
+    // Size: ${size}\n
+    const { size, quantity } = data;
+    // Size: ${size}\n
+    let body = `
+      Quantity: ${quantity}\n\n`;
+    formData.append("body", body);
+
+    try {
+      setLoading(true);
+      const response = await fetch(sendEmailLink, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        toast.success("Order placed successfully");
+        setData({ size: "", quantity: 1, file: "" });
+      } else {
+        toast.error("Error placing order");
+      }
+    } catch (error) {
+      toast.error("Error placing order " + error.message, { id: "error" });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div class="page-wrapper">
       <Header />
@@ -198,7 +277,7 @@ const VisitingCard = () => {
                 <h4 class="fw-bold fs-5">Visiting card</h4>
               </div>
 
-              <div class="dropdown">
+              {/* <div class="dropdown">
                 <button
                   class="btn btn-secondary dropdown-toggle"
                   type="button"
@@ -211,23 +290,22 @@ const VisitingCard = () => {
                   Select Quantity
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  <button class="dropdown-item" type="button">
-                    100
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    200
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    300
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    400
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    500
-                  </button>
+                  {quantity.map((item) => (
+                    <button
+                      class="dropdown-item"
+                      type="button"
+                      value={item}
+                      key={item}
+                      onClick={() =>
+                        setData((prev) => ({ ...prev, quantity: item }))
+                      }
+                    >
+                      {item}
+                    </button>
+                  ))}
+                
                 </div>
-              </div>
+              </div> */}
               {/* <select class="options-container">
                 <option selected>Select Quantity</option>
                 <option>100</option>
@@ -240,7 +318,12 @@ const VisitingCard = () => {
 
             {/* <h4 class="fw-bold fs-5">Quality</h4> */}
             <div class="list-group">
-              <div class="quality-list-container">
+              <div
+                class="quality-list-container"
+                onClick={() =>
+                  setData((prev) => ({ ...prev, quantity: "100" }))
+                }
+              >
                 <div class="quality-list-first">
                   <span>100</span>
                   <div class="text-end">
@@ -249,7 +332,12 @@ const VisitingCard = () => {
                   </div>
                 </div>
               </div>
-              <div class="quality-list-container">
+              <div
+                class="quality-list-container"
+                onClick={() =>
+                  setData((prev) => ({ ...prev, quantity: "200" }))
+                }
+              >
                 <div class="quality-list-first">
                   <span>200</span>
                   <span class="quality-list-chip">Recommended</span>
@@ -260,7 +348,12 @@ const VisitingCard = () => {
                 </div>
                 <small class="text-secondary">15% savings</small>
               </div>
-              <div class="quality-list-container">
+              <div
+                class="quality-list-container"
+                onClick={() =>
+                  setData((prev) => ({ ...prev, quantity: "300" }))
+                }
+              >
                 <div class="quality-list-first">
                   <span>300</span>
                   <div class="text-end">
@@ -271,7 +364,12 @@ const VisitingCard = () => {
                 <small class="text-secondary">20% savings</small>
               </div>
 
-              <div class="quality-list-container">
+              <div
+                class="quality-list-container"
+                onClick={() =>
+                  setData((prev) => ({ ...prev, quantity: "400" }))
+                }
+              >
                 <div class="quality-list-first">
                   <span>400</span>
                   <div class="text-end">
@@ -281,7 +379,12 @@ const VisitingCard = () => {
                 </div>
                 <small class="text-secondary">25% savings</small>
               </div>
-              <div class="quality-list-container">
+              <div
+                class="quality-list-container"
+                onClick={() =>
+                  setData((prev) => ({ ...prev, quantity: "500" }))
+                }
+              >
                 <div class="quality-list-first">
                   <span>500</span>
                   <div class="text-end">
@@ -322,15 +425,23 @@ const VisitingCard = () => {
               </span>
             </div> */}
 
-            {/* <h4 class="fw-bold fs-5">Upload Design</h4>
-            <button>
+            <h4 class="fw-bold fs-5">Upload Design</h4>
+            <input
+              name="myImg"
+              hidden
+              accept="image/png,image/jpeg,image/jpg"
+              onChange={(e) => onImgChange(e)}
+              ref={imgRef}
+              type="file"
+            />
+            <button onClick={handleButtonClick}>
               Have a design? Upload and edit it
               <img
                 src="images/service-stickerPrinting/svg/UploadIcon.svg"
                 alt="upload"
               />
             </button>
-            <p class="satisfaction">
+            {/*  <p class="satisfaction">
               <img
                 src="images/service-stickerPrinting/svg/guaranteedsatisfaction.svg
             "

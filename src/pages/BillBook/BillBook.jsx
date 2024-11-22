@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import "../StickerPrinting/StickerPrinting.css";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
@@ -9,10 +9,92 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import { relatedProducts } from "../../constant";
+import { relatedProducts, sendEmailLink } from "../../constant";
+import toast from "react-hot-toast";
+import { SpinnerContext } from "../../components/SpinnerContext";
 
+const sizes = ["'3.8' x '7.8'", "'4' x '5.5'", "'5.5' x '8.5'", "'8.5' x '11'"];
+const quantity = [
+  "1(200.00 / unit)",
+  "2(200.00 / unit)",
+  "3(200.00 / unit)",
+  "4(200.00 / unit)",
+];
 const BillBook = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
+  const formData = new FormData();
+  const imgRef = useRef();
+  const [data, setData] = useState({
+    size: "",
+    quantity: "1(200.00 / unit)",
+    file: "",
+  });
+  const { setLoading } = useContext(SpinnerContext);
+
+  // on image change
+  const onImgChange = (file) => {
+    if (file.target.files && file.target.files[0]) {
+      const selectedFile = file.target.files[0];
+      if (
+        selectedFile.type === "image/png" ||
+        selectedFile.type === "image/jpeg" ||
+        selectedFile.type === "image/jpg"
+      ) {
+        // Validate file size (max size: 5MB)
+        const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+        if (selectedFile.size <= maxSizeInBytes) {
+          setData((prev) => ({ ...prev, file: selectedFile }));
+          formData.append("file", selectedFile);
+          sendMail();
+        } else {
+          toast("File size should not exceed 5MB");
+        }
+      } else {
+        toast("Select an image file");
+      }
+    }
+    file.target.value = "";
+  };
+  console.log(data, "aldsfkjaklsdfj");
+  // handle upload button click
+  const handleButtonClick = () => {
+    if (!data.size) {
+      return toast("Please select a size", { id: "size" });
+    }
+    imgRef.current.click();
+  };
+
+  // handle send mail
+  const sendMail = async () => {
+    if (!data.size || !data.quantity) {
+      return toast("Please select a size and quantity", { id: "size" });
+    }
+    const { size, quantity } = data;
+    let body = `
+      Size: ${size}\n
+      Quantity: ${quantity}\n\n`;
+    formData.append("body", body);
+
+    try {
+      setLoading(true);
+      const response = await fetch(sendEmailLink, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        toast.success("Order placed successfully");
+        setData({ size: "", quantity: "1(200.00 / unit)", file: "" });
+      } else {
+        toast.error("Error placing order");
+      }
+    } catch (error) {
+      toast.error("Error placing order " + error.message, { id: "error" });
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div class="page-wrapper">
       <Header />
@@ -188,43 +270,101 @@ const BillBook = () => {
                 to create your print-ready file.
               </span>
             </div> */}
-            <div className="billbookselection-container">
-              <div class="dropdown-section option mb-4">
-                <div class="dropdown-Heading">
-                  <h4 class="fw-bold fs-5">Size</h4>
-                </div>
+            {/* <div className="billbookselection-container"> */}
+            {/* <div class="dropdown-section option mb-4"> */}
+            <div class="dropdown-Heading">
+              <h4 class="fw-bold fs-5">Size</h4>
+            </div>
 
-                <div class="dropdown">
-                  <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenu2"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    style={{ background: "white" }}
-                  >
-                    Select Size
+            <div className="billbookselection-container">
+              <div class="dropdown drop">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenu2"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  style={{ background: "white" }}
+                >
+                  Select Size
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  {sizes.map((item) => (
+                    <button
+                      class="dropdown-item"
+                      type="button"
+                      value={item}
+                      key={item}
+                      onClick={() =>
+                        setData((prev) => ({ ...prev, size: item }))
+                      }
+                    >
+                      {item}
+                    </button>
+                  ))}
+                  {/* <button class="dropdown-item" type="button">
+                    100
                   </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <button class="dropdown-item" type="button">
-                      100
-                    </button>
-                    <button class="dropdown-item" type="button">
-                      200
-                    </button>
-                    <button class="dropdown-item" type="button">
-                      300
-                    </button>
-                    <button class="dropdown-item" type="button">
-                      400
-                    </button>
-                    <button class="dropdown-item" type="button">
-                      500
-                    </button>
-                  </div>
+                  <button class="dropdown-item" type="button">
+                    200
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    300
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    400
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    500
+                  </button> */}
                 </div>
-                {/* <select class="options-container">
+              </div>
+              <div class="dropdown drop">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenu2"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  style={{ background: "white" }}
+                >
+                  Select Size
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  {quantity.map((item) => (
+                    <button
+                      class="dropdown-item"
+                      type="button"
+                      value={item}
+                      key={item}
+                      onClick={() =>
+                        setData((prev) => ({ ...prev, quantity: item }))
+                      }
+                    >
+                      {item}
+                    </button>
+                  ))}
+                  {/* <button class="dropdown-item" type="button">
+                    100
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    200
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    300
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    400
+                  </button>
+                  <button class="dropdown-item" type="button">
+                    500
+                  </button> */}
+                </div>
+              </div>
+            </div>
+            {/* <select class="options-container">
                   <option selected>Select Size</option>
                   <option>100</option>
                   <option>200</option>
@@ -232,8 +372,8 @@ const BillBook = () => {
                   <option>400</option>
                   <option>500</option>
                 </select> */}
-              </div>
-              <div class="dropdown-section option mb-4">
+            {/* </div> */}
+            {/* <div class="dropdown-section option mb-4">
                 <div class="dropdown-Heading">
                   <h4 class="fw-bold fs-5">Quantity</h4>
                 </div>
@@ -245,8 +385,8 @@ const BillBook = () => {
                   <option>400</option>
                   <option>500</option>
                 </select>
-              </div>
-            </div>
+              </div> */}
+            {/* </div> */}
 
             {/* <h4 class="fw-bold fs-5">Quality</h4> */}
             {/* <div class="list-group">
@@ -332,14 +472,23 @@ const BillBook = () => {
               </span>
             </div> */}
 
-            {/* <h4 class="fw-bold fs-5">Upload Design</h4>
-            <button>
+            <h4 class="fw-bold fs-5">Upload Design</h4>
+            <input
+              name="myImg"
+              hidden
+              accept="image/png,image/jpeg,image/jpg"
+              onChange={(e) => onImgChange(e)}
+              ref={imgRef}
+              type="file"
+            />
+            <button button onClick={handleButtonClick}>
               Have a design? Upload and edit it
               <img
                 src="images/service-stickerPrinting/svg/UploadIcon.svg"
                 alt="upload"
               />
             </button>
+            {/*
             <p class="satisfaction">
               <img
                 src="images/service-stickerPrinting/svg/guaranteedsatisfaction.svg

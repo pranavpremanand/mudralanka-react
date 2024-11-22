@@ -416,9 +416,10 @@ SWIPER STYLE START HERE**/
 .billbookselection-container {
   display: flex;
   width: 100%;
+  gap: 15px;
 }
 
-.billbookselection-container .option {
+.billbookselection-container .drop {
   width: 50%;
 }
 
@@ -500,7 +501,7 @@ SWIPER STYLE START HERE**/
   .billbookselection-container {
     flex-direction: column;
   }
-  .billbookselection-container .option {
+  .billbookselection-container .drop {
     width: 100%;
   }
 }
