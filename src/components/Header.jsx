@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FaInstagram,
   FaPhoneSquareAlt,
@@ -12,63 +12,22 @@ import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const { pathname } = useLocation();
-  document.addEventListener("DOMContentLoaded", function () {
-    // Check if there are elements with the class `.main-navigation .navigation-box`
-    var navigationBox = document.querySelector(
-      ".main-navigation .navigation-box"
-    );
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openSubMenus, setOpenSubMenus] = useState({}); // To track sub-menu states
 
-    if (navigationBox) {
-      // Select the main menu toggler and sub-navigation togglers
-      var mainNavToggler = document.querySelector(
-        ".header-navigation .menu-toggler"
-      );
-      var subNavTogglers = document.querySelectorAll(
-        ".main-navigation .sub-nav-toggler"
-      );
+  // Toggle main menu
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
 
-      // Handle main menu toggle
-      if (mainNavToggler) {
-        mainNavToggler.addEventListener("click", function (event) {
-          event.preventDefault();
-          var menuSelector = this.getAttribute("data-target");
-          var menu = document.querySelector(menuSelector);
+  // Toggle a specific sub-menu
+  const toggleSubMenu = (menuIndex) => {
+    setOpenSubMenus((prev) => ({
+      ...prev,
+      [menuIndex]: !prev[menuIndex],
+    }));
+  };
 
-          if (menu) {
-            // Toggle the display and class of the target menu
-            if (menu.style.display === "none" || menu.style.display === "") {
-              menu.style.display = "block";
-              menu.classList.add("showen");
-            } else {
-              menu.style.display = "none";
-              menu.classList.remove("showen");
-            }
-          }
-        });
-      }
-
-      // Handle sub-navigation togglers
-      subNavTogglers.forEach(function (subNavToggler) {
-        subNavToggler.addEventListener("click", function (event) {
-          event.preventDefault();
-          var subMenu =
-            this.parentElement.parentElement.querySelector(".sub-menu");
-
-          if (subMenu) {
-            // Toggle the display of the sub-menu
-            if (
-              subMenu.style.display === "none" ||
-              subMenu.style.display === ""
-            ) {
-              subMenu.style.display = "block";
-            } else {
-              subMenu.style.display = "none";
-            }
-          }
-        });
-      });
-    }
-  });
   return (
     <header className="site-header header-one">
       <div className="top-bar">
@@ -111,19 +70,60 @@ const Header = () => {
       <nav className="navbar navbar-expand-lg navbar-light header-navigation stricky">
         <div className="container clearfix">
           <div className="logo-box clearfix">
-            <button className="menu-toggler" data-target="#main-nav-bar">
+            <button
+              className="menu-toggler"
+              onClick={toggleMenu}
+              aria-expanded={isMenuOpen}
+            >
               <GiHamburgerMenu size={28} />
             </button>
           </div>
 
-          <div className="main-navigation" id="main-nav-bar">
+          <div
+            className={`main-navigation ${
+              isMenuOpen ? "showen" : ""
+            }`}
+            id="main-nav-bar"
+          >
             <ul className="navigation-box">
-              {headerLinks.map((link) => (
+              {headerLinks.map((link, index) => (
                 <li
                   key={link.path}
-                  className={`${link.path === pathname && "current"}`}
+                  className={`${
+                    link.path === pathname ? "current" : ""
+                  } ${
+                    openSubMenus[index] ? "sub-menu-open" : ""
+                  }`}
                 >
                   <Link to={link.path}>{link.title}</Link>
+
+                  {/* Example sub-menu */}
+                  {link.subMenu && (
+                    <>
+                      <button
+                        className="sub-nav-toggler"
+                        onClick={() => toggleSubMenu(index)}
+                      >
+                        ▼
+                      </button>
+                      <ul
+                        className="sub-menu"
+                        style={{
+                          display: openSubMenus[index]
+                            ? "block"
+                            : "none",
+                        }}
+                      >
+                        {link.subMenu.map((subLink) => (
+                          <li key={subLink.path}>
+                            <Link to={subLink.path}>
+                              {subLink.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
                 </li>
               ))}
             </ul>

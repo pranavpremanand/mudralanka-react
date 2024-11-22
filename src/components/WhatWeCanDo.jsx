@@ -27,7 +27,7 @@ const WhatWeCanDo = () => {
                   use!
                 </p>
 
-                <Link to="#" className="service-one__link">
+                <Link to="/sticker-printing" className="service-one__link">
                   <PiCaretRightBold className="text-white" size={19} />
                 </Link>
               </div>

@@ -102,12 +102,12 @@ const StickerPrinting = () => {
             <div class="dropdown-section mb-4">
               <div class="dropdown-Heading">
                 <h4 class="d-inline fw-bold fs-5">Size</h4>
-                <span class="fw-bold text-decoration-underline ms-3">
+                {/* <span class="fw-bold text-decoration-underline ms-3">
                   View Specs & Templates
                 </span>
                 <span class="fw-bold text-decoration-underline ms-2">
                   to create your print-ready file.
-                </span>
+                </span> */}
               </div>
               <select class="options-container">
                 <option selected>Select Size</option>

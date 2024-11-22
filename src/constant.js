@@ -23,7 +23,7 @@ export const services = [
   {
     image: "images/icons/wall-sticker-1-1.png",
     title: "Sticker Printing",
-    path: "#",
+    path: "/sticker-printing",
   },
   {
     image: "images/icons/id-card-1-1.png",
