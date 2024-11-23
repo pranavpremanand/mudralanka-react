@@ -236,7 +236,7 @@ const MobileCase = () => {
           </div>
 
           <div class="details-container">
-            <h2 class="main-heading">Custom Case Printing</h2>
+            <h2 class="main-heading">Mobile Case Printing</h2>
             <p class="fw-normal fs-5 mb-4">
               Crafting Unique ID Cards to Reflect Your Identity
             </p>
