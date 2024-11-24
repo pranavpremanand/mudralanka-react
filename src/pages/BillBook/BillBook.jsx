@@ -473,7 +473,11 @@ const BillBook = () => {
               </span>
             </div> */}
 
-            <h4 class="fw-bold fs-5">Upload Design</h4>
+            <h4 style={{ fontSize: "16px", fontWeight: "700" }}>
+              Have a design? You can upload it using the upload button. Our
+              designer will redesign it and confirm with you before printing.
+              Upload Design
+            </h4>
             <input
               name="myImg"
               hidden
@@ -483,12 +487,13 @@ const BillBook = () => {
               type="file"
             />
             <button button onClick={handleButtonClick}>
-              Have a design? Upload and edit it
+              Upload Design
               <img
                 src="images/service-stickerPrinting/svg/UploadIcon.svg"
                 alt="upload"
               />
             </button>
+            <button className="addtocartbutton">Add To Cart</button>
             {/*
             <p class="satisfaction">
               <img

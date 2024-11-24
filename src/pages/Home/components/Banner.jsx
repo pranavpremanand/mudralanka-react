@@ -91,7 +91,7 @@ const Banner = () => {
                   and what we stand for.
                 </p>
                 <div className="btn-block">
-                  <Link to="#" className="banner-btn">
+                  <Link to="services" className="banner-btn">
                     Order Online Now
                   </Link>
                 </div>
