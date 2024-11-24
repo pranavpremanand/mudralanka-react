@@ -27,20 +27,16 @@ const OurServices = () => {
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="service-four__single content-margin-60">
                 <div class="service-four__icon">
-                  <img
-                    src="images/icons/wall-sticker-1-1.png"
-                    alt="Pic"
-                  />
+                  <img src="images/icons/wall-sticker-1-1.jpg" alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
-                  <Link to='/services'>Sticker Printing</Link>
+                  <Link to="/services">Sticker Printing</Link>
                 </h3>
                 <p class="service-four__text">
-                  Lorem ipsum is simply free text dolor sit amett adipiscing
-                  elit anned printer simp is took of type and scrambled it to
-                  make.
+                  We offer high-quality sticker printing with vibrant colors and
+                  durable materials, perfect for personal or professional use.
                 </p>
-                <Link to='/services' class="service-four__link">
+                <Link to="/services" class="service-four__link">
                   Read More
                 </Link>
               </div>
@@ -48,17 +44,17 @@ const OurServices = () => {
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="service-four__single content-margin-60">
                 <div class="service-four__icon">
-                  <img src="images/icons/id-card-1-1.png" alt="Pic" />
+                  <img src="images/icons/id-card-1-1.jpg" alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
-                  <Link to='/services'>PVC ID Card</Link>
+                  <Link to="/services">PVC ID Card</Link>
                 </h3>
                 <p class="service-four__text">
-                  Lorem ipsum is simply free text dolor sit amett adipiscing
-                  elit anned printer simp is took of type and scrambled it to
-                  make.
+                  Create high-quality PVC ID cards with customizable templates,
+                  vibrant colors, and a professional finish, ideal for
+                  businesses, schools, and events.
                 </p>
-                <Link to='/services' class="service-four__link">
+                <Link to="/services" class="service-four__link">
                   Read More
                 </Link>
               </div>
@@ -66,20 +62,17 @@ const OurServices = () => {
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="service-four__single content-margin-60">
                 <div class="service-four__icon">
-                  <img
-                    src="images/icons/mobile-case-1-1.png"
-                    alt="Pic"
-                  />
+                  <img src="images/icons/mobile-case-1-1.jpg" alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
-                  <Link to='/services'>Mobile Case Printing</Link>
+                  <Link to="/services">Mobile Case Printing</Link>
                 </h3>
                 <p class="service-four__text">
-                  Lorem ipsum is simply free text dolor sit amett adipiscing
-                  elit anned printer simp is took of type and scrambled it to
-                  make.
+                  Personalize your mobile cases with high-quality printing,
+                  offering vibrant designs and durable finishes to protect and
+                  style your device.
                 </p>
-                <Link to='/services' class="service-four__link">
+                <Link to="/services" class="service-four__link">
                   Read More
                 </Link>
               </div>
@@ -87,20 +80,17 @@ const OurServices = () => {
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="service-four__single content-margin-60">
                 <div class="service-four__icon">
-                  <img
-                    src="images/icons/visiting-card-1-1.png"
-                    alt="Pic"
-                  />
+                  <img src="images/icons/visiting-card-1-1.jpg" alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
-                  <Link to='/services'>Visiting Card</Link>
+                  <Link to="/services">Visiting Card</Link>
                 </h3>
                 <p class="service-four__text">
-                  Lorem ipsum is simply free text dolor sit amett adipiscing
-                  elit anned printer simp is took of type and scrambled it to
-                  make.
+                  Get professionally designed visiting cards with premium
+                  quality printing, perfect for creating a lasting impression in
+                  any business setting.
                 </p>
-                <Link to='/services' class="service-four__link">
+                <Link to="/services" class="service-four__link">
                   Read More
                 </Link>
               </div>
@@ -108,20 +98,17 @@ const OurServices = () => {
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="service-four__single content-margin-60">
                 <div class="service-four__icon">
-                  <img
-                    src="images/icons/accounting-book-1-1.png"
-                    alt="Pic"
-                  />
+                  <img src="images/icons/accounting-book-1-1.jpg" alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
-                  <Link to='/services'>Billbook</Link>
+                  <Link to="/services">Billbook</Link>
                 </h3>
                 <p class="service-four__text">
-                  Lorem ipsum is simply free text dolor sit amett adipiscing
-                  elit anned printer simp is took of type and scrambled it to
-                  make.
+                  We provide customized billbooks with high-quality printing,
+                  tailored to meet your business needs for professional
+                  invoicing and record-keeping.
                 </p>
-                <Link to='/services' class="service-four__link">
+                <Link to="/services" class="service-four__link">
                   Read More
                 </Link>
               </div>
@@ -134,10 +121,7 @@ const OurServices = () => {
           <h3 class="cta-four__title content-margin-30">
             Looking for Design with printing?
           </h3>
-          <Link
-            to="/services"
-            class="content-margin-30 thm-btn cta-four__btn"
-          >
+          <Link to="/services" class="content-margin-30 thm-btn cta-four__btn">
             Learn More
           </Link>
         </div>

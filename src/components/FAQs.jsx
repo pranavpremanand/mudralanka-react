@@ -14,8 +14,9 @@ const FAQs = () => {
               </h3>
 
               <p class="faq-one__text">
-                There are many people variation of pass of lorem sum available
-                inthe majority have suffer freedom text some.
+                We provide a complete range of printing solutions to meet your
+                needs, delivering exceptional quality and customized services
+                you can trust.
               </p>
               <div class="faq-one__image">
                 <img src="images/resources/faq-1-1.jpg" alt="Pic" />

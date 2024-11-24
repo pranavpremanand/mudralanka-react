@@ -30,12 +30,10 @@ const Home = () => {
             <div className="col-lg-6 d-flex">
               <div className="my-auto">
                 <p className="service-two__title-text">
-                  Lorem ipsum is simply free text dolor sit amett consectetur
-                  adipiscing elit. When an unknown printer took a galley of type
-                  and scrambled it to make a type specimen book. It has survived
-                  not only five centuries. There are many people variation of
-                  passages of lorem Ipsum available in the majority have suffer
-                  alteration in some.
+                  Mudralanka Printing and Copy Centre is your go-to destination
+                  for top-notch printing and copying services. Known for
+                  quality, reliability, and innovation, we cater to all your
+                  personal and professional needs, making us the best in town.
                 </p>
               </div>
             </div>
@@ -44,6 +42,7 @@ const Home = () => {
             {services.map((service) => (
               <div key={service.title} className="col-5-col">
                 <div className="service-two__single hvr-float-shadow content-margin-30">
+                  <h3 className="service-two__title">ORDER ONLINE NOW</h3>
                   <img src={service.image} alt={service.title} />
                   <h3 className="service-two__title">
                     <Link to={service.path}>{service.title}</Link>
@@ -113,7 +112,12 @@ const Home = () => {
                   <Link to="#">Best Printing Services</Link>
                 </h3>
                 <p className="about-one__text">
-                  Phaseus site amet tristique ligua donec iaculis leo sus cipit.
+                  Discover top-notch print services tailored to meet all your
+                  needs. From business cards and brochures to customized
+                  merchandise and large-scale banners, we ensure high-quality
+                  printing with vibrant colors, sharp details, and timely
+                  delivery. Let us bring your ideas to life with professional,
+                  reliable, and affordable printing solutions!
                 </p>
               </div>
             </div>
@@ -123,7 +127,12 @@ const Home = () => {
                   <Link to="#">Trusted & Secure</Link>
                 </h3>
                 <p className="about-one__text">
-                  Phaseus site amet tristique ligua donec iaculis leo sus cipit.
+                  At our print services, trust and security are our top
+                  priorities. We handle your designs and data with the utmost
+                  confidentiality, using secure systems to protect your
+                  information. Count on us for reliable service, transparent
+                  processes, and the assurance that your projects are in safe,
+                  professional hands from start to finish.
                 </p>
               </div>
             </div>
@@ -133,14 +142,19 @@ const Home = () => {
                   <Link to="#">Customer Satisfaction</Link>
                 </h3>
                 <p className="about-one__text">
-                  Phaseus site amet tristique ligua donec iaculis leo sus cipit.
+                  Customer satisfaction is at the heart of everything we do. We
+                  strive to exceed your expectations with exceptional quality,
+                  personalized support, and timely delivery. Your feedback
+                  drives us to continually improve, ensuring every print project
+                  meets your unique needs and leaves you completely satisfied.
+                  Your happiness is our success!
                 </p>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <section className=" sec-pad sec-pad-content-margin-50 pt-0">
+      {/* <section className=" sec-pad sec-pad-content-margin-50 pt-0">
         <div className="container">
           <div className="row">
             <div className="col-lg-6">
@@ -209,7 +223,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       <section className="cta-one thm-black-bg">
         <div className="container-fluid p-0">
           <div className="row flex-row-reverse">
