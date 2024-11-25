@@ -10,7 +10,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { headerLinks, socialMediaLinks } from "../constant";
 import { Link, useLocation } from "react-router-dom";
 import Drawer from "react-modern-drawer";
-import 'react-modern-drawer/dist/index.css'
+import "react-modern-drawer/dist/index.css";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,14 +77,23 @@ const Header = () => {
     <header className="site-header header-one">
       <div className="top-bar">
         <div className="container">
-          <div className="social-block">
-            <a href={socialMediaLinks.whatsapp}>
+          <div className="social-block d-xl-flex">
+            <a
+              className="d-flex justify-content-center align-items-center"
+              href={socialMediaLinks.whatsapp}
+            >
               <FaWhatsapp size={18} />
             </a>
-            <a href={socialMediaLinks.youtube}>
+            <a
+              className="d-flex justify-content-center align-items-center"
+              href={socialMediaLinks.youtube}
+            >
               <FaYoutube size={18} />
             </a>
-            <a href={socialMediaLinks.instagram}>
+            <a
+              className="d-flex justify-content-center align-items-center"
+              href={socialMediaLinks.instagram}
+            >
               <FaInstagram size={18} />
             </a>
           </div>
@@ -98,11 +107,14 @@ const Header = () => {
             </Link>
           </div>
           <div className="d-md-flex d-none right-block">
-            <a href="mailto:mudralankashop@gmail.com">
+            <a
+              className="flex items-center"
+              href="mailto:mudralankashop@gmail.com"
+            >
               <IoMail className="text-white fill-primary mr-2" size={20} />
               mudralankashop@gmail.com
             </a>
-            <a href="tel:+917799372747">
+            <a className="flex items-center" href="tel:+917799372747">
               <FaPhoneSquareAlt
                 className="text-white fill-primary mr-2"
                 size={20}
@@ -115,7 +127,11 @@ const Header = () => {
       <nav className="navbar navbar-expand-lg navbar-light header-navigation stricky">
         <div className="container clearfix">
           <div className="logo-box clearfix">
-            <button onClick={toggleDrawer} className="menu-toggler" data-target="#main-nav-bar">
+            <button
+              onClick={toggleDrawer}
+              className="menu-toggler"
+              data-target="#main-nav-bar"
+            >
               <GiHamburgerMenu size={28} />
             </button>
           </div>
@@ -133,14 +149,23 @@ const Header = () => {
             </ul>
           </div>
           <div className="right-side-box">
-            <div className="header__social-block">
-              <a href={socialMediaLinks.whatsapp}>
+            <div className="header__social-block d-flex">
+              <a
+                className="d-flex justify-content-center align-items-center"
+                href={socialMediaLinks.whatsapp}
+              >
                 <FaWhatsapp size={18} />
               </a>
-              <a href={socialMediaLinks.youtube}>
+              <a
+                className="d-flex justify-content-center align-items-center"
+                href={socialMediaLinks.youtube}
+              >
                 <FaYoutube size={18} />
               </a>
-              <a href={socialMediaLinks.instagram}>
+              <a
+                className="d-flex justify-content-center align-items-center"
+                href={socialMediaLinks.instagram}
+              >
                 <FaInstagram size={18} />
               </a>
             </div>
@@ -158,7 +183,7 @@ const Header = () => {
             onClick={() => setIsOpen(false)}
             className="text-black fs-4 close-btn"
           >
-            <IoClose size={30}/>
+            <IoClose size={30} />
           </button>
         </div>
         <div className="d-flex flex-column">
@@ -167,7 +192,7 @@ const Header = () => {
               onClick={() => setIsOpen(false)}
               key={title}
               className="mb-3 fs-2 text-dark"
-              style={{fontSize:'1.5rem'}}
+              style={{ fontSize: "1.5rem" }}
               to={path}
             >
               {title}

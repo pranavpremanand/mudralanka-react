@@ -79,14 +79,14 @@ const Footer = () => {
                     sed do eiusmod tempor incididunt ut labore et dolore magna
                     aliqua.
                   </p>
-                  <div className="social-block">
-                    <a href={socialMediaLinks.whatsapp}>
+                  <div className="social-block d-flex">
+                    <a className="d-flex justify-content-center align-items-center" href={socialMediaLinks.whatsapp}>
                       <FaWhatsapp size={20} />
                     </a>
-                    <a href={socialMediaLinks.youtube}>
+                    <a className="d-flex justify-content-center align-items-center" href={socialMediaLinks.youtube}>
                       <FaYoutube size={20} />
                     </a>
-                    <a href={socialMediaLinks.instagram}>
+                    <a className="d-flex justify-content-center align-items-center" href={socialMediaLinks.instagram}>
                       <FaInstagram size={20} />
                     </a>
                   </div>

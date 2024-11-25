@@ -53,7 +53,7 @@
 }
 
 .contact_us_social_media_links a {
-  display: inline-block;
+  display: flex;
   width: 43px;
   height: 43px;
   background-color: #ef425a;
@@ -719,7 +719,7 @@ hr.style-one {
 }
 
 .site-header.header-one .top-bar .social-block a {
-  display: inline-block;
+  display: flex;
   width: 43px;
   height: 43px;
   background-color: #ef425a;
@@ -789,7 +789,7 @@ hr.style-one {
 }
 
 .header__social-block a {
-  display: inline-block;
+  display: flex;
   width: 43px;
   height: 43px;
   background-color: #ef425a;
@@ -1406,7 +1406,7 @@ hr.style-one {
 }
 
 .site-footer .footer-widget .social-block a {
-  display: inline-block;
+  display: flex;
   width: 43px;
   height: 43px;
   background-color: #ef425a;
@@ -2994,8 +2994,9 @@ hr.style-one {
 }
 
 .service-one__link {
-  display: inline-block;
-  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   bottom: 0;
   left: 50%;

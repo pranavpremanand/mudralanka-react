@@ -47,14 +47,14 @@ const ContactUs = () => {
                   17-132, Ponniamman Koil Street, Chittoor, Andhra Pradesh,
                   India
                 </p>
-                <div class="social-block contact_us_social_media_links">
-                  <a href={socialMediaLinks.whatsapp}>
+                <div class="social-block d-flex contact_us_social_media_links">
+                  <a className="d-flex justify-content-center align-items-center" href={socialMediaLinks.whatsapp}>
                     <FaWhatsapp size={18} />
                   </a>
-                  <a href={socialMediaLinks.youtube}>
+                  <a className="d-flex justify-content-center align-items-center" href={socialMediaLinks.youtube}>
                     <FaYoutube size={18} />
                   </a>
-                  <a href={socialMediaLinks.instagram}>
+                  <a className="d-flex justify-content-center align-items-center" href={socialMediaLinks.instagram}>
                     <FaInstagram size={18} />
                   </a>
                 </div>

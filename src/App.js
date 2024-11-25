@@ -15,6 +15,8 @@ import MobileCase from "./pages/MobileCase/MobileCase";
 import VisitingCard from "./pages/VisitingCard/VisitingCard";
 import BillBook from "./pages/BillBook/BillBook";
 import { Toaster } from "react-hot-toast";
+import Cart from "./pages/Cart/Cart";
+import Checkout from "./pages/Checkout/Checkout";
 
 const Home = lazy(() => import("./pages/Home/Home"));
 
@@ -37,6 +39,8 @@ function App() {
             <Route path="/about" element={<AboutUs />} />
             <Route path="/services" element={<OurServices />} />
             <Route path="/contact" element={<ContactUs />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
 
             {/* Service details pages */}
             <Route path="/sticker-printing" element={<StickerPrinting />} />
