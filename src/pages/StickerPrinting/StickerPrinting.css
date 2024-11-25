@@ -141,6 +141,18 @@ body {
   outline: none;
   cursor: pointer;
 }
+.details-container .addtocartbutton {
+  background: transparent;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding-top: 5px;
+}
+.details-container .addtocartbutton:hover {
+  background: #6fd0f4;
+}
 .satisfaction {
   width: 100%;
   text-align: center;
@@ -532,3 +544,4 @@ SWIPER STYLE START HERE**/
     font-size: 13px;
   }
 }
+https: ; //github.com/pranavpremanand/mudralanka-react.git

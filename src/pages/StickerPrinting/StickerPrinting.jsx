@@ -21,7 +21,7 @@ const StickerPrinting = () => {
   const imgRef = useRef();
   const [data, setData] = useState({
     size: "Select Size",
-    quantity: '',
+    quantity: "",
     file: "",
   });
   const { setLoading } = useContext(SpinnerContext);
@@ -53,7 +53,7 @@ const StickerPrinting = () => {
 
   // handle upload button click
   const handleButtonClick = () => {
-    if (data.size === "Select Size") {
+    if (data.size === "Select Size" || data.quantity === "") {
       return toast("Please select a size and quantity", { id: "size" });
     }
     if (data.quantity === "") {
@@ -86,8 +86,9 @@ const StickerPrinting = () => {
       // const response = { ok: true };
       if (response.ok) {
         toast.success("Order placed successfully");
-        setData({ size: "Select Size", quantity: '', file: "" });
+        setData({ size: "Select Size", quantity: "", file: "" });
       } else {
+        console.log(response);
         toast.error("Error placing order");
       }
     } catch (error) {

@@ -75,9 +75,9 @@ const Footer = () => {
                     <h3>About Mudralanka</h3>
                   </div>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adip sicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
+                    We specialize in delivering high-quality printing solutions
+                    tailored to your needs, ensuring professional results and
+                    customer satisfaction.
                   </p>
                   <div className="social-block d-flex">
                     <a className="d-flex justify-content-center align-items-center" href={socialMediaLinks.whatsapp}>

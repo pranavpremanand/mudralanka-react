@@ -25,27 +25,27 @@ export const headerLinks = [
 // services
 export const services = [
   {
-    image: "images/icons/wall-sticker-1-1.png",
+    image: "images/icons/wall-sticker-1-1.jpg",
     title: "Sticker Printing",
     path: "/sticker-printing",
   },
   {
-    image: "images/icons/id-card-1-1.png",
+    image: "images/icons/id-card-1-1.jpg",
     title: "PVC ID Card",
     path: "/pvcidcard",
   },
   {
-    image: "images/icons/mobile-case-1-1.png",
+    image: "images/icons/mobile-case-1-1.jpg",
     title: "Mobile Case Printing",
     path: "/mobilecase",
   },
   {
-    image: "images/icons/visiting-card-1-1.png",
+    image: "images/icons/visiting-card-1-1.jpg",
     title: "Visiting Card",
     path: "/visitingcard",
   },
   {
-    image: "images/icons/accounting-book-1-1.png",
+    image: "images/icons/accounting-book-1-1.jpg",
     title: "Billbook",
     path: "/billbook",
   },
