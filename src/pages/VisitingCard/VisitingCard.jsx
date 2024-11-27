@@ -14,6 +14,39 @@ import toast from "react-hot-toast";
 import { SpinnerContext } from "../../components/SpinnerContext";
 
 const quantity = ["100", "200", "300", "400", "500"];
+const quantityOptions = [
+  {
+    quantity: 100,
+    price: 200.0,
+    savings: "",
+    recommended: false,
+  },
+  {
+    quantity: 200,
+    price: 340.0,
+    savings: "15% savings",
+    recommended: true,
+  },
+  {
+    quantity: 300,
+    price: 480.0,
+    savings: "20% savings",
+    recommended: false,
+  },
+  {
+    quantity: 400,
+    price: 600.0,
+    savings: "25% savings",
+    recommended: false,
+  },
+  {
+    quantity: 500,
+    price: 700.0,
+    unitPrice: "₹1.40",
+    savings: "30% savings",
+    recommended: false,
+  },
+];
 
 const images = [
   "images/service-visitingcard/service-visitingcard1.png",
@@ -29,7 +62,6 @@ const VisitingCard = () => {
   const formData = new FormData();
   const imgRef = useRef();
   const [data, setData] = useState({
-    size: "",
     quantity: "",
     file: "",
   });
@@ -59,7 +91,7 @@ const VisitingCard = () => {
     }
     file.target.value = "";
   };
-
+  console.log(data, "asdkjfjalksdf");
   // handle upload button click
   const handleButtonClick = () => {
     if (!data.quantity) {
@@ -209,117 +241,39 @@ const VisitingCard = () => {
 
             {/* <h4 class="fw-bold fs-5">Quality</h4> */}
             <div class="list-group">
-              <div
-                class={`${
-                  data.quantity === "100"
-                    ? "quality-list-container-activelink"
-                    : "quality-list-container"
-                }`}
-                onClick={() =>
-                  setData((prev) => ({
-                    ...prev,
-                    quantity: prev.quantity === "100" ? "" : "100",
-                  }))
-                }
-              >
-                <div class="quality-list-first">
-                  <span>100</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹200.00</p>
-                    <small class="quality-list-small">₹2.00 / unit</small>
+              {quantityOptions.map((item) => (
+                <div
+                  className={`${
+                    data.quantity === item.quantity
+                      ? "quality-list-container-activelink"
+                      : "quality-list-container"
+                  }`}
+                  onClick={() =>
+                    setData((prev) => ({
+                      ...prev,
+                      quantity:
+                        prev.quantity === item.quantity ? "" : item.quantity,
+                    }))
+                  }
+                  key={item.quantity}
+                >
+                  <div className="quality-list-first">
+                    <span>{item.quantity}</span>
+                    {item.recommended && (
+                      <span className="quality-list-chip">Recommended</span>
+                    )}
+                    <div className="text-end">
+                      <p className="mb-0 fw-medium">₹{item.price}</p>
+                      <small className="quality-list-small">
+                        ₹{item.price / item.quantity} / unit
+                      </small>
+                    </div>
                   </div>
+                  {item.savings && (
+                    <small className="text-secondary">{item.savings}</small>
+                  )}
                 </div>
-              </div>
-              <div
-                class={`${
-                  data.quantity === "200"
-                    ? "quality-list-container-activelink"
-                    : "quality-list-container"
-                }`}
-                onClick={() =>
-                  setData((prev) => ({
-                    ...prev,
-                    quantity: prev.quantity === "200" ? "" : "200",
-                  }))
-                }
-              >
-                <div class="quality-list-first">
-                  <span>200</span>
-                  <span class="quality-list-chip">Recommended</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">340.00</p>
-                    <small class="quality-list-small">₹1.70 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">15% savings</small>
-              </div>
-              <div
-                class={`${
-                  data.quantity === "300"
-                    ? "quality-list-container-activelink"
-                    : "quality-list-container"
-                }`}
-                onClick={() =>
-                  setData((prev) => ({
-                    ...prev,
-                    quantity: prev.quantity === "300" ? "" : "300",
-                  }))
-                }
-              >
-                <div class="quality-list-first">
-                  <span>300</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">480.00</p>
-                    <small class="quality-list-small">₹1.60 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">20% savings</small>
-              </div>
-
-              <div
-                class={`${
-                  data.quantity === "400"
-                    ? "quality-list-container-activelink"
-                    : "quality-list-container"
-                }`}
-                onClick={() =>
-                  setData((prev) => ({
-                    ...prev,
-                    quantity: prev.quantity === "400" ? "" : "400",
-                  }))
-                }
-              >
-                <div class="quality-list-first">
-                  <span>400</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">600.00</p>
-                    <small class="quality-list-small">₹1.50 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">25% savings</small>
-              </div>
-              <div
-                class={`${
-                  data.quantity === "500"
-                    ? "quality-list-container-activelink"
-                    : "quality-list-container"
-                }`}
-                onClick={() =>
-                  setData((prev) => ({
-                    ...prev,
-                    quantity: prev.quantity === "500" ? "" : "500",
-                  }))
-                }
-              >
-                <div class="quality-list-first">
-                  <span>500</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">700.00</p>
-                    <small class="quality-list-small">₹1.40 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">30% savings</small>
-              </div>
+              ))}
             </div>
 
             <h4
