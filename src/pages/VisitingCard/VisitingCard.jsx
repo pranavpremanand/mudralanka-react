@@ -13,7 +13,6 @@ import { relatedProducts, sendEmailLink } from "../../constant";
 import toast from "react-hot-toast";
 import { SpinnerContext } from "../../components/SpinnerContext";
 
-const quantity = ["100", "200", "300", "400", "500"];
 const quantityOptions = [
   {
     quantity: 100,
@@ -42,7 +41,6 @@ const quantityOptions = [
   {
     quantity: 500,
     price: 700.0,
-    unitPrice: "₹1.40",
     savings: "30% savings",
     recommended: false,
   },
@@ -269,9 +267,7 @@ const VisitingCard = () => {
                       </small>
                     </div>
                   </div>
-                  {item.savings && (
-                    <small className="text-secondary">{item.savings}</small>
-                  )}
+                  <small className="text-secondary">{item.savings}</small>
                 </div>
               ))}
             </div>
@@ -298,9 +294,7 @@ const VisitingCard = () => {
                 alt="upload"
               />
             </button>
-            <div className="mt-4 secondary-btn">
-              Add to Cart
-            </div>
+            <div className="mt-4 secondary-btn">Add to Cart</div>
           </div>
         </div>
         <div class="section-twoContainer">
@@ -375,46 +369,6 @@ const VisitingCard = () => {
                 <p>{obj.text}</p>
               </div>
             ))}
-            {/* <div class="relatedproducd-one">
-              <img
-                src="images/service-stickerPrinting/related-productone.png"
-                alt="related product"
-              />
-              <h4>Sheet Stickers</h4>
-              <p>24 starting at ₹160.00</p>
-            </div>
-            <div class="relatedproducd-one">
-              <img
-                src="images/service-stickerPrinting/related-productone.png"
-                alt="related product"
-              />
-              <h4>Sheet Stickers</h4>
-              <p>24 starting at ₹160.00</p>
-            </div>
-            <div class="relatedproducd-one">
-              <img
-                src="images/service-stickerPrinting/related-productone.png"
-                alt="related product"
-              />
-              <h4>Sheet Stickers</h4>
-              <p>24 starting at ₹160.00</p>
-            </div>
-            <div class="relatedproducd-one">
-              <img
-                src="images/service-stickerPrinting/related-productone.png"
-                alt="related product"
-              />
-              <h4>Sheet Stickers</h4>
-              <p>24 starting at ₹160.00</p>
-            </div>
-            <div class="relatedproducd-one">
-              <img
-                src="images/service-stickerPrinting/related-productone.png"
-                alt="related product"
-              />
-              <h4>Sheet Stickers</h4>
-              <p>24 starting at ₹160.00</p>
-            </div> */}
           </div>
         </div>
       </div>

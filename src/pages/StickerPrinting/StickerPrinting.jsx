@@ -27,25 +27,25 @@ const images = [
 const quantities = [
   {
     quantity: 24,
-    price: 940,
+    price: 940.00,
     isRecommended: false,
     savings: "2%",
   },
   {
     quantity: 48,
-    price: 1880,
+    price: 1880.00,
     isRecommended: true,
     savings: "4%",
   },
   {
     quantity: 96,
-    price: 3770,
+    price: 3770.00,
     isRecommended: false,
     savings: "6%",
   },
   {
     quantity: 144,
-    price: 5560,
+    price: 5560.00,
     isRecommended: false,
     savings: "8%",
   },
