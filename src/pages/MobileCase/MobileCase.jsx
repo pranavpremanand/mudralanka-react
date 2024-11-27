@@ -401,16 +401,16 @@ const MobileCase = () => {
               </label>
             </div>
 
-            <div className="seeDetails">
+            {/* <div className="seeDetails">
               <span class="fw-bold text-decoration-underline ms-3">
                 See more quantities
               </span>
               <span class="fw-bold text-decoration-underline ms-2">
                 FREE Shipping
               </span>
-            </div>
+            </div> */}
 
-            <h4 class="fw-bold fs-5">Upload Design</h4>
+            <h4 class="fw-bold fs-5 mt-4">Upload Design</h4>
             <input
               name="myImg"
               hidden

@@ -233,7 +233,7 @@ const BillBook = () => {
             <h5 class="fw-normal fs-5 mb-4">
               Perfect for invoices or using as receipt books
             </h5>
-            <ul class="fw-medium fs-6 mb-3 visitingcardlist">
+            <ul class="fw-medium fs-6 mb-3">
               <li>50 sheets per pad</li>
               <li>Available in 4 sizes</li>
               <li>90 gsm acid-free paper</li>

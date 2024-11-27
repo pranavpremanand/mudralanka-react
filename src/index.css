@@ -92,3 +92,8 @@ html {
   border: none;
   outline: none;
 }
+
+/* header drawer styles */
+#EZDrawer__containeric1g9{
+  z-index: 9999 !important;
+}

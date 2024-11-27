@@ -263,7 +263,7 @@ const PvcIdCard = () => {
                 compatible options Quantity
               </li>
             </ul> */}
-            <div className="seeDetails">
+            {/* <div className="seeDetails">
               <span class="fw-bold text-decoration-underline ms-3">
                 See Details
               </span>
@@ -273,7 +273,7 @@ const PvcIdCard = () => {
               <span class="fw-bold text-decoration-underline ms-2">
                 to create your print-ready file.
               </span>
-            </div>
+            </div> */}
             <div class="dropdown-section mb-4">
               <div class="dropdown-Heading">
                 <h4 class="fw-bold fs-5">Quantity</h4>
@@ -401,14 +401,14 @@ const PvcIdCard = () => {
               <span class="">See more quantities</span>
               <span class="">FREE Shipping</span>
             </p> */}
-            <div className="seeDetails">
+            {/* <div className="seeDetails">
               <span class="fw-bold text-decoration-underline ms-3">
                 See more quantities
               </span>
               <span class="fw-bold text-decoration-underline ms-2">
                 FREE Shipping
               </span>
-            </div>
+            </div> */}
 
             <h4 class="fw-bold fs-5">Upload Design</h4>
             <input
