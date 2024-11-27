@@ -17,6 +17,10 @@ export const headerLinks = [
     path: "/services",
   },
   {
+    title: "My Cart",
+    path: "/cart",
+  },
+  {
     title: "Contact Us",
     path: "/contact",
   },

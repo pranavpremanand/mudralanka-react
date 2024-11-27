@@ -88,7 +88,6 @@ const StickerPrinting = () => {
         toast.success("Order placed successfully");
         setData({ size: "Select Size", quantity: "", file: "" });
       } else {
-        console.log(response);
         toast.error("Error placing order");
       }
     } catch (error) {
