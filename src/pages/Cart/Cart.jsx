@@ -105,7 +105,7 @@ const Cart = () => {
         <div className="container">
           {/* <h1>My Cart</h1> */}
           <div className="">
-            {cartItems.length !== 0 ? (
+            {cartItems.length === 0 ? (
               <div
                 data-aos="fade-up"
                 className="cart-emptyCart-container w-full flex flex-col justify-center items-center h-[90vh]"
