@@ -14,6 +14,15 @@ import toast from "react-hot-toast";
 import { SpinnerContext } from "../../components/SpinnerContext";
 
 const brand = ["Apple", "Samsung", "OnePlus", "Nothing"];
+const images = [
+  "images/service-mobilecase/service-mobilecase1.png",
+  "images/service-mobilecase/service-mobilecase2.png",
+  "images/service-mobilecase/service-mobilecase3.png",
+  "images/service-mobilecase/service-mobilecase4.png",
+  "images/service-mobilecase/service-mobilecase5.png",
+  "images/service-mobilecase/service-mobilecase6.png",
+];
+
 const MobileCase = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [screenGuard, setScreenGuard] = useState(false);
@@ -140,48 +149,11 @@ const MobileCase = () => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper22"
               >
-                <SwiperSlide>
-                  <img
-                    src="images/service-mobilecase/service-mobilecase1.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-mobilecase/service-mobilecase2.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-mobilecase/service-mobilecase3.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-mobilecase/service-mobilecase4.png"
-                    alt="similar product"
-                    style={{
-                      height: "100% !important",
-                      // aspectRatio: "1/1",
-                      marginTop: "auto",
-                      marginBottom: "auto",
-                    }}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-mobilecase/service-mobilecase5.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-mobilecase/service-mobilecase6.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
+                {images.map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <img src={image} alt="similar product" />
+                  </SwiperSlide>
+                ))}
               </Swiper>
               <Swiper
                 onSwiper={setThumbsSwiper}
@@ -193,44 +165,15 @@ const MobileCase = () => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper1"
               >
-                <SwiperSlide>
-                  <img
-                    src="images/service-mobilecase/service-mobilecase1.png"
-                    alt="similar product"
-                    style={{ height: "100%" }}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-mobilecase/service-mobilecase2.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-mobilecase/service-mobilecase3.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-mobilecase/service-mobilecase4.png"
-                    alt="similar product"
-                    style={{ height: "100% !important" }}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-mobilecase/service-mobilecase5.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-mobilecase/service-mobilecase6.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
+                {images.map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <img
+                      src={image}
+                      alt="similar product"
+                      style={{ aspectRatio: "1/1", objectFit: "cover" }}
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
           </div>
@@ -248,26 +191,6 @@ const MobileCase = () => {
               <li>Hassle-free replacements</li>
               <li>Delivery in 5-7 working days</li>
             </ul>
-            {/* <p class="fw-medium fs-6">
-              Price below is MRP (inclusive of all taxes)
-            </p> */}
-            {/* <ul>
-              <li >
-                View Specs & Templates to create your print-ready file. Fetching
-                compatible options Quantity
-              </li>
-            </ul> */}
-            {/* <div className="seeDetails">
-              <span class="fw-bold text-decoration-underline ms-3">
-                See Details
-              </span>
-              <span class="fw-bold text-decoration-underline ms-3">
-                View Specs & Templates
-              </span>
-              <span class="fw-bold text-decoration-underline ms-2">
-                to create your print-ready file.
-              </span>
-            </div> */}
             <div class="dropdown-section mb-4">
               <div class="dropdown-Heading">
                 <h4 class="fw-bold fs-5">Mobile Brand</h4>
@@ -299,87 +222,9 @@ const MobileCase = () => {
                       {item}
                     </button>
                   ))}
-                  {/* <button class="dropdown-item" type="button">
-                    Apple
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    Samsung
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    OnePlus
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    Nothing
-                  </button> */}
                 </div>
               </div>
-              {/* <select class="options-container">
-                <option selected>Select Mobile Brand</option>
-                <option>Apple</option>
-                <option>Samsung</option>
-                <option>OnePlus</option>
-                <option>Nothing</option>
-              </select> */}
             </div>
-
-            {/* <h4 class="fw-bold fs-5">Quality</h4> */}
-            {/* <div class="list-group">
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>24</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹940.00</p>
-                    <small class="quality-list-small">₹39.17 / unit</small>
-                  </div>
-                </div>
-              </div>
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>48</span>
-                  <span class="quality-list-chip">Recommended</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹1870.00</p>
-                    <small class="quality-list-small">₹38.96 / unit</small>
-                  </div>
-                </div>
-              </div>
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>72</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹2740.00</p>
-                    <small class="quality-list-small">₹38.06 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">2% savings</small>
-              </div>
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>96</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹3650.00</p>
-                    <small class="quality-list-small">₹38.03 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">2% savings</small>
-              </div>
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>120</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹4450.00</p>
-                    <small class="quality-list-small">₹37.09 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">2% savings</small>
-              </div>
-            </div> */}
-
-            {/* <p class="starting-price">
-              24 starting at ₹940.00
-              <span class="">See more quantities</span>
-              <span class="">FREE Shipping</span>
-            </p> */}
             <div>
               <label className="addonitems">
                 <input
@@ -401,16 +246,13 @@ const MobileCase = () => {
               </label>
             </div>
 
-            {/* <div className="seeDetails">
-              <span class="fw-bold text-decoration-underline ms-3">
-                See more quantities
-              </span>
-              <span class="fw-bold text-decoration-underline ms-2">
-                FREE Shipping
-              </span>
-            </div> */}
-
-            <h4 class="fw-bold fs-5 mt-4">Upload Design</h4>
+            <h4
+              style={{ fontSize: "16px", fontWeight: "600", marginTop: "2rem" }}
+            >
+              Have a design? You can upload it using the upload button. Our
+              designer will redesign it and confirm with you before printing.
+              Upload Design
+            </h4>
             <input
               name="myImg"
               hidden
@@ -420,20 +262,23 @@ const MobileCase = () => {
               type="file"
             />
             <button onClick={handleButtonClick}>
-              Have a design? Upload and edit it
+              Upload
               <img
                 src="images/service-stickerPrinting/svg/UploadIcon.svg"
                 alt="upload"
               />
             </button>
-            <p class="satisfaction">
+            <div className="mt-4 secondary-btn">
+              Add to Cart
+            </div>
+            {/* <p class="satisfaction">
               <img
                 src="images/service-stickerPrinting/svg/guaranteedsatisfaction.svg
             "
                 alt="upload"
               />
               100% satisfaction guaranteed
-            </p>
+            </p> */}
           </div>
         </div>
         <div class="section-twoContainer">

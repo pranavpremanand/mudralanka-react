@@ -15,6 +15,14 @@ import { SpinnerContext } from "../../components/SpinnerContext";
 
 const quantity = ["100", "200", "300", "400", "500"];
 
+const images = [
+  "images/service-visitingcard/service-visitingcard1.png",
+  "images/service-visitingcard/service-visitingcard2.png",
+  "images/service-visitingcard/service-visitingcard3.png",
+  "images/service-visitingcard/service-visitingcard4.png",
+  "images/service-visitingcard/service-visitingcard5.png",
+];
+
 const VisitingCard = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
@@ -130,42 +138,11 @@ const VisitingCard = () => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper22"
               >
-                <SwiperSlide>
-                  <img
-                    src="images/service-visitingcard/service-visitingcard1.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-visitingcard/service-visitingcard2.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-visitingcard/service-visitingcard3.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-visitingcard/service-visitingcard4.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-visitingcard/service-visitingcard5.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                {/* <SwiperSlide>
-                  <img
-                    src="images/service-visitingcard/service-visitingcard6.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide> */}
+                {images.map((image) => (
+                  <SwiperSlide>
+                    <img src={image} alt="similar product" />
+                  </SwiperSlide>
+                ))}
               </Swiper>
               <Swiper
                 onSwiper={setThumbsSwiper}
@@ -177,44 +154,15 @@ const VisitingCard = () => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper1"
               >
-                <SwiperSlide>
-                  <img
-                    src="images/service-visitingcard/service-visitingcard1.png"
-                    alt="similar product"
-                    style={{ height: "100%" }}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-visitingcard/service-visitingcard2.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-visitingcard/service-visitingcard3.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-visitingcard/service-visitingcard4.png"
-                    alt="similar product"
-                    style={{ height: "100% !important" }}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-visitingcard/service-visitingcard5.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                {/* <SwiperSlide>
-                  <img
-                    src="images/service-visitingcard/service-visitingcard6.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide> */}
+                {images.map((image) => (
+                  <SwiperSlide>
+                    <img
+                      src={image}
+                      alt="similar product"
+                      style={{ aspectRatio: "1/1", objectFit: "cover" }}
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
           </div>
@@ -253,68 +201,10 @@ const VisitingCard = () => {
               </li>
             </ul>
             <i class="fw-semibold fs-6">Cash on Delivery available</i>
-            {/* <p class="fw-medium fs-6">
-              Price below is MRP (inclusive of all taxes)
-            </p> */}
-            {/* <ul>
-              <li >
-                View Specs & Templates to create your print-ready file. Fetching
-                compatible options Quantity
-              </li>
-            </ul> */}
-            {/* <div className="seeDetails">
-              <span class="fw-bold text-decoration-underline ms-3">
-                See Details
-              </span>
-              <span class="fw-bold text-decoration-underline ms-3">
-                View Specs & Templates
-              </span>
-              <span class="fw-bold text-decoration-underline ms-2">
-                to create your print-ready file.
-              </span>
-            </div> */}
             <div class="dropdown-section mb-4">
               <div class="dropdown-Heading">
                 <h4 class="fw-bold fs-5">Visiting card</h4>
               </div>
-
-              {/* <div class="dropdown">
-                <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenu2"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  style={{ background: "white" }}
-                >
-                  Select Quantity
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  {quantity.map((item) => (
-                    <button
-                      class="dropdown-item"
-                      type="button"
-                      value={item}
-                      key={item}
-                      onClick={() =>
-                        setData((prev) => ({ ...prev, quantity: item }))
-                      }
-                    >
-                      {item}
-                    </button>
-                  ))}
-                
-                </div>
-              </div> */}
-              {/* <select class="options-container">
-                <option selected>Select Quantity</option>
-                <option>100</option>
-                <option>200</option>
-                <option>300</option>
-                <option>400</option>
-                <option>500</option>
-              </select> */}
             </div>
 
             {/* <h4 class="fw-bold fs-5">Quality</h4> */}
@@ -432,36 +322,13 @@ const VisitingCard = () => {
               </div>
             </div>
 
-            <p class="starting-price">
-              100 starting at 200.00
-              {/* <span class="">See more quantities</span>
-              <span class="">FREE Shipping</span> */}
-            </p>
-            {/* <div>
-              <label className="addonitems">
-                <input
-                  type="checkbox"
-                  name="flexible-glass"
-                  value="flexible-glass"
-                />
-                Add Flexible Glass Screen Guard <s>99.00</s> 29.00
-              </label>
-              <label className="addonitems">
-                <input type="checkbox" name="key-chain" value="key-chain" />
-                Add Same Design Key Chain 99.00 29.00
-              </label>
-            </div> */}
-
-            {/* <div className="seeDetails">
-              <span class="fw-bold text-decoration-underline ms-3">
-                See more quantities
-              </span>
-              <span class="fw-bold text-decoration-underline ms-2">
-                FREE Shipping
-              </span>
-            </div> */}
-
-            <h4 class="fw-bold fs-5">Upload Design</h4>
+            <h4
+              style={{ fontSize: "16px", fontWeight: "600", marginTop: "2rem" }}
+            >
+              Have a design? You can upload it using the upload button. Our
+              designer will redesign it and confirm with you before printing.
+              Upload Design
+            </h4>
             <input
               name="myImg"
               hidden
@@ -471,20 +338,15 @@ const VisitingCard = () => {
               type="file"
             />
             <button onClick={handleButtonClick}>
-              Have a design? Upload and edit it
+              Upload
               <img
                 src="images/service-stickerPrinting/svg/UploadIcon.svg"
                 alt="upload"
               />
             </button>
-            {/*  <p class="satisfaction">
-              <img
-                src="images/service-stickerPrinting/svg/guaranteedsatisfaction.svg
-            "
-                alt="upload"
-              />
-              100% satisfaction guaranteed
-            </p> */}
+            <div className="mt-4 secondary-btn">
+              Add to Cart
+            </div>
           </div>
         </div>
         <div class="section-twoContainer">

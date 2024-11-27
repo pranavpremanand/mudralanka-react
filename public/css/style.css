@@ -449,7 +449,7 @@ hr.style-one {
 }
 
 .header-navigation .container .right-side-box {
-  position: absolute;
+  /* position: absolute; */
   top: 0%;
   right: 0px;
 }
@@ -3030,7 +3030,7 @@ hr.style-one {
 .service-two .row-5-col {
   margin-left: -8.5px;
   margin-right: -8.5px;
-  margin-top: 60px;
+  margin-top: 25px;
 }
 
 .service-two .col-5-col {

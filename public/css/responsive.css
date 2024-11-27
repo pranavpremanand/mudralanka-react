@@ -11,7 +11,8 @@
     }
 
     .logo-box {
-        width: 100%;
+        /* width: 100%; */
+        width: fit-content;
         float: none;
         margin: 0 !important;
     }
@@ -205,7 +206,8 @@
     }
 
     .header-navigation .container {
-        display: block;
+        /* display: block; */
+        display: flex !important;
         padding-right: 0px;
         padding-left: 0px;
         position: relative;
@@ -314,7 +316,7 @@
     }
 
     .site-header.header-one .header-navigation .container .right-side-box {
-        top: 20px;
+        /* top: 20px; */
         right: 15px;
     }
 

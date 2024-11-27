@@ -15,6 +15,15 @@ import { SpinnerContext } from "../../components/SpinnerContext";
 
 const sizes = ["48x34", "72x34", "96x34", "120x34"];
 
+const images = [
+  "images/service-stickerPrinting/service-stickerPrintingimg1.png",
+  "images/service-stickerPrinting/service-stickerPrintingimg2.png",
+  "images/service-stickerPrinting/service-stickerPrintingimg3.png",
+  "images/service-stickerPrinting/service-stickerPrintingimg4.png",
+  "images/service-stickerPrinting/service-stickerPrintingimg5.png",
+  "images/service-stickerPrinting/service-stickerPrintingimg6.png",
+];
+
 const StickerPrinting = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const formData = new FormData();
@@ -96,30 +105,47 @@ const StickerPrinting = () => {
       setLoading(false);
     }
   };
+
+  // handle add item to cart click
+  const addItemToCart = ()=>{
+    let valid = true
+    if(data.size === "Select Size"){
+      toast("Please select a size", { id: "size" });
+      valid = false
+    }
+    if(data.quantity === ""){
+      toast("Please select a size and quantity", { id: "quantity" });
+      valid = false
+    }
+    if(valid){
+      sendMail()
+    }
+
+  }
   return (
-    <div class="page-wrapper">
+    <div className="page-wrapper">
       <Header />
-      <div class="main-container">
-        <div class="inner-banner thm-black-bg text-center">
-          <div class="container">
-            <h2 class="inner-banner__title">Sticker Printing</h2>
-            <ul class="thm-breadcrumb">
-              <li class="thm-breadcrumb__item">
+      <div className="main-container">
+        <div className="inner-banner thm-black-bg text-center">
+          <div className="container">
+            <h2 className="inner-banner__title">Sticker Printing</h2>
+            <ul className="thm-breadcrumb">
+              <li className="thm-breadcrumb__item">
                 <Link to="/">Home</Link>
               </li>
-              <li class="thm-breadcrumb__item">
+              <li className="thm-breadcrumb__item">
                 <Link to="/services">Services</Link>
               </li>
-              <li class="thm-breadcrumb__item">
+              <li className="thm-breadcrumb__item">
                 <span>Sticker Printing</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div class="section-oneContainer">
-          <div class="images-container">
-            <div class="image-gallery">
+        <div className="section-oneContainer">
+          <div className="images-container">
+            <div className="image-gallery">
               <Swiper
                 style={{
                   "--swiper-navigation-color": "#fff",
@@ -133,48 +159,11 @@ const StickerPrinting = () => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper22"
               >
-                <SwiperSlide>
-                  <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg1.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg2.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg3.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg4.png"
-                    alt="similar product"
-                    style={{
-                      height: "100% !important",
-                      // aspectRatio: "1/1",
-                      marginTop: "auto",
-                      marginBottom: "auto",
-                    }}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg5.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg6.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
+                {images.map((image) => (
+                  <SwiperSlide key={image}>
+                    <img src={image} alt="similar product" />
+                  </SwiperSlide>
+                ))}
               </Swiper>
               <Swiper
                 onSwiper={setThumbsSwiper}
@@ -186,56 +175,27 @@ const StickerPrinting = () => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper1"
               >
-                <SwiperSlide>
-                  <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg1.png"
-                    alt="similar product"
-                    style={{ height: "100%" }}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg2.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg3.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg4.png"
-                    alt="similar product"
-                    style={{ height: "100% !important" }}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg5.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-stickerPrinting/service-stickerPrintingimg6.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
+                {images.map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <img
+                      src={image}
+                      alt="similar product"
+                      style={{ aspectRatio: "1/1", objectFit: "cover" }}
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
           </div>
 
-          <div class="details-container">
-            <h2 class="main-heading">UV Ink Transfer Stickers</h2>
-            <p class="fw-normal fs-5 mb-4">
+          <div className="details-container">
+            <h2 className="main-heading">UV Ink Transfer Stickers</h2>
+            <p className="fw-normal fs-5 mb-4">
               Unlock limitless creativity with our cutting-edge UV Ink Transfer
               Stickers.
             </p>
-            <h3 class="fw-semibold fs-6">Cash on Delivery available</h3>
-            <ul class="fw-medium fs-6 mb-3">
+            <h3 className="fw-semibold fs-6">Cash on Delivery available</h3>
+            <ul className="fw-medium fs-6 mb-3">
               <li>
                 Designed for hassle-free, long-lasting application, our stickers
                 adhere effortlessly to any flat or cylindrical surface.
@@ -252,24 +212,15 @@ const StickerPrinting = () => {
                 design studio.
               </li>
             </ul>
-            {/* <p class="fw-medium fs-6">
-              Price below is MRP (inclusive of all taxes)
-            </p> */}
 
-            <div class="dropdown-section mb-4">
-              <div class="dropdown-Heading">
-                <h4 class="d-inline fw-bold fs-5">Size</h4>
-                {/* <span class="fw-bold text-decoration-underline ms-3">
-                  View Specs & Templates
-                </span>
-                <span class="fw-bold text-decoration-underline ms-2">
-                  to create your print-ready file.
-                </span> */}
+            <div className="dropdown-section mb-4">
+              <div className="dropdown-Heading">
+                <h4 className="d-inline fw-bold fs-5">Size</h4>
               </div>
 
-              <div class="dropdown">
+              <div className="dropdown">
                 <button
-                  class="btn btn-secondary dropdown-toggle"
+                  className="btn btn-secondary dropdown-toggle"
                   type="button"
                   id="dropdownMenu2"
                   data-toggle="dropdown"
@@ -279,10 +230,10 @@ const StickerPrinting = () => {
                 >
                   {data.size}
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
                   {sizes.map((item) => (
                     <button
-                      class="dropdown-item"
+                      className="dropdown-item"
                       type="button"
                       value={item}
                       key={item}
@@ -293,48 +244,14 @@ const StickerPrinting = () => {
                       {item}
                     </button>
                   ))}
-                  {/* <button class="dropdown-item" type="button">
-                    "2" x "2"
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    "2" x "4"
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    "3" x "3"
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    "3" x "6"
-                  </button> */}
                 </div>
               </div>
-              {/* <select
-                onChange={(e) =>
-                  setData((prev) => ({ ...prev, size: e.target.value }))
-                }
-                class="options-container"
-              >
-                <option value={""} selected>
-                  Select Size
-                </option>
-                {sizes.map((item) => (
-                  <option value={item} key={item}>
-                    {item}
-                  </option>
-                ))}
-              </select> */}
-              {/* <select class="options-container">
-                <option selected>Select Size</option>
-                <option>48 x 34</option>
-                <option>72 x 34</option>
-                <option>96 x 34</option>
-                <option>120 x 34</option>
-              </select> */}
             </div>
 
-            <h4 class="fw-bold fs-5">Quantity</h4>
-            <div class="list-group">
+            <h4 className="fw-bold fs-5">Quantity</h4>
+            <div className="list-group">
               <div
-                class={`${
+                className={`${
                   data.quantity === "24"
                     ? "quality-list-container-activelink"
                     : "quality-list-container"
@@ -346,17 +263,17 @@ const StickerPrinting = () => {
                   }))
                 }
               >
-                <div class="quality-list-first">
+                <div className="quality-list-first">
                   <span>24</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹940.00</p>
-                    <small class="quality-list-small">₹39.17 / unit</small>
+                  <div className="text-end">
+                    <p className="mb-0 fw-medium">₹940.00</p>
+                    <small className="quality-list-small">₹39.17 / unit</small>
                   </div>
                 </div>
               </div>
 
               <div
-                class={`${
+                className={`${
                   data.quantity === "48"
                     ? "quality-list-container-activelink"
                     : "quality-list-container"
@@ -368,18 +285,18 @@ const StickerPrinting = () => {
                   }))
                 }
               >
-                <div class="quality-list-first">
+                <div className="quality-list-first">
                   <span>48</span>
-                  <span class="quality-list-chip">Recommended</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹1870.00</p>
-                    <small class="quality-list-small">₹38.96 / unit</small>
+                  <span className="quality-list-chip">Recommended</span>
+                  <div className="text-end">
+                    <p className="mb-0 fw-medium">₹1870.00</p>
+                    <small className="quality-list-small">₹38.96 / unit</small>
                   </div>
                 </div>
               </div>
 
               <div
-                class={`${
+                className={`${
                   data.quantity === "72"
                     ? "quality-list-container-activelink"
                     : "quality-list-container"
@@ -391,18 +308,18 @@ const StickerPrinting = () => {
                   }))
                 }
               >
-                <div class="quality-list-first">
+                <div className="quality-list-first">
                   <span>72</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹2740.00</p>
-                    <small class="quality-list-small">₹38.06 / unit</small>
+                  <div className="text-end">
+                    <p className="mb-0 fw-medium">₹2740.00</p>
+                    <small className="quality-list-small">₹38.06 / unit</small>
                   </div>
                 </div>
-                <small class="text-secondary">2% savings</small>
+                <small className="text-secondary">2% savings</small>
               </div>
 
               <div
-                class={`${
+                className={`${
                   data.quantity === "96"
                     ? "quality-list-container-activelink"
                     : "quality-list-container"
@@ -414,18 +331,18 @@ const StickerPrinting = () => {
                   }))
                 }
               >
-                <div class="quality-list-first">
+                <div className="quality-list-first">
                   <span>96</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹3650.00</p>
-                    <small class="quality-list-small">₹38.03 / unit</small>
+                  <div className="text-end">
+                    <p className="mb-0 fw-medium">₹3650.00</p>
+                    <small className="quality-list-small">₹38.03 / unit</small>
                   </div>
                 </div>
-                <small class="text-secondary">2% savings</small>
+                <small className="text-secondary">2% savings</small>
               </div>
 
               <div
-                class={`${
+                className={`${
                   data.quantity === "120"
                     ? "quality-list-container-activelink"
                     : "quality-list-container"
@@ -437,24 +354,24 @@ const StickerPrinting = () => {
                   }))
                 }
               >
-                <div class="quality-list-first">
+                <div className="quality-list-first">
                   <span>120</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹4450.00</p>
-                    <small class="quality-list-small">₹37.09 / unit</small>
+                  <div className="text-end">
+                    <p className="mb-0 fw-medium">₹4450.00</p>
+                    <small className="quality-list-small">₹37.09 / unit</small>
                   </div>
                 </div>
-                <small class="text-secondary">2% savings</small>
+                <small className="text-secondary">2% savings</small>
               </div>
             </div>
 
-            {/* <p class="starting-price">
-              24 starting at ₹940.00
-              <span class="">See more quantities</span>
-              <span class="">FREE Shipping</span>
-            </p> */}
-
-            <h4 class="fw-bold fs-5">Upload Design</h4>
+            <h4
+              style={{ fontSize: "16px", fontWeight: "600", marginTop: "2rem" }}
+            >
+              Have a design? You can upload it using the upload button. Our
+              designer will redesign it and confirm with you before printing.
+              Upload Design
+            </h4>
             <input
               name="myImg"
               hidden
@@ -464,28 +381,23 @@ const StickerPrinting = () => {
               type="file"
             />
             <button onClick={handleButtonClick}>
-              Have a design? Upload it
+              Upload
               <img
                 src="images/service-stickerPrinting/svg/UploadIcon.svg"
                 alt="upload"
               />
             </button>
-            <p class="satisfaction">
-              <img
-                src="images/service-stickerPrinting/svg/guaranteedsatisfaction.svg
-            "
-                alt="upload"
-              />
-              100% satisfaction guaranteed
-            </p>
+            <div onClick={addItemToCart} className="mt-4 secondary-btn">
+              Add to Cart
+            </div>
           </div>
         </div>
-        <div class="section-twoContainer">
-          <div class="tab">
-            <h3 class="">overview</h3>
+        <div className="section-twoContainer">
+          <div className="tab">
+            <h3 className="">overview</h3>
           </div>
-          <div class="details-container">
-            <div class="section-two-details">
+          <div className="details-container">
+            <div className="section-two-details">
               <div>
                 <h3>
                   Make Your Brand Stand Out with Custom Ink Transfer Stickers.
@@ -537,27 +449,27 @@ const StickerPrinting = () => {
                 <h5>Country of origin: India</h5>
               </div>
             </div>
-            <div class="section-two-imageContainer">
+            <div className="section-two-imageContainer">
               <img
                 src="images/service-stickerPrinting/services-details-image.png"
                 alt="details"
-                class=""
+                className=""
               />
             </div>
           </div>
         </div>
         <br />
-        <div class="section-threeContainer">
+        <div className="section-threeContainer">
           <h3>Related products</h3>
-          <div class="relatedproduct-container">
+          <div className="relatedproduct-container">
             {relatedProducts.map((obj) => (
-              <div key={obj.id} class="relatedproducd-one">
+              <div key={obj.id} className="relatedproducd-one">
                 <img src={obj.img} alt="related product" />
                 <h4>{obj.title}</h4>
                 <p>{obj.text}</p>
               </div>
             ))}
-            {/* <div class="relatedproducd-one">
+            {/* <div className="relatedproducd-one">
               <img
                 src="images/service-stickerPrinting/related-productone.png"
                 alt="related product"
@@ -565,7 +477,7 @@ const StickerPrinting = () => {
               <h4>Sheet Stickers</h4>
               <p>24 starting at ₹160.00</p>
             </div>
-            <div class="relatedproducd-one">
+            <div className="relatedproducd-one">
               <img
                 src="images/service-stickerPrinting/related-productone.png"
                 alt="related product"
@@ -573,7 +485,7 @@ const StickerPrinting = () => {
               <h4>Sheet Stickers</h4>
               <p>24 starting at ₹160.00</p>
             </div>
-            <div class="relatedproducd-one">
+            <div className="relatedproducd-one">
               <img
                 src="images/service-stickerPrinting/related-productone.png"
                 alt="related product"
@@ -581,7 +493,7 @@ const StickerPrinting = () => {
               <h4>Sheet Stickers</h4>
               <p>24 starting at ₹160.00</p>
             </div>
-            <div class="relatedproducd-one">
+            <div className="relatedproducd-one">
               <img
                 src="images/service-stickerPrinting/related-productone.png"
                 alt="related product"
@@ -589,7 +501,7 @@ const StickerPrinting = () => {
               <h4>Sheet Stickers</h4>
               <p>24 starting at ₹160.00</p>
             </div>
-            <div class="relatedproducd-one">
+            <div className="relatedproducd-one">
               <img
                 src="images/service-stickerPrinting/related-productone.png"
                 alt="related product"

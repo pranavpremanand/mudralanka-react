@@ -75,9 +75,9 @@ const Header = () => {
 
   return (
     <header className="site-header header-one">
-      <div className="top-bar">
+      <div className="top-bar d-none d-lg-flex">
         <div className="container">
-          <div className="social-block d-xl-flex">
+          <div className="social-block d-none d-xl-flex">
             <a
               className="d-flex justify-content-center align-items-center"
               href={socialMediaLinks.whatsapp}
@@ -125,7 +125,7 @@ const Header = () => {
         </div>
       </div>
       <nav className="navbar navbar-expand-lg navbar-light header-navigation stricky">
-        <div className="container clearfix">
+        <div className="container align-items-center clearfix">
           <div className="logo-box clearfix">
             <button
               onClick={toggleDrawer}
@@ -136,6 +136,16 @@ const Header = () => {
             </button>
           </div>
 
+          <div className="d-lg-none d-inline py-3">
+            <Link to="/">
+              <img
+                src="images/resources/logo-1-1.png"
+                className="mr-3 mr-md-0"
+                style={{width:"4rem"}}
+                alt="logo"
+              />
+            </Link>
+          </div>
           <div className="main-navigation" id="main-nav-bar">
             <ul className="navigation-box">
               {headerLinks.map((link) => (
@@ -148,7 +158,7 @@ const Header = () => {
               ))}
             </ul>
           </div>
-          <div className="right-side-box">
+          <div className="right-side-box d-none d-lg-flex d-xl-none">
             <div className="header__social-block d-flex">
               <a
                 className="d-flex justify-content-center align-items-center"

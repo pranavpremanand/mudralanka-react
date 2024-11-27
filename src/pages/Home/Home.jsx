@@ -38,18 +38,30 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="row-5-col">
-            {services.map((service) => (
-              <div key={service.title} className="col-5-col">
-                <div className="service-two__single hvr-float-shadow content-margin-30">
-                  <h3 className="service-two__title">ORDER ONLINE NOW</h3>
-                  <img src={service.image} alt={service.title} />
-                  <h3 className="service-two__title">
-                    <Link to={service.path}>{service.title}</Link>
-                  </h3>
-                </div>
-              </div>
-            ))}
+          <div id='order-now' className="mt-5 pt-1">
+            <p className="block-title__tag-line text-center mt-5">
+              “ORDER ONLINE NOW”
+            </p>
+            <div className="row-5-col">
+              {services.map((service) => (
+                <Link to={service.path} key={service.title} className="col-5-col">
+                  <div className="service-two__single hvr-float-shadow content-margin-30">
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      style={{
+                        aspectRatio: "1 / 1",
+                        borderRadius: "1rem",
+                        objectPosition:"top"
+                      }}
+                    />
+                    <h3 className="service-two__title">
+                      <Link to={service.path}>{service.title}</Link>
+                    </h3>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>

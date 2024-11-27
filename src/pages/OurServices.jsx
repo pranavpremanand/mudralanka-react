@@ -30,13 +30,13 @@ const OurServices = () => {
                   <img src="images/icons/wall-sticker-1-1.jpg" alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
-                  <Link to="/services">Sticker Printing</Link>
+                  <Link to="/sticker-printing">Sticker Printing</Link>
                 </h3>
                 <p class="service-four__text">
                   We offer high-quality sticker printing with vibrant colors and
                   durable materials, perfect for personal or professional use.
                 </p>
-                <Link to="/services" class="service-four__link">
+                <Link to="/sticker-printing" class="service-four__link">
                   Read More
                 </Link>
               </div>
@@ -47,14 +47,14 @@ const OurServices = () => {
                   <img src="images/icons/id-card-1-1.jpg" alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
-                  <Link to="/services">PVC ID Card</Link>
+                  <Link to="/pvcidcard">PVC ID Card</Link>
                 </h3>
                 <p class="service-four__text">
                   Create high-quality PVC ID cards with customizable templates,
                   vibrant colors, and a professional finish, ideal for
                   businesses, schools, and events.
                 </p>
-                <Link to="/services" class="service-four__link">
+                <Link to="/pvcidcard" class="service-four__link">
                   Read More
                 </Link>
               </div>
@@ -65,14 +65,14 @@ const OurServices = () => {
                   <img src="images/icons/mobile-case-1-1.jpg" alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
-                  <Link to="/services">Mobile Case Printing</Link>
+                  <Link to="/mobilecase">Mobile Case Printing</Link>
                 </h3>
                 <p class="service-four__text">
                   Personalize your mobile cases with high-quality printing,
                   offering vibrant designs and durable finishes to protect and
                   style your device.
                 </p>
-                <Link to="/services" class="service-four__link">
+                <Link to="/mobilecase" class="service-four__link">
                   Read More
                 </Link>
               </div>
@@ -83,14 +83,14 @@ const OurServices = () => {
                   <img src="images/icons/visiting-card-1-1.jpg" alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
-                  <Link to="/services">Visiting Card</Link>
+                  <Link to="/visitingcard">Visiting Card</Link>
                 </h3>
                 <p class="service-four__text">
                   Get professionally designed visiting cards with premium
                   quality printing, perfect for creating a lasting impression in
                   any business setting.
                 </p>
-                <Link to="/services" class="service-four__link">
+                <Link to="/visitingcard" class="service-four__link">
                   Read More
                 </Link>
               </div>
@@ -101,14 +101,14 @@ const OurServices = () => {
                   <img src="images/icons/accounting-book-1-1.jpg" alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
-                  <Link to="/services">Billbook</Link>
+                  <Link to="/billbook">Billbook</Link>
                 </h3>
                 <p class="service-four__text">
                   We provide customized billbooks with high-quality printing,
                   tailored to meet your business needs for professional
                   invoicing and record-keeping.
                 </p>
-                <Link to="/services" class="service-four__link">
+                <Link to="/billbook" class="service-four__link">
                   Read More
                 </Link>
               </div>
@@ -121,7 +121,7 @@ const OurServices = () => {
           <h3 class="cta-four__title content-margin-30">
             Looking for Design with printing?
           </h3>
-          <Link to="/services" class="content-margin-30 thm-btn cta-four__btn">
+          <Link to="/contact" class="content-margin-30 thm-btn cta-four__btn">
             Learn More
           </Link>
         </div>

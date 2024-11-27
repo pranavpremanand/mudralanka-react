@@ -33,7 +33,10 @@ function App() {
         <Router>
           <ScrollToTopButton />
           <ScrollToTopOnPageChange />
-          <Toaster position="top-center" />
+          <Toaster position="top-center" toastOptions={{style:{
+            background: "#17354f",
+            color: "#fff"
+          }}} />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutUs />} />

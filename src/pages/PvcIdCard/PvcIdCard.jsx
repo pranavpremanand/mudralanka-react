@@ -20,6 +20,15 @@ const quantity = [
   "4 (100.00 / Unit)",
 ];
 
+const images = [
+  "images/service-pvcidcard/service-pvcidcard1.png",
+  "images/service-pvcidcard/service-pvcidcard2.png",
+  "images/service-pvcidcard/service-pvcidcard3.png",
+  "images/service-pvcidcard/service-pvcidcard4.png",
+  "images/service-pvcidcard/service-pvcidcard5.png",
+  "images/service-pvcidcard/service-pvcidcard6.png",
+];
+
 const PvcIdCard = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const formData = new FormData();
@@ -129,48 +138,14 @@ const PvcIdCard = () => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper22"
               >
-                <SwiperSlide>
-                  <img
-                    src="images/service-pvcidcard/service-pvcidcard1.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-pvcidcard/service-pvcidcard2.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-pvcidcard/service-pvcidcard3.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-pvcidcard/service-pvcidcard4.png"
-                    alt="similar product"
-                    style={{
-                      height: "100% !important",
-                      // aspectRatio: "1/1",
-                      marginTop: "auto",
-                      marginBottom: "auto",
-                    }}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-pvcidcard/service-pvcidcard5.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-pvcidcard/service-pvcidcard6.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
+                {images.map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <img
+                      src={image}
+                      alt="similar product"
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
               <Swiper
                 onSwiper={setThumbsSwiper}
@@ -182,44 +157,15 @@ const PvcIdCard = () => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper1"
               >
-                <SwiperSlide>
-                  <img
-                    src="images/service-pvcidcard/service-pvcidcard1.png"
-                    alt="similar product"
-                    style={{ height: "100%" }}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-pvcidcard/service-pvcidcard2.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-pvcidcard/service-pvcidcard3.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-pvcidcard/service-pvcidcard4.png"
-                    alt="similar product"
-                    style={{ height: "100% !important" }}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-pvcidcard/service-pvcidcard5.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-pvcidcard/service-pvcidcard6.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
+                {images.map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <img
+                      src={image}
+                      alt="similar product"
+                      style={{ aspectRatio: "1/1", objectFit: "cover" }}
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
           </div>
@@ -254,26 +200,6 @@ const PvcIdCard = () => {
                 or otherwise objectionable or illegal.
               </li>
             </ul>
-            {/* <p class="fw-medium fs-6">
-              Price below is MRP (inclusive of all taxes)
-            </p> */}
-            {/* <ul>
-              <li >
-                View Specs & Templates to create your print-ready file. Fetching
-                compatible options Quantity
-              </li>
-            </ul> */}
-            {/* <div className="seeDetails">
-              <span class="fw-bold text-decoration-underline ms-3">
-                See Details
-              </span>
-              <span class="fw-bold text-decoration-underline ms-3">
-                View Specs & Templates
-              </span>
-              <span class="fw-bold text-decoration-underline ms-2">
-                to create your print-ready file.
-              </span>
-            </div> */}
             <div class="dropdown-section mb-4">
               <div class="dropdown-Heading">
                 <h4 class="fw-bold fs-5">Quantity</h4>
@@ -305,112 +231,17 @@ const PvcIdCard = () => {
                       {item}
                     </button>
                   ))}
-                  {/* <button class="dropdown-item" type="button">
-                    1(170.00/ Unit)
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    2(130.00/ Unit)
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    3(110.00/ Unit)
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    4(100.00/ Unit)
-                  </button> */}
                 </div>
               </div>
-              {/* <select
-                onChange={(e) =>
-                  setData((prev) => ({ ...prev, quantity: e.target.value }))
-                }
-                class="options-container"
-              >
-                <option value={""} selected>
-                  Select Quantity
-                </option>
-                {quantity.map((item) => (
-                  <option value={item} key={item}>
-                    {item}
-                  </option>
-                ))}
-              </select> */}
-              {/* <select class="options-container">
-                <option selected>Select Quantity</option>
-                <option>1(170.00/ Unit)</option>
-                <option>2(130.00/ Unit)</option>
-                <option>3(110.00/ Unit)</option>
-                <option>4(100.00/ Unit)</option>
-              </select> */}
             </div>
 
-            {/* <h4 class="fw-bold fs-5">Quality</h4> */}
-            {/* <div class="list-group">
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>24</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹940.00</p>
-                    <small class="quality-list-small">₹39.17 / unit</small>
-                  </div>
-                </div>
-              </div>
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>48</span>
-                  <span class="quality-list-chip">Recommended</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹1870.00</p>
-                    <small class="quality-list-small">₹38.96 / unit</small>
-                  </div>
-                </div>
-              </div>
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>72</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹2740.00</p>
-                    <small class="quality-list-small">₹38.06 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">2% savings</small>
-              </div>
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>96</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹3650.00</p>
-                    <small class="quality-list-small">₹38.03 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">2% savings</small>
-              </div>
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>120</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹4450.00</p>
-                    <small class="quality-list-small">₹37.09 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">2% savings</small>
-              </div>
-            </div> */}
-
-            {/* <p class="starting-price">
-              24 starting at ₹940.00
-              <span class="">See more quantities</span>
-              <span class="">FREE Shipping</span>
-            </p> */}
-            {/* <div className="seeDetails">
-              <span class="fw-bold text-decoration-underline ms-3">
-                See more quantities
-              </span>
-              <span class="fw-bold text-decoration-underline ms-2">
-                FREE Shipping
-              </span>
-            </div> */}
-
-            <h4 class="fw-bold fs-5">Upload Design</h4>
+            <h4
+              style={{ fontSize: "16px", fontWeight: "600", marginTop: "2rem" }}
+            >
+              Have a design? You can upload it using the upload button. Our
+              designer will redesign it and confirm with you before printing.
+              Upload Design
+            </h4>
             <input
               name="myImg"
               hidden
@@ -420,20 +251,15 @@ const PvcIdCard = () => {
               type="file"
             />
             <button onClick={handleButtonClick}>
-              Have a design? Upload it
+              Upload
               <img
                 src="images/service-stickerPrinting/svg/UploadIcon.svg"
                 alt="upload"
               />
             </button>
-            <p class="satisfaction">
-              <img
-                src="images/service-stickerPrinting/svg/guaranteedsatisfaction.svg
-            "
-                alt="upload"
-              />
-              100% satisfaction guaranteed
-            </p>
+            <div className="mt-4 secondary-btn">
+              Add to Cart
+            </div>
           </div>
         </div>
         <div class="section-twoContainer">

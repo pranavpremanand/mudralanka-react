@@ -14,6 +14,14 @@ import toast from "react-hot-toast";
 import { SpinnerContext } from "../../components/SpinnerContext";
 
 const sizes = ["'3.8' x '7.8'", "'4' x '5.5'", "'5.5' x '8.5'", "'8.5' x '11'"];
+const images = [
+  "images/service-billbook/service-billbook1.png",
+  "images/service-billbook/service-billbook2.png",
+  "images/service-billbook/service-billbook3.png",
+  "images/service-billbook/service-billbook4.png",
+  "images/service-billbook/service-billbook5.png",
+  "images/service-billbook/service-billbook6.png",
+];
 const quantity = [
   "1(200.00 / unit)",
   "2(200.00 / unit)",
@@ -133,52 +141,14 @@ const BillBook = () => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper22"
               >
-                <SwiperSlide>
-                  <img
-                    src="images/service-billbook/service-billbook1.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-billbook/service-billbook2.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-billbook/service-billbook3.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-billbook/service-billbook4.png"
-                    alt="similar product"
-                    style={{
-                      height: "100% !important",
-                      // aspectRatio: "1/1",
-                      marginTop: "auto",
-                      marginBottom: "auto",
-                    }}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-billbook/service-billbook5.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-billbook/service-billbook6.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
+                {images.map((image) => (
+                  <SwiperSlide key={image}>
+                    <img src={image} alt="similar product" />
+                  </SwiperSlide>
+                ))}
               </Swiper>
               <Swiper
                 onSwiper={setThumbsSwiper}
-                // loop={true}
                 spaceBetween={10}
                 slidesPerView={6}
                 freeMode={true}
@@ -186,44 +156,15 @@ const BillBook = () => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper1"
               >
-                <SwiperSlide>
-                  <img
-                    src="images/service-billbook/service-billbook1.png"
-                    alt="similar product"
-                    style={{ height: "100%" }}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-billbook/service-billbook2.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-billbook/service-billbook3.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-billbook/service-billbook4.png"
-                    alt="similar product"
-                    style={{ height: "100% !important" }}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-billbook/service-billbook5.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="images/service-billbook/service-billbook6.png"
-                    alt="similar product"
-                  />
-                </SwiperSlide>
+                {images.map((image) => (
+                  <SwiperSlide key={image}>
+                    <img
+                      src={image}
+                      alt="similar product"
+                      style={{ aspectRatio: "1/1", objectFit: "cover" }}
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
           </div>
@@ -304,21 +245,6 @@ const BillBook = () => {
                       {item}
                     </button>
                   ))}
-                  {/* <button class="dropdown-item" type="button">
-                    100
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    200
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    300
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    400
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    500
-                  </button> */}
                 </div>
               </div>
               <div class="dropdown drop">
@@ -347,133 +273,13 @@ const BillBook = () => {
                       {item}
                     </button>
                   ))}
-                  {/* <button class="dropdown-item" type="button">
-                    100
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    200
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    300
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    400
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    500
-                  </button> */}
                 </div>
               </div>
             </div>
-            {/* <select class="options-container">
-                  <option selected>Select Size</option>
-                  <option>100</option>
-                  <option>200</option>
-                  <option>300</option>
-                  <option>400</option>
-                  <option>500</option>
-                </select> */}
-            {/* </div> */}
-            {/* <div class="dropdown-section option mb-4">
-                <div class="dropdown-Heading">
-                  <h4 class="fw-bold fs-5">Quantity</h4>
-                </div>
-                <select class="options-container">
-                  <option selected>Select Quantity</option>
-                  <option>100</option>
-                  <option>200</option>
-                  <option>300</option>
-                  <option>400</option>
-                  <option>500</option>
-                </select>
-              </div> */}
-            {/* </div> */}
 
-            {/* <h4 class="fw-bold fs-5">Quality</h4> */}
-            {/* <div class="list-group">
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>100</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">₹200.00</p>
-                    <small class="quality-list-small">₹2.00 / unit</small>
-                  </div>
-                </div>
-              </div>
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>200</span>
-                  <span class="quality-list-chip">Recommended</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">340.00</p>
-                    <small class="quality-list-small">₹1.70 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">15% savings</small>
-              </div>
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>300</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">430.00</p>
-                    <small class="quality-list-small">₹1.60 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">20% savings</small>
-              </div>
-
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>400</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">600.00</p>
-                    <small class="quality-list-small">₹1.50 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">25% savings</small>
-              </div>
-              <div class="quality-list-container">
-                <div class="quality-list-first">
-                  <span>500</span>
-                  <div class="text-end">
-                    <p class="mb-0 fw-medium">700.00</p>
-                    <small class="quality-list-small">₹1.40 / unit</small>
-                  </div>
-                </div>
-                <small class="text-secondary">30% savings</small>
-              </div>
-            </div> */}
-
-            <p class="starting-price">
-              1 starting at 150.00
-              {/* <span class="">See more quantities</span>
-              <span class="">FREE Shipping</span> */}
-            </p>
-            {/* <div>
-              <label className="addonitems">
-                <input
-                  type="checkbox"
-                  name="flexible-glass"
-                  value="flexible-glass"
-                />
-                Add Flexible Glass Screen Guard <s>99.00</s> 29.00
-              </label>
-              <label className="addonitems">
-                <input type="checkbox" name="key-chain" value="key-chain" />
-                Add Same Design Key Chain 99.00 29.00
-              </label>
-            </div> */}
-
-            {/* <div className="seeDetails">
-              <span class="fw-bold text-decoration-underline ms-3">
-                See more quantities
-              </span>
-              <span class="fw-bold text-decoration-underline ms-2">
-                FREE Shipping
-              </span>
-            </div> */}
-
-            <h4 style={{ fontSize: "16px", fontWeight: "700" }}>
+            <h4
+              style={{ fontSize: "16px", fontWeight: "600", marginTop: "2rem" }}
+            >
               Have a design? You can upload it using the upload button. Our
               designer will redesign it and confirm with you before printing.
               Upload Design
@@ -487,13 +293,15 @@ const BillBook = () => {
               type="file"
             />
             <button button onClick={handleButtonClick}>
-              Upload Design
+              Upload
               <img
                 src="images/service-stickerPrinting/svg/UploadIcon.svg"
                 alt="upload"
               />
             </button>
-            <button className="addtocartbutton">Add To Cart</button>
+            <div className="mt-4 secondary-btn">
+              Add to Cart
+            </div>
             {/*
             <p class="satisfaction">
               <img

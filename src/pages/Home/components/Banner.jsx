@@ -52,6 +52,15 @@ const Banner = () => {
     };
   }, [swiperInstance]);
 
+  const scrollToOrderNow = () => {
+    const orderNowDiv = document.getElementById("order-now");
+    if (orderNowDiv) {
+      const yOffset = -100; // Adjust this value for the offset (e.g., height of the fixed header)
+      const yPosition =
+        orderNowDiv.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: yPosition, behavior: "smooth" });
+    }
+  };
   return (
     <section className="banner-section">
       <Swiper
@@ -91,7 +100,7 @@ const Banner = () => {
                   and what we stand for.
                 </p>
                 <div className="btn-block">
-                  <Link to="services" className="banner-btn">
+                  <Link onClick={scrollToOrderNow} className="banner-btn">
                     Order Online Now
                   </Link>
                 </div>
