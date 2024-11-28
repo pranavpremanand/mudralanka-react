@@ -57,7 +57,10 @@ const Cart = () => {
   };
 
   React.useEffect(() => {
-    getCartData();
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      getCartData();
+    }
   }, []);
 
   // navigate to product details page

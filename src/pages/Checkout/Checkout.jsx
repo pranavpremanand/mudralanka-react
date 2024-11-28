@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { SpinnerContext } from "../../components/SpinnerContext";
 import { getCartItems } from "../../apiCalls";
 import toast from "react-hot-toast";
-import './Checkout.css'
+import "./Checkout.css";
 
 const Checkout = () => {
   const { setLoading, loading } = useContext(SpinnerContext);
@@ -29,7 +29,10 @@ const Checkout = () => {
   };
 
   React.useEffect(() => {
-    getCartData();
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      getCartData();
+    }
   }, []);
   return (
     <div class="page-wrapper">
@@ -38,7 +41,10 @@ const Checkout = () => {
         {cartItems.length > 0 ? (
           <div className="grid-container">
             <div className="grid1">
-              <ShippingAddress cartItems={cartItems} />
+              <ShippingAddress
+                cartItems={cartItems}
+                setCartItems={setCartItems}
+              />
             </div>
             <div className="grid2">
               <CartItems cartItems={cartItems} />

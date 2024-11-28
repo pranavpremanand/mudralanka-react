@@ -7,7 +7,7 @@ import "./ShippingAddress.css";
 import { SpinnerContext } from "../../../components/SpinnerContext";
 import { sendEmailLink } from "../../../constant";
 
-const ShippingAddress = ({ cartItems }) => {
+const ShippingAddress = ({ cartItems, setCartItems }) => {
   const [states, setStates] = useState(State.getStatesOfCountry("IN"));
   const [cities, setCities] = useState(City.getCitiesOfState("IN", "KL"));
   const { setLoading } = useContext(SpinnerContext);
@@ -71,12 +71,15 @@ const ShippingAddress = ({ cartItems }) => {
       // const response = { ok: true };
       if (response.ok) {
         toast.success("Order placed successfully");
-        localStorage.clear();
+        localStorage.removeItem("userId");
+        setCartItems([]);
         reset();
       } else {
         toast.error("Error placing order");
+        console.log(response);
       }
     } catch (error) {
+      console.log(error);
       toast.error("Error placing order " + error.message, { id: "error" });
     } finally {
       setLoading(false);
