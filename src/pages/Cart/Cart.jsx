@@ -1,150 +1,142 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Cart.css";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { CiTrash } from "react-icons/ci";
-import { FiMinus } from "react-icons/fi";
-import { FaPlus } from "react-icons/fa";
-import { GoPlus } from "react-icons/go";
-// import image from "images/icons/id-card-1-1.jpg";
-const initialCartItems = [
-  {
-    id: 1,
-    image: "images/icons/id-card-1-1.jpg",
-    title: "Sticker Printing",
-    size: "",
-    price: 230,
-    quantity: 1,
-  },
-  {
-    id: 2,
-    image: "images/icons/id-card-1-1.jpg",
-    title: "PVC ID Card",
-    size: "",
-    price: 450,
-    quantity: 1,
-  },
-  {
-    id: 3,
-    image: "images/icons/id-card-1-1.jpg",
-    title: "Mobile Case Printing",
-    size: "",
-    price: 320,
-    quantity: 1,
-  },
-  {
-    id: 4,
-    image: "images/icons/id-card-1-1.jpg",
-    title: "Visiting Card",
-    size: "",
-    price: 750,
-    quantity: 1,
-  },
-];
-
-const sizes = ["48x34", "72x34", "96x34", "120x34"];
+import { deleteCartItem, getCartItems } from "../../apiCalls";
+import { SpinnerContext } from "../../components/SpinnerContext";
+import { categories } from "../../constant";
+import toast from "react-hot-toast";
 
 const Cart = () => {
-  // const initialCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-  const [cartItems, setCartItems] = useState(initialCartItems);
-  const [data, setData] = useState({
-    size: "Select Size",
-    quantity: "",
-    file: "",
-  });
+  const [cartItems, setCartItems] = useState([]);
+  const { setLoading } = useContext(SpinnerContext);
+
   const navigate = useNavigate();
 
-  const increment = (id) => {
-    const updatedData = cartItems.map((item) =>
-      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-    );
-    localStorage.setItem("cartItems", JSON.stringify(updatedData));
-    setCartItems(updatedData);
-  };
-
-  const decrement = (id) => {
-    const updatedData = cartItems
-      .map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(item.quantity - 1, 0) }
-          : item
-      )
-      .filter((item) => item.quantity > 0);
-
-    localStorage.setItem("cartItems", JSON.stringify(updatedData));
-    setCartItems(updatedData);
+  const deleteFromCart = async (item) => {
+    try {
+      const res = await deleteCartItem(item._id);
+      if (res.data.status) {
+        toast.success("Item removed from cart");
+        const updatedData = cartItems.filter(
+          (cartItem) => cartItem._id !== item._id
+        );
+        setCartItems(updatedData);
+      } else {
+        toast.error(res.data.error);
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
 
   const emptyCart = () => {
     setCartItems([]);
-    localStorage.removeItem("cartItems");
   };
 
-  const totalPrice = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
+  const totalPrice =
+    cartItems.length > 0
+      ? cartItems.reduce((acc, item) => acc + item.amount, 0)
+      : 0;
+
+  // get cart items
+  const getCartData = async () => {
+    try {
+      setLoading(true);
+      const res = await getCartItems();
+      if (res.data.status) {
+        setCartItems(res.data.cartItems);
+      }
+    } catch (err) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  React.useEffect(() => {
+    getCartData();
+  }, []);
+
+  // navigate to product details page
+  const navigateToDetails = (item) => {
+    const redirectPage = categories.find(
+      (category) => category.page === item.category
+    );
+    console.log(`${redirectPage.path}/${item._id}`);
+    navigate(`${redirectPage.path}/${item._id}`);
+  };
+
   return (
-    <div class="page-wrapper">
+    <div className="page-wrapper">
       <Header />
-      <div class="main-container">
-        <div class="inner-banner thm-black-bg text-center">
-          <div class="container">
-            <h2 class="inner-banner__title">My Cart</h2>
-            <ul class="thm-breadcrumb">
-              <li class="thm-breadcrumb__item">
+      <div className="main-container">
+        <div className="inner-banner thm-black-bg text-center">
+          <div className="container">
+            <h2 className="inner-banner__title">My Cart</h2>
+            <ul className="thm-breadcrumb">
+              <li className="thm-breadcrumb__item">
                 <Link to="/">Home</Link>
               </li>
-              <li class="thm-breadcrumb__item">
+              <li className="thm-breadcrumb__item">
                 <span>My Cart</span>
               </li>
             </ul>
           </div>
         </div>
-        <div className="container">
+        <div data-aos="fade-up" className="container">
           {/* <h1>My Cart</h1> */}
           <div className="">
             {cartItems.length === 0 ? (
-              <div
-                className="cart-emptyCart-container w-full flex flex-col justify-center items-center h-[90vh]"
-              >
+              <div className="cart-emptyCart-container w-full flex flex-col justify-center items-center h-[90vh]">
                 <h3 className="heading-2 uppercase text-center mb-3">
                   YOUR BAG IS EMPTY
                 </h3>
 
                 <Link
-                  to="#"
+                  to="/services"
                   className="cart-btn cart-cartitem-buttons-two text-center primary-btn min-w-[18rem] mt-20"
                 >
-                  SHOP OUR PRODUCTS
+                  Services
                 </Link>
               </div>
             ) : (
-              <div data-aos="fade-up" className="my-10 cart-container">
+              <div className="my-10 cart-container">
                 <h2 className=" cart-cartitems-heading">SHOPPING CART</h2>
                 <div className="cart-cartitems-container grid gap-6 p-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                   {cartItems.map((item) => (
-                    <div
-                      key={item.id}
-                      className="cart-cartitem flex flex-col gap-5 border w-full p-6 rounded-lg shadow-sm"
-                    >
-                      <img
-                        // src={item.img}
-                        src="images/icons/id-card-1-1.jpg"
-                        alt={item.title}
-                        // className="w-full h-40 object-contain"
-                      />
-                      <h4 className="text-xl text-start tracking-widest">
-                        {item.title}
-                      </h4>
-                      <h6 className="text-sm text-start tracking-widest flex items-start">
-                        ₹ {item.price}
-                      </h6>
-
-                      <div class="dropdown">
+                    <div key={item.imageFile} className="cart-cartitem">
+                      <div
+                        onClick={() => navigateToDetails(item)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <img
+                          src={item.imageFile}
+                          alt={item.category}
+                          // className="w-full h-40 object-contain"
+                        />
+                        <h4 className="text-dark">
+                          {item.category.split("_").join(" ")}
+                        </h4>
+                      </div>
+                      <h6 className="">Price : ₹ {item.amount}</h6>
+                      {item.quantity && (
+                        <h6 className="">Quantity : {item.quantity}</h6>
+                      )}
+                      {item.size && <h6 className="">Size : {item.size}</h6>}
+                      {item.brand && <h6 className="">Brand : {item.brand}</h6>}
+                      <div
+                        className="p-2 rounded w-100 border d-flex justify-content-center bg-danger text-white"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => deleteFromCart(item)}
+                      >
+                        <CiTrash size={25} />
+                      </div>
+                      {/* <div className="dropdown">
                         <button
-                          class="btn btn-secondary dropdown-toggle"
+                          className="btn btn-secondary dropdown-toggle"
                           type="button"
                           id="dropdownMenu2"
                           data-toggle="dropdown"
@@ -158,12 +150,12 @@ const Cart = () => {
                           {data.size}
                         </button>
                         <div
-                          class="dropdown-menu"
+                          className="dropdown-menu"
                           aria-labelledby="dropdownMenu2"
                         >
                           {sizes.map((item) => (
                             <button
-                              class="dropdown-item"
+                              className="dropdown-item"
                               type="button"
                               value={item}
                               key={item}
@@ -174,21 +166,9 @@ const Cart = () => {
                               {item}
                             </button>
                           ))}
-                          {/* <button class="dropdown-item" type="button">
-                    "2" x "2"
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    "2" x "4"
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    "3" x "3"
-                  </button>
-                  <button class="dropdown-item" type="button">
-                    "3" x "6"
-                  </button> */}
                         </div>
-                      </div>
-                      <div className="cart-cartitem-count flex gap-5 border w-fit px-3 py-1 rounded-full select-none">
+                      </div> */}
+                      {/* <div className="cart-cartitem-count flex gap-5 border w-fit px-3 py-1 rounded-full select-none">
                         {item.quantity === 1 ? (
                           <CiTrash
                             className="cart-cartitem-count-buttons"
@@ -207,7 +187,7 @@ const Cart = () => {
                           className="cart-cartitem-count-buttons"
                           onClick={() => increment(item.id)}
                         />
-                      </div>
+                      </div> */}
                     </div>
                   ))}
                 </div>
@@ -215,7 +195,8 @@ const Cart = () => {
                 <div className="cart-cartitem-subtotal-container border-t mt-10 py-5">
                   <div className="cart-cartitem-subtotal-area flex justify-end">
                     <h1 className="text-xl text-end pl-3 min-w-[260px]">
-                      Subtotal (
+                      Subtotal :
+                      {/* (
                       <span className="w-4">
                         {cartItems.reduce(
                           (acc, item) => acc + item.quantity,
@@ -229,7 +210,7 @@ const Cart = () => {
                           ? "s"
                           : ""}
                       </span>
-                      ):{" "}
+                      ):{" "} */}{" "}
                       <span className="font-bold inline">₹ {totalPrice}</span>
                     </h1>
                   </div>

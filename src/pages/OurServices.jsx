@@ -27,7 +27,7 @@ const OurServices = () => {
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="service-four__single content-margin-60">
                 <div class="service-four__icon">
-                  <img src="images/icons/wall-sticker-1-1.jpg" alt="Pic" />
+                  <img src="/images/icons/wall-sticker-1-1.jpg" alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
                   <Link to="/sticker-printing">Sticker Printing</Link>
@@ -44,7 +44,7 @@ const OurServices = () => {
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="service-four__single content-margin-60">
                 <div class="service-four__icon">
-                  <img src="images/icons/id-card-1-1.jpg" alt="Pic" />
+                  <img src="/images/icons/id-card-1-1.jpg" alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
                   <Link to="/pvcidcard">PVC ID Card</Link>
@@ -62,7 +62,7 @@ const OurServices = () => {
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="service-four__single content-margin-60">
                 <div class="service-four__icon">
-                  <img src="images/icons/mobile-case-1-1.jpg" alt="Pic" />
+                  <img src="/images/icons/mobile-case-1-1.jpg" alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
                   <Link to="/mobilecase">Mobile Case Printing</Link>
@@ -80,7 +80,7 @@ const OurServices = () => {
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="service-four__single content-margin-60">
                 <div class="service-four__icon">
-                  <img src="images/icons/visiting-card-1-1.jpg" alt="Pic" />
+                  <img src="/images/icons/visiting-card-1-1.jpg" alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
                   <Link to="/visitingcard">Visiting Card</Link>
@@ -98,7 +98,7 @@ const OurServices = () => {
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="service-four__single content-margin-60">
                 <div class="service-four__icon">
-                  <img src="images/icons/accounting-book-1-1.jpg" alt="Pic" />
+                  <img src="/images/icons/accounting-book-1-1.jpg" alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
                   <Link to="/billbook">Billbook</Link>

@@ -19,7 +19,7 @@ const FAQs = () => {
                 you can trust.
               </p>
               <div class="faq-one__image">
-                <img src="images/resources/faq-1-1.jpg" alt="Pic" />
+                <img src="/images/resources/faq-1-1.jpg" alt="Pic" />
               </div>
             </div>
           </div>

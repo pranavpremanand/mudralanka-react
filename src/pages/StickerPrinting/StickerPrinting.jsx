@@ -1,6 +1,6 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./StickerPrinting.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,82 +9,134 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import { relatedProducts, sendEmailLink } from "../../constant";
+import { relatedProducts } from "../../constant";
 import toast from "react-hot-toast";
 import { SpinnerContext } from "../../components/SpinnerContext";
+import { addToCart, getCartItemById, updateCartItem } from "../../apiCalls";
 
 const sizes = ["48x34", "72x34", "96x34", "120x34"];
 
 const images = [
-  "images/service-stickerPrinting/service-stickerPrintingimg1.png",
-  "images/service-stickerPrinting/service-stickerPrintingimg2.png",
-  "images/service-stickerPrinting/service-stickerPrintingimg3.png",
-  "images/service-stickerPrinting/service-stickerPrintingimg4.png",
-  "images/service-stickerPrinting/service-stickerPrintingimg5.png",
-  "images/service-stickerPrinting/service-stickerPrintingimg6.png",
+  "/images/service-stickerPrinting/service-stickerPrintingimg1.png",
+  "/images/service-stickerPrinting/service-stickerPrintingimg2.png",
+  "/images/service-stickerPrinting/service-stickerPrintingimg3.png",
+  "/images/service-stickerPrinting/service-stickerPrintingimg4.png",
+  "/images/service-stickerPrinting/service-stickerPrintingimg5.png",
+  "/images/service-stickerPrinting/service-stickerPrintingimg6.png",
 ];
 
 const quantities = [
   {
     quantity: 24,
-    price: 940.00,
+    price: 940.0,
     isRecommended: false,
     savings: "2%",
   },
   {
     quantity: 48,
-    price: 1880.00,
+    price: 1880.0,
     isRecommended: true,
     savings: "4%",
   },
   {
     quantity: 96,
-    price: 3770.00,
+    price: 3770.0,
     isRecommended: false,
     savings: "6%",
   },
   {
     quantity: 144,
-    price: 5560.00,
+    price: 5560.0,
     isRecommended: false,
     savings: "8%",
   },
 ];
 
 const StickerPrinting = () => {
+  const { productId } = useParams();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(images[0]);
+  const navigate = useNavigate();
+  const [imgUrl, setImgUrl] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const formData = new FormData();
+  let selectedFile;
+
   const imgRef = useRef();
   const [data, setData] = useState({
     size: "Select Size",
     quantity: "",
     file: "",
+    isInCart: false,
+    url: "",
+    price: 0,
   });
   const { setLoading } = useContext(SpinnerContext);
+
+  useEffect(() => {
+    getProductById();
+  }, []);
+
+  // get product details if id is present
+  const getProductById = async () => {
+    if (productId) {
+      try {
+        const res = await getCartItemById(productId);
+        if (res.data.status) {
+          const details = res.data.cartItem;
+          setData((prev) => ({
+            ...prev,
+            size: details.size,
+            quantity: details.quantity,
+            isInCart: true,
+            url: details.imageFile,
+            price: details.amount,
+          }));
+          setImgUrl(details.imageFile);
+        }
+      } catch (err) {
+        toast.error(err.message);
+      }
+    }
+  };
 
   // on image change
   const onImgChange = (file) => {
     if (file.target.files && file.target.files[0]) {
-      const selectedFile = file.target.files[0];
-      if (
-        selectedFile.type === "image/png" ||
-        selectedFile.type === "image/jpeg" ||
-        selectedFile.type === "image/jpg"
-      ) {
-        // Validate file size (max size: 5MB)
-        const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
-        if (selectedFile.size <= maxSizeInBytes) {
-          setData((prev) => ({ ...prev, file: selectedFile }));
-          formData.append("file", selectedFile);
-          sendMail();
-        } else {
-          toast("File size should not exceed 5MB");
-        }
-      } else {
-        toast("Select an image file");
+      selectedFile = file.target.files[0];
+
+      // Validate file type
+      const validFileTypes = ["image/png", "image/jpeg", "image/jpg"];
+      if (!validFileTypes.includes(selectedFile.type)) {
+        toast.error("Select a valid image file (PNG, JPEG, JPG)");
+        return;
+      }
+
+      // Validate file size (max size: 5MB)
+      const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+      if (selectedFile.size > maxSizeInBytes) {
+        toast.error("File size should not exceed 5MB");
+        return;
+      }
+
+      setData((prev) => ({
+        ...prev,
+        file: selectedFile,
+      }));
+      setImgUrl(URL.createObjectURL(selectedFile));
+
+      // update cart item if already in cart
+      if (data.isInCart) {
+        formData.append("quantity", data.quantity);
+        formData.append("size", data.size);
+        formData.append("amount", data.price);
+        formData.append("imageFile", selectedFile);
+        updateCartItemData();
+      }else{
+        toast.success("Image selected");
       }
     }
+
+    // Reset file input value for consecutive uploads
     file.target.value = "";
   };
 
@@ -99,52 +151,82 @@ const StickerPrinting = () => {
     imgRef.current.click();
   };
 
-  // handle send mail
-  const sendMail = async () => {
-    if (data.size === "Select Size") {
-      return toast("Please select a size and quantity", { id: "size" });
+  // handle add item to cart click
+  const addItemToCart = async () => {
+    if (data.size === "Select Size" || data.quantity === "") {
+      toast("Please select a size and quantity", { id: "error" });
+      return;
     }
-    if (data.quantity === "") {
-      return toast("Please select a size and quantity", { id: "quantity" });
+    if (!imgUrl) {
+      toast("Please select a design", { id: "image" });
+      return;
     }
-    const { size, quantity } = data;
-    let body = `
-      Size: ${size}\n
-      Quantity: ${quantity}\n\n`;
-    formData.append("subject", "New Order - Sticker Printing - Mudralanka");
-    formData.append("body", body);
-
     try {
       setLoading(true);
-      const response = await fetch(sendEmailLink, {
-        method: "POST",
-        body: formData,
-      });
-      // const response = { ok: true };
-      if (response.ok) {
-        toast.success("Order placed successfully");
-        setData({ size: "Select Size", quantity: "", file: "" });
+      formData.append("size", data.size);
+      formData.append("imageFile", data.file);
+      formData.append("quantity", data.quantity);
+      formData.append("category", "STICKER_PRINTING");
+      formData.append("userId", localStorage.getItem("userId") || "");
+      formData.append("amount", data.price);
+
+      const res = await addToCart(formData);
+      if (res.data.status) {
+        setData((prev) => ({ ...prev, isInCart: true }));
+        toast.success("Item added to cart");
       } else {
-        toast.error("Error placing order");
+        toast.error(res.data.error);
       }
-    } catch (error) {
-      toast.error("Error placing order " + error.message, { id: "error" });
+    } catch (err) {
+      toast.error(err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  // handle add item to cart click
-  const addItemToCart = () => {
-    if (data.size === "Select Size" || data.quantity === "") {
-      toast("Please select a size and quantity", { id: "error" });
+  // update cart item
+  const updateCartItemData = async () => {
+    try {
+      formData.append("category", "STICKER_PRINTING");
+      formData.append("userId", localStorage.getItem("userId") || "");
+      const res = await updateCartItem(productId, formData);
+      if (res.data.status) {
+        toast.success("Item updated in cart");
+      } else {
+        toast.error(res.data.error);
+      }
+    } catch (err) {
+      toast.error(err.message);
     }
   };
 
-  const handleSlideChange = (swiper) => {
-    const currentIndex = swiper.activeIndex;
-    setSelectedImage(images[currentIndex % images.length]);
+  // handle size change
+  const handleSizeChange = (item) => {
+    setData((prev) => ({ ...prev, size: item }));
+    setDropdownOpen(false);
+    formData.append("size", item);
+    formData.append("quantity", data.quantity);
+    formData.append("amount", data.price);
+    if (data.isInCart && item !== data.size) {
+      updateCartItemData();
+    }
   };
+
+  // handle quantity change
+  const handleQuantityChange = (item) => {
+    setData((prev) => ({
+      ...prev,
+      quantity: item.quantity,
+      price: item.price,
+    }));
+    formData.append("size", data.size);
+    formData.append("quantity", item.quantity);
+    formData.append("amount", item.price);
+    if (data.isInCart && item.quantity !== data.quantity) {
+      updateCartItemData();
+    }
+  };
+
   return (
     <div className="page-wrapper">
       <Header />
@@ -181,10 +263,9 @@ const StickerPrinting = () => {
                 thumbs={{ swiper: thumbsSwiper }}
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper22"
-                onSlideChange={handleSlideChange}
               >
-                {images.map((image) => (
-                  <SwiperSlide key={image}>
+                {images.map((image, i) => (
+                  <SwiperSlide key={i}>
                     <img src={image} alt="similar product" />
                   </SwiperSlide>
                 ))}
@@ -251,19 +332,21 @@ const StickerPrinting = () => {
                   aria-haspopup="true"
                   aria-expanded="false"
                   style={{ background: "white" }}
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
                 >
                   {data.size}
                 </button>
-                <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <div
+                  className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
+                  aria-labelledby="dropdownMenu2"
+                >
                   {sizes.map((item) => (
                     <button
                       className="dropdown-item"
                       type="button"
                       value={item}
                       key={item}
-                      onClick={() =>
-                        setData((prev) => ({ ...prev, size: item }))
-                      }
+                      onClick={() => handleSizeChange(item)}
                     >
                       {item}
                     </button>
@@ -282,13 +365,7 @@ const StickerPrinting = () => {
                       ? "quality-list-container-activelink"
                       : "quality-list-container"
                   }`}
-                  onClick={() =>
-                    setData((prev) => ({
-                      ...prev,
-                      quantity:
-                        prev.quantity === item.quantity ? "" : item.quantity,
-                    }))
-                  }
+                  onClick={() => handleQuantityChange(item)}
                 >
                   <div className="quality-list-first">
                     <span>{item.quantity}</span>
@@ -302,7 +379,9 @@ const StickerPrinting = () => {
                       </small>
                     </div>
                   </div>
-                  <small className="text-secondary">{item.savings} savings</small>
+                  <small className="text-secondary">
+                    {item.savings} savings
+                  </small>
                 </div>
               ))}
             </div>
@@ -325,13 +404,41 @@ const StickerPrinting = () => {
             <button onClick={handleButtonClick}>
               Upload
               <img
-                src="images/service-stickerPrinting/svg/UploadIcon.svg"
+                src="/images/service-stickerPrinting/svg/UploadIcon.svg"
                 alt="upload"
               />
             </button>
-            <div onClick={addItemToCart} className="mt-4 secondary-btn">
-              Add to Cart
-            </div>
+            {imgUrl && (
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "2rem",
+                }}
+              >
+                <img
+                  src={imgUrl}
+                  style={{ height: "15rem", objectFit: "cover" }}
+                  alt=""
+                />
+              </div>
+            )}
+            {data.isInCart ? (
+              <div
+                onClick={() => navigate("/cart")}
+                className="mt-4 secondary-btn"
+              >
+                Go to Cart
+              </div>
+            ) : (
+              <div
+                onClick={addItemToCart}
+                className="mt-4 secondary-btn"
+              >
+                Add to Cart
+              </div>
+            )}
           </div>
         </div>
         <div className="section-twoContainer">
@@ -393,7 +500,7 @@ const StickerPrinting = () => {
             </div>
             <div className="section-two-imageContainer">
               <img
-                src="images/service-stickerPrinting/services-details-image.png"
+                src="/images/service-stickerPrinting/services-details-image.png"
                 alt="details"
                 className=""
               />
@@ -413,7 +520,7 @@ const StickerPrinting = () => {
             ))}
             {/* <div className="relatedproducd-one">
               <img
-                src="images/service-stickerPrinting/related-productone.png"
+                src="/images/service-stickerPrinting/related-productone.png"
                 alt="related product"
               />
               <h4>Sheet Stickers</h4>
@@ -421,7 +528,7 @@ const StickerPrinting = () => {
             </div>
             <div className="relatedproducd-one">
               <img
-                src="images/service-stickerPrinting/related-productone.png"
+                src="/images/service-stickerPrinting/related-productone.png"
                 alt="related product"
               />
               <h4>Sheet Stickers</h4>
@@ -429,7 +536,7 @@ const StickerPrinting = () => {
             </div>
             <div className="relatedproducd-one">
               <img
-                src="images/service-stickerPrinting/related-productone.png"
+                src="/images/service-stickerPrinting/related-productone.png"
                 alt="related product"
               />
               <h4>Sheet Stickers</h4>
@@ -437,7 +544,7 @@ const StickerPrinting = () => {
             </div>
             <div className="relatedproducd-one">
               <img
-                src="images/service-stickerPrinting/related-productone.png"
+                src="/images/service-stickerPrinting/related-productone.png"
                 alt="related product"
               />
               <h4>Sheet Stickers</h4>
@@ -445,7 +552,7 @@ const StickerPrinting = () => {
             </div>
             <div className="relatedproducd-one">
               <img
-                src="images/service-stickerPrinting/related-productone.png"
+                src="/images/service-stickerPrinting/related-productone.png"
                 alt="related product"
               />
               <h4>Sheet Stickers</h4>

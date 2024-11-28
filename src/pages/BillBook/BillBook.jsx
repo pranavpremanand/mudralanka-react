@@ -1,6 +1,6 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "../StickerPrinting/StickerPrinting.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,59 +12,112 @@ import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { relatedProducts, sendEmailLink } from "../../constant";
 import toast from "react-hot-toast";
 import { SpinnerContext } from "../../components/SpinnerContext";
+import { addToCart, getCartItemById, updateCartItem } from "../../apiCalls";
 
-const sizes = ["'3.8' x '7.8'", "'4' x '5.5'", "'5.5' x '8.5'", "'8.5' x '11'"];
+const sizes = ["3.8 x 7.8", "4 x 5.5", "5.5 x 8.5", "8.5 x 11"];
 const images = [
-  "images/service-billbook/service-billbook1.png",
-  "images/service-billbook/service-billbook2.png",
-  "images/service-billbook/service-billbook3.png",
-  "images/service-billbook/service-billbook4.png",
-  "images/service-billbook/service-billbook5.png",
-  "images/service-billbook/service-billbook6.png",
+  "/images/service-billbook/service-billbook1.png",
+  "/images/service-billbook/service-billbook2.png",
+  "/images/service-billbook/service-billbook3.png",
+  "/images/service-billbook/service-billbook4.png",
+  "/images/service-billbook/service-billbook5.png",
+  "/images/service-billbook/service-billbook6.png",
 ];
-const quantity = [
-  "1(200.00 / unit)",
-  "2(200.00 / unit)",
-  "3(200.00 / unit)",
-  "4(200.00 / unit)",
+
+const quantities = [
+  { quantity: "1 (170.00 / Unit)", price: 170.0 },
+  { quantity: "2 (130.00 / Unit)", price: 130.0 * 2 },
+  { quantity: "3 (110.00 / Unit)", price: 110.0 * 3 },
+  { quantity: "4 (100.00 / Unit)", price: 100.0 * 4 },
 ];
 const BillBook = () => {
+  const { productId } = useParams();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
+  const navigate = useNavigate();
+  const [imgUrl, setImgUrl] = useState("");
+  const [dropdownOpen1, setDropdownOpen1] = useState(false);
+  const [dropdownOpen2, setDropdownOpen2] = useState(false);
   const formData = new FormData();
+  let selectedFile;
   const imgRef = useRef();
   const [data, setData] = useState({
     size: "Select Size",
     quantity: "Select Quantity",
     file: "",
+    isInCart: false,
+    url: "",
+    price: 0,
   });
   const { setLoading } = useContext(SpinnerContext);
+
+  useEffect(() => {
+    getProductById();
+  }, []);
+
+  // get product details if id is present
+  const getProductById = async () => {
+    if (productId) {
+      try {
+        const res = await getCartItemById(productId);
+        if (res.data.status) {
+          const details = res.data.cartItem;
+          setData((prev) => ({
+            ...prev,
+            size: details.size,
+            quantity: details.quantity,
+            isInCart: true,
+            url: details.imageFile,
+            price: details.amount,
+          }));
+          setImgUrl(details.imageFile);
+        }
+      } catch (err) {
+        toast.error(err.message);
+      }
+    }
+  };
 
   // on image change
   const onImgChange = (file) => {
     if (file.target.files && file.target.files[0]) {
-      const selectedFile = file.target.files[0];
-      if (
-        selectedFile.type === "image/png" ||
-        selectedFile.type === "image/jpeg" ||
-        selectedFile.type === "image/jpg"
-      ) {
-        // Validate file size (max size: 5MB)
-        const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
-        if (selectedFile.size <= maxSizeInBytes) {
-          setData((prev) => ({ ...prev, file: selectedFile }));
-          formData.append("file", selectedFile);
-          sendMail();
-        } else {
-          toast("File size should not exceed 5MB");
-        }
-      } else {
-        toast("Select an image file");
+      selectedFile = file.target.files[0];
+
+      // Validate file type
+      const validFileTypes = ["image/png", "image/jpeg", "image/jpg"];
+      if (!validFileTypes.includes(selectedFile.type)) {
+        toast.error("Select a valid image file (PNG, JPEG, JPG)");
+        return;
+      }
+
+      // Validate file size (max size: 5MB)
+      const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+      if (selectedFile.size > maxSizeInBytes) {
+        toast.error("File size should not exceed 5MB");
+        return;
+      }
+
+      setData((prev) => ({
+        ...prev,
+        file: selectedFile,
+      }));
+      setImgUrl(URL.createObjectURL(selectedFile));
+
+      // update cart item if already in cart
+      if (data.isInCart) {
+        formData.append("quantity", data.quantity);
+        formData.append("size", data.size);
+        formData.append("amount", data.price);
+        formData.append("imageFile", selectedFile);
+        updateCartItemData();
+      }else{
+        toast.success("Image selected");
       }
     }
+
+    // Reset file input value for consecutive uploads
     file.target.value = "";
   };
-  console.log(data, "aldsfkjaklsdfj");
+
   // handle upload button click
   const handleButtonClick = () => {
     if (data.size === "Select Size" || data.quantity === "Select Quantity") {
@@ -73,35 +126,80 @@ const BillBook = () => {
     imgRef.current.click();
   };
 
-  // handle send mail
-  const sendMail = async () => {
+  // handle add item to cart click
+  const addItemToCart = async () => {
     if (data.size === "Select Size" || data.quantity === "Select Quantity") {
-      return toast("Please select a size and quantity", { id: "size" });
+      toast("Please select a size and quantity", { id: "error" });
+      return;
     }
-    const { size, quantity } = data;
-    let body = `
-      Size: ${size}\n
-      Quantity: ${quantity}\n\n`;
-    formData.append("body", body);
-    formData.append("subject", "New Order - Bill Book - Mudralanka");
-
+    if (!imgUrl) {
+      toast("Please select a design", { id: "image" });
+      return;
+    }
     try {
       setLoading(true);
-      const response = await fetch(sendEmailLink, {
-        method: "POST",
-        body: formData,
-      });
+      formData.append("size", data.size);
+      formData.append("imageFile", data.file);
+      formData.append("quantity", data.quantity);
+      formData.append("category", "BILLBOOK");
+      formData.append("userId", localStorage.getItem("userId") || "");
+      formData.append("amount", data.price);
 
-      if (response.ok) {
-        toast.success("Order placed successfully");
-        setData({ size: "Select Size", quantity: "Select Quantity", file: "" });
+      const res = await addToCart(formData);
+      if (res.data.status) {
+        setData((prev) => ({ ...prev, isInCart: true }));
+        toast.success("Item added to cart");
       } else {
-        toast.error("Error placing order");
+        toast.error(res.data.error);
       }
-    } catch (error) {
-      toast.error("Error placing order " + error.message, { id: "error" });
+    } catch (err) {
+      toast.error(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // update cart item
+  const updateCartItemData = async () => {
+    try {
+      formData.append("category", "BILLBOOK");
+      formData.append("userId", localStorage.getItem("userId") || "");
+      const res = await updateCartItem(productId, formData);
+      if (res.data.status) {
+        toast.success("Item updated in cart");
+      } else {
+        toast.error(res.data.error);
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  // handle size change
+  const handleSizeChange = (item) => {
+    setData((prev) => ({ ...prev, size: item }));
+    setDropdownOpen1(false);
+    formData.append("size", item);
+    formData.append("quantity", data.quantity);
+    formData.append("amount", data.price);
+    if (data.isInCart && item !== data.size) {
+      updateCartItemData();
+    }
+  };
+
+  // handle quantity change
+  const handleQuantityChange = (item) => {
+    setData((prev) => ({
+      ...prev,
+      quantity: item.quantity,
+      price: item.price,
+    }));
+    setDropdownOpen2(false);
+    formData.append("size", data.size);
+    formData.append("quantity", item.quantity);
+    formData.append("amount", item.price);
+    if (data.isInCart && item.quantity !== data.quantity) {
+      updateCartItemData();
     }
   };
   return (
@@ -228,19 +326,21 @@ const BillBook = () => {
                   aria-haspopup="true"
                   aria-expanded="false"
                   style={{ background: "white" }}
+                  onClick={() => setDropdownOpen1(!dropdownOpen1)}
                 >
                   {data.size}
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <div
+                  className={`dropdown-menu ${dropdownOpen1 ? "show" : ""}`}
+                  aria-labelledby="dropdownMenu2"
+                >
                   {sizes.map((item) => (
                     <button
                       class="dropdown-item"
                       type="button"
                       value={item}
                       key={item}
-                      onClick={() =>
-                        setData((prev) => ({ ...prev, size: item }))
-                      }
+                      onClick={() => handleSizeChange(item)}
                     >
                       {item}
                     </button>
@@ -256,21 +356,23 @@ const BillBook = () => {
                   aria-haspopup="true"
                   aria-expanded="false"
                   style={{ background: "white" }}
+                  onClick={() => setDropdownOpen2(!dropdownOpen2)}
                 >
                   {data.quantity}
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  {quantity.map((item) => (
+                <div
+                  className={`dropdown-menu ${dropdownOpen2 ? "show" : ""}`}
+                  aria-labelledby="dropdownMenu2"
+                >
+                  {quantities.map((item) => (
                     <button
                       class="dropdown-item"
                       type="button"
-                      value={item}
-                      key={item}
-                      onClick={() =>
-                        setData((prev) => ({ ...prev, quantity: item }))
-                      }
+                      value={item.quantity}
+                      key={item.quantity}
+                      onClick={() => handleQuantityChange(item)}
                     >
-                      {item}
+                      {item.quantity}
                     </button>
                   ))}
                 </div>
@@ -295,17 +397,42 @@ const BillBook = () => {
             <button button onClick={handleButtonClick}>
               Upload
               <img
-                src="images/service-stickerPrinting/svg/UploadIcon.svg"
+                src="/images/service-stickerPrinting/svg/UploadIcon.svg"
                 alt="upload"
               />
             </button>
-            <div className="mt-4 secondary-btn">
-              Add to Cart
-            </div>
+            {imgUrl && (
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "2rem",
+                }}
+              >
+                <img
+                  src={imgUrl}
+                  style={{ height: "15rem", objectFit: "cover" }}
+                  alt=""
+                />
+              </div>
+            )}
+            {data.isInCart ? (
+              <div
+                onClick={() => navigate("/cart")}
+                className="mt-4 secondary-btn"
+              >
+                Go to Cart
+              </div>
+            ) : (
+              <div onClick={addItemToCart} className="mt-4 secondary-btn">
+                Add to Cart
+              </div>
+            )}
             {/*
             <p class="satisfaction">
               <img
-                src="images/service-stickerPrinting/svg/guaranteedsatisfaction.svg
+                src="/images/service-stickerPrinting/svg/guaranteedsatisfaction.svg
             "
                 alt="upload"
               />
@@ -374,7 +501,7 @@ const BillBook = () => {
             </div>
             <div class="section-two-imageContainer">
               <img
-                src="images/service-billbook/service-details-image.png"
+                src="/images/service-billbook/service-details-image.png"
                 alt="details"
                 class=""
               />
@@ -394,7 +521,7 @@ const BillBook = () => {
             ))}
             {/* <div class="relatedproducd-one">
               <img
-                src="images/service-stickerPrinting/related-productone.png"
+                src="/images/service-stickerPrinting/related-productone.png"
                 alt="related product"
               />
               <h4>Sheet Stickers</h4>
@@ -402,7 +529,7 @@ const BillBook = () => {
             </div>
             <div class="relatedproducd-one">
               <img
-                src="images/service-stickerPrinting/related-productone.png"
+                src="/images/service-stickerPrinting/related-productone.png"
                 alt="related product"
               />
               <h4>Sheet Stickers</h4>
@@ -410,7 +537,7 @@ const BillBook = () => {
             </div>
             <div class="relatedproducd-one">
               <img
-                src="images/service-stickerPrinting/related-productone.png"
+                src="/images/service-stickerPrinting/related-productone.png"
                 alt="related product"
               />
               <h4>Sheet Stickers</h4>
@@ -418,7 +545,7 @@ const BillBook = () => {
             </div>
             <div class="relatedproducd-one">
               <img
-                src="images/service-stickerPrinting/related-productone.png"
+                src="/images/service-stickerPrinting/related-productone.png"
                 alt="related product"
               />
               <h4>Sheet Stickers</h4>
@@ -426,7 +553,7 @@ const BillBook = () => {
             </div>
             <div class="relatedproducd-one">
               <img
-                src="images/service-stickerPrinting/related-productone.png"
+                src="/images/service-stickerPrinting/related-productone.png"
                 alt="related product"
               />
               <h4>Sheet Stickers</h4>

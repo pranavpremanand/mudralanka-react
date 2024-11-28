@@ -1,6 +1,6 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "../StickerPrinting/StickerPrinting.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,55 +12,106 @@ import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { relatedProducts, sendEmailLink } from "../../constant";
 import toast from "react-hot-toast";
 import { SpinnerContext } from "../../components/SpinnerContext";
+import { addToCart, getCartItemById, updateCartItem } from "../../apiCalls";
 
 const brand = ["Apple", "Samsung", "OnePlus", "Nothing"];
 const images = [
-  "images/service-mobilecase/service-mobilecase1.png",
-  "images/service-mobilecase/service-mobilecase2.png",
-  "images/service-mobilecase/service-mobilecase3.png",
-  "images/service-mobilecase/service-mobilecase4.png",
-  "images/service-mobilecase/service-mobilecase5.png",
-  "images/service-mobilecase/service-mobilecase6.png",
+  "/images/service-mobilecase/service-mobilecase1.png",
+  "/images/service-mobilecase/service-mobilecase2.png",
+  "/images/service-mobilecase/service-mobilecase3.png",
+  "/images/service-mobilecase/service-mobilecase4.png",
+  "/images/service-mobilecase/service-mobilecase5.png",
+  "/images/service-mobilecase/service-mobilecase6.png",
 ];
 
 const MobileCase = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(images[0]);
+  const cartItemsList = JSON.parse(localStorage.getItem("cartItems")) || [];
   const [screenGuard, setScreenGuard] = useState(false);
   const [keyChain, setKeyChain] = useState(false);
-  const formData = new FormData();
   const imgRef = useRef();
+  const { productId } = useParams();
+  const navigate = useNavigate();
+  const [imgUrl, setImgUrl] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const formData = new FormData();
+  let selectedFile;
+
   const [data, setData] = useState({
-    quantity: 1,
     brand: "Select Mobile Brand",
     file: "",
+    price: 250,
+    isInCart: false,
+    url: "",
   });
   const { setLoading } = useContext(SpinnerContext);
+
+  useEffect(() => {
+    getProductById();
+  }, []);
+
+  // get product details if id is present
+  const getProductById = async () => {
+    if (productId) {
+      try {
+        const res = await getCartItemById(productId);
+        if (res.data.status) {
+          const details = res.data.cartItem;
+          setData((prev) => ({
+            ...prev,
+            isInCart: true,
+            url: details.imageFile,
+            price: details.amount,
+            brand: details.brand,
+          }));
+          setImgUrl(details.imageFile);
+        }
+      } catch (err) {
+        toast.error(err.message);
+      }
+    }
+  };
 
   // on image change
   const onImgChange = (file) => {
     if (file.target.files && file.target.files[0]) {
-      const selectedFile = file.target.files[0];
-      if (
-        selectedFile.type === "image/png" ||
-        selectedFile.type === "image/jpeg" ||
-        selectedFile.type === "image/jpg"
-      ) {
-        // Validate file size (max size: 5MB)
-        const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
-        if (selectedFile.size <= maxSizeInBytes) {
-          setData((prev) => ({ ...prev, file: selectedFile }));
-          formData.append("file", selectedFile);
-          sendMail();
-        } else {
-          toast("File size should not exceed 5MB");
-        }
-      } else {
-        toast("Select an image file");
+      selectedFile = file.target.files[0];
+
+      // Validate file type
+      const validFileTypes = ["image/png", "image/jpeg", "image/jpg"];
+      if (!validFileTypes.includes(selectedFile.type)) {
+        toast.error("Select a valid image file (PNG, JPEG, JPG)");
+        return;
+      }
+
+      // Validate file size (max size: 5MB)
+      const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+      if (selectedFile.size > maxSizeInBytes) {
+        toast.error("File size should not exceed 5MB");
+        return;
+      }
+
+      setData((prev) => ({
+        ...prev,
+        file: selectedFile,
+      }));
+      setImgUrl(URL.createObjectURL(selectedFile));
+
+      // update cart item if already in cart
+      if (data.isInCart) {
+        formData.append("brand", data.brand);
+        formData.append("imageFile", selectedFile);
+        updateCartItemData();
+      }else{
+        toast.success("Image selected");
       }
     }
+
+    // Reset file input value for consecutive uploads
     file.target.value = "";
   };
-  console.log(data.brand !== "Select Mobile Brand", "aldsfkjaklsdfj");
+
   // handle upload button click
   const handleButtonClick = () => {
     if (data.brand === "Select Mobile Brand") {
@@ -70,38 +121,53 @@ const MobileCase = () => {
     }
   };
 
-  // handle send mail
-  const sendMail = async () => {
-    if (!data.brand && data.brand === "Select Mobile Brand") {
-      return toast("Please select a brand", { id: "brand" });
+  // handle add item to cart click
+  const addItemToCart = async () => {
+    if (data.brand === "Select Mobile Brand") {
+      toast("Please select a brand", { id: "brand" });
+      return;
     }
-    const { quantity, brand } = data;
-    let body = `
-      Screenguard: ${screenGuard ? "✅" : "❌"}\n
-      Keychain: ${keyChain ? "✅" : "❌"}\n
-      Quantity: ${quantity}\n\n
-      Brand: ${brand}\n\n`;
-    formData.append("body", body);
-    formData.append("subject", "New Order - Mobile Case - Mudralanka");
+    if (!imgUrl) {
+      toast("Please select a design", { id: "image" });
+      return;
+    }
+
     try {
       setLoading(true);
-      const response = await fetch(sendEmailLink, {
-        method: "POST",
-        body: formData,
-      });
+      formData.append("imageFile", data.file);
+      formData.append("category", "MOBILE_CASE");
+      formData.append("userId", localStorage.getItem("userId") || "");
+      formData.append("amount", data.price);
+      formData.append("brand", data.brand);
 
-      if (response.ok) {
-        toast.success("Order placed successfully");
-        setData({ quantity: 1, brand: "Select Mobile Brand", file: "" });
-        setKeyChain(false);
-        setScreenGuard(false);
+      const res = await addToCart(formData);
+      if (res.data.status) {
+        setData((prev) => ({ ...prev, isInCart: true }));
+        toast.success("Item added to cart");
       } else {
-        toast.error("Error placing order");
+        toast.error(res.data.error);
       }
-    } catch (error) {
-      toast.error("Error placing order " + error.message, { id: "error" });
+    } catch (err) {
+      toast.error(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // update cart item
+  const updateCartItemData = async () => {
+    try {
+      formData.append("category", "MOBILE_CASE");
+      formData.append("amount", data.price);
+      formData.append("userId", localStorage.getItem("userId") || "");
+      const res = await updateCartItem(productId, formData);
+      if (res.data.status) {
+        toast.success("Item updated in cart");
+      } else {
+        toast.error(res.data.error);
+      }
+    } catch (err) {
+      toast.error(err.message);
     }
   };
 
@@ -112,30 +178,44 @@ const MobileCase = () => {
   const handleKeyChainChange = (e) => {
     setKeyChain(e.target.checked);
   };
+
+  // handle brand change
+  const handleBrandChange = (item) => {
+    setData((prev) => ({
+      ...prev,
+      brand: item,
+    }));
+    formData.append("brand", item);
+    setDropdownOpen(false);
+    if (data.isInCart && item !== data.brand) {
+      updateCartItemData();
+    }
+  };
+
   return (
-    <div class="page-wrapper">
+    <div className="page-wrapper">
       <Header />
-      <div class="main-container">
-        <div class="inner-banner thm-black-bg text-center">
-          <div class="container">
-            <h2 class="inner-banner__title">Mobile Case Printing</h2>
-            <ul class="thm-breadcrumb">
-              <li class="thm-breadcrumb__item">
+      <div className="main-container">
+        <div className="inner-banner thm-black-bg text-center">
+          <div className="container">
+            <h2 className="inner-banner__title">Mobile Case Printing</h2>
+            <ul className="thm-breadcrumb">
+              <li className="thm-breadcrumb__item">
                 <Link to="/">Home</Link>
               </li>
-              <li class="thm-breadcrumb__item">
+              <li className="thm-breadcrumb__item">
                 <Link to="/services">Services</Link>
               </li>
-              <li class="thm-breadcrumb__item">
+              <li className="thm-breadcrumb__item">
                 <span>Mobile Case Printing</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div class="section-oneContainer">
-          <div class="images-container">
-            <div class="image-gallery">
+        <div className="section-oneContainer">
+          <div className="images-container">
+            <div className="image-gallery">
               <Swiper
                 style={{
                   "--swiper-navigation-color": "#fff",
@@ -178,46 +258,48 @@ const MobileCase = () => {
             </div>
           </div>
 
-          <div class="details-container">
-            <h2 class="main-heading">Mobile Case Printing</h2>
-            <p class="fw-normal fs-5 mb-4">
+          <div className="details-container">
+            <h2 className="main-heading">Mobile Case Printing</h2>
+            <p className="fw-normal fs-5 mb-4">
               Crafting Unique ID Cards to Reflect Your Identity
             </p>
-            <h3 class="fw-semibold fs-6">Cash on Delivery available</h3>
-            <ul class="fw-medium fs-6 mb-3">
+            <h3 className="fw-semibold fs-6">Cash on Delivery available</h3>
+            <ul className="fw-medium fs-6 mb-3">
               <li>Thin & light Poly-carbonate case</li>
               <li>Smooth & seam-free surface</li>
               <li>Photo-realistic print quality</li>
               <li>Hassle-free replacements</li>
               <li>Delivery in 5-7 working days</li>
             </ul>
-            <div class="dropdown-section mb-4">
-              <div class="dropdown-Heading">
-                <h4 class="fw-bold fs-5">Mobile Brand</h4>
+            <div className="dropdown-section mb-4">
+              <div className="dropdown-Heading">
+                <h4 className="fw-bold fs-5">Mobile Brand</h4>
               </div>
 
-              <div class="dropdown">
+              <div className="dropdown">
                 <button
-                  class="btn btn-secondary dropdown-toggle"
+                  className="btn btn-secondary dropdown-toggle"
                   type="button"
                   id="dropdownMenu2"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
                   style={{ background: "white" }}
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
                 >
                   {data.brand}
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <div
+                  className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
+                  aria-labelledby="dropdownMenu2"
+                >
                   {brand.map((item) => (
                     <button
-                      class="dropdown-item"
+                      className="dropdown-item"
                       type="button"
                       value={item}
                       key={item}
-                      onClick={() =>
-                        setData((prev) => ({ ...prev, brand: item }))
-                      }
+                      onClick={() => handleBrandChange(item)}
                     >
                       {item}
                     </button>
@@ -225,7 +307,10 @@ const MobileCase = () => {
                 </div>
               </div>
             </div>
-            <div>
+            <div className="dropdown-Heading">
+              <h4 className="fw-bold fs-5">Price : ₹ {data.price}</h4>
+            </div>
+            {/* <div>
               <label className="addonitems">
                 <input
                   type="checkbox"
@@ -244,7 +329,7 @@ const MobileCase = () => {
                 />
                 Add Same Design Key Chain 99.00 29.00
               </label>
-            </div>
+            </div> */}
 
             <h4
               style={{ fontSize: "16px", fontWeight: "600", marginTop: "2rem" }}
@@ -264,16 +349,44 @@ const MobileCase = () => {
             <button onClick={handleButtonClick}>
               Upload
               <img
-                src="images/service-stickerPrinting/svg/UploadIcon.svg"
+                src="/images/service-stickerPrinting/svg/UploadIcon.svg"
                 alt="upload"
               />
             </button>
-            <div className="mt-4 secondary-btn">
-              Add to Cart
-            </div>
-            {/* <p class="satisfaction">
+            {imgUrl && (
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "2rem",
+                }}
+              >
+                <img
+                  src={imgUrl}
+                  style={{ height: "15rem", objectFit: "cover" }}
+                  alt=""
+                />
+              </div>
+            )}
+            {data.isInCart ? (
+              <div
+                onClick={() => navigate("/cart")}
+                className="mt-4 secondary-btn"
+              >
+                Go to Cart
+              </div>
+            ) : (
+              <div
+                onClick={() => addItemToCart(selectedImage)}
+                className="mt-4 secondary-btn"
+              >
+                Add to Cart
+              </div>
+            )}
+            {/* <p className="satisfaction">
               <img
-                src="images/service-stickerPrinting/svg/guaranteedsatisfaction.svg
+                src="/images/service-stickerPrinting/svg/guaranteedsatisfaction.svg
             "
                 alt="upload"
               />
@@ -281,12 +394,12 @@ const MobileCase = () => {
             </p> */}
           </div>
         </div>
-        <div class="section-twoContainer">
-          <div class="tab">
-            <h3 class="">overview</h3>
+        <div className="section-twoContainer">
+          <div className="tab">
+            <h3 className="">overview</h3>
           </div>
-          <div class="details-container">
-            <div class="section-two-details">
+          <div className="details-container">
+            <div className="section-two-details">
               <div>
                 <h3>Additional Information</h3>
                 <p>
@@ -337,61 +450,61 @@ const MobileCase = () => {
                 <h5>Country of Origin: India</h5>
               </div>
             </div>
-            <div class="section-two-imageContainer">
+            <div className="section-two-imageContainer">
               <img
-                src="images/service-mobilecase/service-details-image.png"
+                src="/images/service-mobilecase/service-details-image.png"
                 alt="details"
-                class=""
+                className=""
               />
             </div>
           </div>
         </div>
         <br />
-        <div class="section-threeContainer">
+        <div className="section-threeContainer">
           <h3>Related products</h3>
-          <div class="relatedproduct-container">
+          <div className="relatedproduct-container">
             {relatedProducts.map((obj) => (
-              <div key={obj.id} class="relatedproducd-one">
+              <div key={obj.id} className="relatedproducd-one">
                 <img src={obj.img} alt="related product" />
                 <h4>{obj.title}</h4>
                 <p>{obj.text}</p>
               </div>
             ))}
-            {/* <div class="relatedproducd-one">
+            {/* <div className="relatedproducd-one">
               <img
-                src="images/service-stickerPrinting/related-productone.png"
+                src="/images/service-stickerPrinting/related-productone.png"
                 alt="related product"
               />
               <h4>Sheet Stickers</h4>
               <p>24 starting at ₹160.00</p>
             </div>
-            <div class="relatedproducd-one">
+            <div className="relatedproducd-one">
               <img
-                src="images/service-stickerPrinting/related-productone.png"
+                src="/images/service-stickerPrinting/related-productone.png"
                 alt="related product"
               />
               <h4>Sheet Stickers</h4>
               <p>24 starting at ₹160.00</p>
             </div>
-            <div class="relatedproducd-one">
+            <div className="relatedproducd-one">
               <img
-                src="images/service-stickerPrinting/related-productone.png"
+                src="/images/service-stickerPrinting/related-productone.png"
                 alt="related product"
               />
               <h4>Sheet Stickers</h4>
               <p>24 starting at ₹160.00</p>
             </div>
-            <div class="relatedproducd-one">
+            <div className="relatedproducd-one">
               <img
-                src="images/service-stickerPrinting/related-productone.png"
+                src="/images/service-stickerPrinting/related-productone.png"
                 alt="related product"
               />
               <h4>Sheet Stickers</h4>
               <p>24 starting at ₹160.00</p>
             </div>
-            <div class="relatedproducd-one">
+            <div className="relatedproducd-one">
               <img
-                src="images/service-stickerPrinting/related-productone.png"
+                src="/images/service-stickerPrinting/related-productone.png"
                 alt="related product"
               />
               <h4>Sheet Stickers</h4>

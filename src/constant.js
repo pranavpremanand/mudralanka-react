@@ -1,6 +1,16 @@
 // send email link
 export const sendEmailLink =
-  "https://mudralanka-sendmail.vercel.app/api/send-email";
+  "http://localhost:5000/api/send-email";
+  // "https://mudralanka-sendmail.vercel.app/api/send-email";
+
+// Categories
+export const categories = [
+  { page: "STICKER_PRINTING", path: "/sticker-printing" },
+  { page: "PVC_ID_CARD", path: "/pvcidcard" },
+  { page: "VISITING_CARD", path: "/visitingcard" },
+  { page: "MOBILE_CASE", path: "/mobilecase" },
+  { page: "BILLBOOK", path: "/billbook" },
+];
 
 // header links
 export const headerLinks = [
@@ -66,37 +76,37 @@ export const socialMediaLinks = {
 export const relatedProducts = [
   {
     id: 1,
-    img: "images/service-stickerPrinting/related-productone.png",
+    img: "/images/service-stickerPrinting/related-productone.png",
     title: "Sheet Stickers",
     text: "24 starting at ₹160.00",
   },
   {
     id: 2,
-    img: "images/service-stickerPrinting/related-producttwo.png",
+    img: "/images/service-stickerPrinting/related-producttwo.png",
     title: "Product & Packaging Labels",
     text: "24 starting at ₹160.00",
   },
   {
     id: 3,
-    img: "images/service-stickerPrinting/related-productthree.png",
+    img: "/images/service-stickerPrinting/related-productthree.png",
     title: "Name Tags",
     text: "10 starting at ₹140.00",
   },
   {
     id: 4,
-    img: "images/service-stickerPrinting/related-productfour.png",
+    img: "/images/service-stickerPrinting/related-productfour.png",
     title: "Custom Car Stickers",
     text: "5 starting at ₹240.00",
   },
   {
     id: 5,
-    img: "images/service-stickerPrinting/related-productfive.png",
+    img: "/images/service-stickerPrinting/related-productfive.png",
     title: "Custom Shape Stickers",
     text: "10 starting at ₹190.00",
   },
   {
     id: 6,
-    img: "images/service-stickerPrinting/related-productsix.png",
+    img: "/images/service-stickerPrinting/related-productsix.png",
     title: "Sticker Singles",
     text: "50 starting at ₹245.00",
   },

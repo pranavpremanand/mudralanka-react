@@ -103,7 +103,7 @@ const Home = () => {
             </div>
             <div className="col-lg-6">
               <img
-                src="images/resources/cta-1-2.png"
+                src="/images/resources/cta-1-2.png"
                 alt="cta"
                 className="float-left"
               />
@@ -171,7 +171,7 @@ const Home = () => {
           <div className="row">
             <div className="col-lg-6">
               <div className="video-one hvr-float-shadow content-margin-50">
-                <img src="images/resources/video-1-1.jpg" alt="Pic" />
+                <img src="/images/resources/video-1-1.jpg" alt="Pic" />
               </div>
             </div>
             <div className="col-lg-6">
@@ -265,7 +265,7 @@ const Home = () => {
             </div>
             <div className="col-lg-6">
               <div className="cta-one__image-block">
-                <img src="images/resources/cta-1-1.jpg" alt="Pic" />
+                <img src="/images/resources/cta-1-1.jpg" alt="Pic" />
                 <div className="cta-one__image-block__content text-center">
                   <h3>
                     Printfinity Makes Every Business Card <br />
@@ -287,7 +287,7 @@ const Home = () => {
             <div className="col-lg-4">
               <div className="project-style-one__single content-margin-80">
                 <div className="project-style-one__image-block">
-                  <img src="images/projects/project-1-1.jpg" alt="Pic" />
+                  <img src="/images/projects/project-1-1.jpg" alt="Pic" />
                 </div>
                 <div className="project-style-one__text-block thm-gray-bg text-center">
                   <span className="project-style-one__category">Printing</span>
@@ -307,7 +307,7 @@ const Home = () => {
             <div className="col-lg-4">
               <div className="project-style-one__single content-margin-80">
                 <div className="project-style-one__image-block">
-                  <img src="images/projects/project-1-2.jpg" alt="Pic" />
+                  <img src="/images/projects/project-1-2.jpg" alt="Pic" />
                 </div>
                 <div className="project-style-one__text-block thm-gray-bg text-center">
                   <span className="project-style-one__category">Copying</span>
@@ -327,7 +327,7 @@ const Home = () => {
             <div className="col-lg-4">
               <div className="project-style-one__single content-margin-80">
                 <div className="project-style-one__image-block">
-                  <img src="images/projects/project-1-3.jpg" alt="Pic" />
+                  <img src="/images/projects/project-1-3.jpg" alt="Pic" />
                 </div>
                 <div className="project-style-one__text-block thm-gray-bg text-center">
                   <span className="project-style-one__category">Printing</span>

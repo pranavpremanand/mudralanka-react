@@ -100,7 +100,7 @@ const Header = () => {
           <div className="logo-block">
             <Link to="/">
               <img
-                src="images/resources/logo-1-1.png"
+                src="/images/resources/logo-1-1.png"
                 className="logo"
                 alt="logo"
               />
@@ -139,7 +139,7 @@ const Header = () => {
           <div className="d-lg-none d-inline py-3">
             <Link to="/">
               <img
-                src="images/resources/logo-1-1.png"
+                src="/images/resources/logo-1-1.png"
                 className="mr-3 mr-md-0"
                 style={{width:"4rem"}}
                 alt="logo"

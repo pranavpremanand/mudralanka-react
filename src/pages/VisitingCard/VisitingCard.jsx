@@ -1,6 +1,6 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "../StickerPrinting/StickerPrinting.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,34 +12,35 @@ import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { relatedProducts, sendEmailLink } from "../../constant";
 import toast from "react-hot-toast";
 import { SpinnerContext } from "../../components/SpinnerContext";
+import { addToCart, getCartItemById, updateCartItem } from "../../apiCalls";
 
 const quantityOptions = [
   {
-    quantity: 100,
+    quantity: '100',
     price: 200.0,
     savings: "",
     recommended: false,
   },
   {
-    quantity: 200,
+    quantity: '200',
     price: 340.0,
     savings: "15% savings",
     recommended: true,
   },
   {
-    quantity: 300,
+    quantity: '300',
     price: 480.0,
     savings: "20% savings",
     recommended: false,
   },
   {
-    quantity: 400,
+    quantity: '400',
     price: 600.0,
     savings: "25% savings",
     recommended: false,
   },
   {
-    quantity: 500,
+    quantity: '500',
     price: 700.0,
     savings: "30% savings",
     recommended: false,
@@ -47,49 +48,94 @@ const quantityOptions = [
 ];
 
 const images = [
-  "images/service-visitingcard/service-visitingcard1.png",
-  "images/service-visitingcard/service-visitingcard2.png",
-  "images/service-visitingcard/service-visitingcard3.png",
-  "images/service-visitingcard/service-visitingcard4.png",
-  "images/service-visitingcard/service-visitingcard5.png",
+  "/images/service-visitingcard/service-visitingcard1.png",
+  "/images/service-visitingcard/service-visitingcard2.png",
+  "/images/service-visitingcard/service-visitingcard3.png",
+  "/images/service-visitingcard/service-visitingcard4.png",
+  "/images/service-visitingcard/service-visitingcard5.png",
 ];
 
 const VisitingCard = () => {
+  const { productId } = useParams();
+  const navigate = useNavigate();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
+  const [imgUrl, setImgUrl] = useState("");
   const formData = new FormData();
+  let selectedFile;
+
   const imgRef = useRef();
   const [data, setData] = useState({
     quantity: "",
-    file: "",
+    price: "",
   });
   const { setLoading } = useContext(SpinnerContext);
+
+  useEffect(() => {
+    getProductById();
+  }, []);
+
+  // get product details if id is present
+  const getProductById = async () => {
+    if (productId) {
+      try {
+        const res = await getCartItemById(productId);
+        if (res.data.status) {
+          const details = res.data.cartItem;
+          setData((prev) => ({
+            ...prev,
+            quantity: details.quantity,
+            isInCart: true,
+            url: details.imageFile,
+            price: details.amount,
+          }));
+          setImgUrl(details.imageFile);
+        }
+      } catch (err) {
+        toast.error(err.message);
+      }
+    }
+  };
 
   // on image change
   const onImgChange = (file) => {
     if (file.target.files && file.target.files[0]) {
-      const selectedFile = file.target.files[0];
-      if (
-        selectedFile.type === "image/png" ||
-        selectedFile.type === "image/jpeg" ||
-        selectedFile.type === "image/jpg"
-      ) {
-        // Validate file size (max size: 5MB)
-        const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
-        if (selectedFile.size <= maxSizeInBytes) {
-          setData((prev) => ({ ...prev, file: selectedFile }));
-          formData.append("file", selectedFile);
-          sendMail();
-        } else {
-          toast("File size should not exceed 5MB");
-        }
-      } else {
-        toast("Select an image file");
+      selectedFile = file.target.files[0];
+
+      // Validate file type
+      const validFileTypes = ["image/png", "image/jpeg", "image/jpg"];
+      if (!validFileTypes.includes(selectedFile.type)) {
+        toast.error("Select a valid image file (PNG, JPEG, JPG)");
+        return;
+      }
+
+      // Validate file size (max size: 5MB)
+      const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+      if (selectedFile.size > maxSizeInBytes) {
+        toast.error("File size should not exceed 5MB");
+        return;
+      }
+
+      setData((prev) => ({
+        ...prev,
+        file: selectedFile,
+      }));
+      setImgUrl(URL.createObjectURL(selectedFile));
+
+      // update cart item if already in cart
+      if (data.isInCart) {
+        formData.append("quantity", data.quantity);
+        formData.append("amount", data.price);
+        formData.append("imageFile", selectedFile);
+        updateCartItemData();
+      }else{
+        toast.success("Image selected");
       }
     }
+
+    // Reset file input value for consecutive uploads
     file.target.value = "";
   };
-  console.log(data, "asdkjfjalksdf");
+
   // handle upload button click
   const handleButtonClick = () => {
     if (!data.quantity) {
@@ -98,36 +144,65 @@ const VisitingCard = () => {
     imgRef.current.click();
   };
 
-  // handle send mail
-  const sendMail = async () => {
+  // handle add item to cart click
+  const addItemToCart = async () => {
     if (!data.quantity) {
-      return toast("Please select a quantity", { id: "quantity" });
+      toast("Please select a  quantity", { id: "quantity" });
+      return;
     }
-    // Size: ${size}\n
-    const { quantity } = data;
-    // Size: ${size}\n
-    let body = `
-      Quantity: ${quantity}\n\n`;
-    formData.append("body", body);
-    formData.append("subject", "New Order - Visiting Card - Mudralanka");
-
+    if (!imgUrl) {
+      toast("Please select a design", { id: "image" });
+      return;
+    }
     try {
       setLoading(true);
-      const response = await fetch(sendEmailLink, {
-        method: "POST",
-        body: formData,
-      });
+      formData.append("imageFile", data.file);
+      formData.append("quantity", data.quantity);
+      formData.append("category", "VISITING_CARD");
+      formData.append("userId", localStorage.getItem("userId") || "");
+      formData.append("amount", data.price);
 
-      if (response.ok) {
-        toast.success("Order placed successfully");
-        setData({ size: "", quantity: "", file: "" });
+      const res = await addToCart(formData);
+      if (res.data.status) {
+        setData((prev) => ({ ...prev, isInCart: true }));
+        toast.success("Item added to cart");
       } else {
-        toast.error("Error placing order");
+        toast.error(res.data.error);
       }
-    } catch (error) {
-      toast.error("Error placing order " + error.message, { id: "error" });
+    } catch (err) {
+      toast.error(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // update cart item
+  const updateCartItemData = async () => {
+    try {
+      formData.append("category", "VISITING_CARD");
+      formData.append("userId", localStorage.getItem("userId") || "");
+      const res = await updateCartItem(productId, formData);
+      if (res.data.status) {
+        toast.success("Item updated in cart");
+      } else {
+        toast.error(res.data.error);
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  // handle quantity change
+  const handleQuantityChange = (item) => {
+    setData((prev) => ({
+      ...prev,
+      quantity: item.quantity,
+      price: item.price,
+    }));
+    formData.append("quantity", item.quantity);
+    formData.append("amount", item.price);
+    if (data.isInCart && item.quantity !== data.quantity) {
+      updateCartItemData();
     }
   };
 
@@ -230,14 +305,12 @@ const VisitingCard = () => {
                 </strong>
               </li>
             </ul>
-            <i class="fw-semibold fs-6">Cash on Delivery available</i>
-            <div class="dropdown-section mb-4">
+            <div class="dropdown-section mb-1 pt-3">
               <div class="dropdown-Heading">
-                <h4 class="fw-bold fs-5">Visiting card</h4>
+                <h4 class="fw-bold fs-5">Quantity</h4>
               </div>
             </div>
 
-            {/* <h4 class="fw-bold fs-5">Quality</h4> */}
             <div class="list-group">
               {quantityOptions.map((item) => (
                 <div
@@ -246,13 +319,7 @@ const VisitingCard = () => {
                       ? "quality-list-container-activelink"
                       : "quality-list-container"
                   }`}
-                  onClick={() =>
-                    setData((prev) => ({
-                      ...prev,
-                      quantity:
-                        prev.quantity === item.quantity ? "" : item.quantity,
-                    }))
-                  }
+                  onClick={() => handleQuantityChange(item)}
                   key={item.quantity}
                 >
                   <div className="quality-list-first">
@@ -290,11 +357,38 @@ const VisitingCard = () => {
             <button onClick={handleButtonClick}>
               Upload
               <img
-                src="images/service-stickerPrinting/svg/UploadIcon.svg"
+                src="/images/service-stickerPrinting/svg/UploadIcon.svg"
                 alt="upload"
               />
             </button>
-            <div className="mt-4 secondary-btn">Add to Cart</div>
+            {imgUrl && (
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "2rem",
+                }}
+              >
+                <img
+                  src={imgUrl}
+                  style={{ height: "15rem", objectFit: "cover" }}
+                  alt=""
+                />
+              </div>
+            )}
+            {data.isInCart ? (
+              <div
+                onClick={() => navigate("/cart")}
+                className="mt-4 secondary-btn"
+              >
+                Go to Cart
+              </div>
+            ) : (
+              <div onClick={addItemToCart} className="mt-4 secondary-btn">
+                Add to Cart
+              </div>
+            )}
           </div>
         </div>
         <div class="section-twoContainer">
@@ -351,7 +445,7 @@ const VisitingCard = () => {
             </div>
             <div class="section-two-imageContainer">
               <img
-                src="images/service-visitingcard/service-details-image.png"
+                src="/images/service-visitingcard/service-details-image.png"
                 alt="details"
                 class=""
               />

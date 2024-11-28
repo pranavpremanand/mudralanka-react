@@ -14,7 +14,7 @@ const WhatWeCanDo = () => {
           <div className="col-lg-4">
             <div className="service-one__single">
               <div className="service-one__image">
-                <img src="images/service/service-1-1.jpg" alt="Sticker Printing" />
+                <img src="/images/service/service-1-1.jpg" alt="Sticker Printing" />
               </div>
               <div className="service-one__text-block">
                 <h3 className="service-one__title">
@@ -36,7 +36,7 @@ const WhatWeCanDo = () => {
           <div className="col-lg-4">
             <div className="service-one__single">
               <div className="service-one__image">
-                <img src="images/service/service-1-2.jpg" alt="Visiting Card" />
+                <img src="/images/service/service-1-2.jpg" alt="Visiting Card" />
               </div>
               <div className="service-one__text-block">
                 <h3 className="service-one__title">
@@ -57,7 +57,7 @@ const WhatWeCanDo = () => {
           <div className="col-lg-4">
             <div className="service-one__single">
               <div className="service-one__image">
-                <img src="images/service/service-1-3.jpg" alt="PVC ID Card" />
+                <img src="/images/service/service-1-3.jpg" alt="PVC ID Card" />
               </div>
               <div className="service-one__text-block">
                 <h3 className="service-one__title">

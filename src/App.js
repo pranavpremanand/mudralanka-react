@@ -1,7 +1,7 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import SpinnerContextProvider from "./components/SpinnerContext";
 import ScrollToTopButton from "./components/ScrollToTopButton";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import AboutUs from "./pages/AboutUs";
@@ -14,9 +14,10 @@ import PvcIdCard from "./pages/PvcIdCard/PvcIdCard";
 import MobileCase from "./pages/MobileCase/MobileCase";
 import VisitingCard from "./pages/VisitingCard/VisitingCard";
 import BillBook from "./pages/BillBook/BillBook";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import Cart from "./pages/Cart/Cart";
 import Checkout from "./pages/Checkout/Checkout";
+import { addUser } from "./apiCalls";
 
 const Home = lazy(() => import("./pages/Home/Home"));
 
@@ -27,16 +28,44 @@ AOS.init({
 });
 
 function App() {
+  const pathname = window.location.pathname;
+  const authChecked = useRef(false);
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (!authChecked.current && !userId) {
+      addUserIfNotExist();
+      authChecked.current = true;
+    }
+  }, [pathname]);
+
+  const addUserIfNotExist = async () => {
+    try {
+      const res = await addUser();
+      if (res.data.status) {
+        localStorage.setItem("userId", res.data.user._id);
+      } else {
+        toast.error(res.data.error);
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
   return (
     <SpinnerContextProvider>
       <Suspense fallback={<LoadingSpinner />}>
         <Router>
           <ScrollToTopButton />
           <ScrollToTopOnPageChange />
-          <Toaster position="top-center" toastOptions={{style:{
-            background: "#17354f",
-            color: "#fff"
-          }}} />
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              style: {
+                background: "#17354f",
+                color: "#fff",
+              },
+            }}
+          />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutUs />} />
@@ -46,11 +75,11 @@ function App() {
             <Route path="/checkout" element={<Checkout />} />
 
             {/* Service details pages */}
-            <Route path="/sticker-printing" element={<StickerPrinting />} />
-            <Route path="/pvcidcard" element={<PvcIdCard />} />
-            <Route path="/mobilecase" element={<MobileCase />} />
-            <Route path="/visitingcard" element={<VisitingCard />} />
-            <Route path="/billbook" element={<BillBook />} />
+            <Route path="/sticker-printing/:productId?" element={<StickerPrinting />} />
+            <Route path="/pvcidcard/:productId?" element={<PvcIdCard />} />
+            <Route path="/mobilecase/:productId?" element={<MobileCase />} />
+            <Route path="/visitingcard/:productId?" element={<VisitingCard />} />
+            <Route path="/billbook/:productId?" element={<BillBook />} />
           </Routes>
         </Router>
       </Suspense>

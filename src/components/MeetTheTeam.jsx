@@ -15,7 +15,7 @@ const MeetTheTeam = () => {
                 <div className="row no-gutters">
                   <div className="col-lg-5">
                     <div className="team-one__image">
-                      <img src="images/team/team-1-1.jpg" alt="team" />
+                      <img src="/images/team/team-1-1.jpg" alt="team" />
                     </div>
                   </div>
                   <div className="col-lg-7">
