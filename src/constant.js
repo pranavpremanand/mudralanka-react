@@ -1,7 +1,7 @@
 // send email link
 export const sendEmailLink =
-  "http://localhost:5000/api/send-email";
-  // "https://mudralanka-sendmail.vercel.app/api/send-email";
+  // "http://localhost:5000/api/send-email";
+  "https://mudralanka-sendmail.vercel.app/api/send-email";
 
 // Categories
 export const categories = [
