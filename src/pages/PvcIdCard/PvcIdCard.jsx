@@ -37,6 +37,7 @@ const images = [
 
 const PvcIdCard = () => {
   const { productId } = useParams();
+  const [cartItemId, setCartItemId] = useState(productId);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
@@ -59,9 +60,9 @@ const PvcIdCard = () => {
 
   // get product details if id is present
   const getProductById = async () => {
-    if (productId) {
+    if (cartItemId) {
       try {
-        const res = await getCartItemById(productId);
+        const res = await getCartItemById(cartItemId);
         if (res.data.status) {
           const details = res.data.cartItem;
           setData((prev) => ({
@@ -143,6 +144,7 @@ const PvcIdCard = () => {
       if (res.data.status) {
         setData((prev) => ({ ...prev, isInCart: true }));
         toast.success("Item added to cart");
+        setCartItemId(res.data.cartItem._id);
       } else {
         toast.error(res.data.error);
       }
@@ -166,7 +168,7 @@ const PvcIdCard = () => {
     try {
       formData.append("category", "PVC_ID_CARD");
       formData.append("userId", localStorage.getItem("userId") || "");
-      const res = await updateCartItem(productId, formData);
+      const res = await updateCartItem(cartItemId, formData);
       if (res.data.status) {
         toast.success("Item updated in cart");
       } else {

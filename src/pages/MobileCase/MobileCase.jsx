@@ -26,12 +26,11 @@ const images = [
 
 const MobileCase = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(images[0]);
-  const cartItemsList = JSON.parse(localStorage.getItem("cartItems")) || [];
   const [screenGuard, setScreenGuard] = useState(false);
   const [keyChain, setKeyChain] = useState(false);
   const imgRef = useRef();
   const { productId } = useParams();
+  const [cartItemId, setCartItemId] = useState(productId);
   const navigate = useNavigate();
   const [imgUrl, setImgUrl] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -53,9 +52,9 @@ const MobileCase = () => {
 
   // get product details if id is present
   const getProductById = async () => {
-    if (productId) {
+    if (cartItemId) {
       try {
-        const res = await getCartItemById(productId);
+        const res = await getCartItemById(cartItemId);
         if (res.data.status) {
           const details = res.data.cartItem;
           setData((prev) => ({
@@ -144,6 +143,7 @@ const MobileCase = () => {
       if (res.data.status) {
         setData((prev) => ({ ...prev, isInCart: true }));
         toast.success("Item added to cart");
+        setCartItemId(res.data.cartItem._id);
       } else {
         toast.error(res.data.error);
       }
@@ -160,7 +160,7 @@ const MobileCase = () => {
       formData.append("category", "MOBILE_CASE");
       formData.append("amount", data.price);
       formData.append("userId", localStorage.getItem("userId") || "");
-      const res = await updateCartItem(productId, formData);
+      const res = await updateCartItem(cartItemId, formData);
       if (res.data.status) {
         toast.success("Item updated in cart");
       } else {
@@ -378,7 +378,7 @@ const MobileCase = () => {
               </div>
             ) : (
               <div
-                onClick={() => addItemToCart(selectedImage)}
+                onClick={() => addItemToCart()}
                 className="mt-4 secondary-btn"
               >
                 Add to Cart

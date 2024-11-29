@@ -54,6 +54,7 @@ const quantities = [
 
 const StickerPrinting = () => {
   const { productId } = useParams();
+  const [cartItemId, setCartItemId] = useState(productId);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const navigate = useNavigate();
   const [imgUrl, setImgUrl] = useState("");
@@ -78,9 +79,9 @@ const StickerPrinting = () => {
 
   // get product details if id is present
   const getProductById = async () => {
-    if (productId) {
+    if (cartItemId) {
       try {
-        const res = await getCartItemById(productId);
+        const res = await getCartItemById(cartItemId);
         if (res.data.status) {
           const details = res.data.cartItem;
           setData((prev) => ({
@@ -174,6 +175,7 @@ const StickerPrinting = () => {
       if (res.data.status) {
         setData((prev) => ({ ...prev, isInCart: true }));
         toast.success("Item added to cart");
+        setCartItemId(res.data.cartItem._id);
       } else {
         toast.error(res.data.error);
       }
@@ -189,7 +191,7 @@ const StickerPrinting = () => {
     try {
       formData.append("category", "STICKER_PRINTING");
       formData.append("userId", localStorage.getItem("userId") || "");
-      const res = await updateCartItem(productId, formData);
+      const res = await updateCartItem(cartItemId, formData);
       if (res.data.status) {
         toast.success("Item updated in cart");
       } else {

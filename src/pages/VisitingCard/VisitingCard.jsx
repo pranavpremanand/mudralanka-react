@@ -57,6 +57,7 @@ const images = [
 
 const VisitingCard = () => {
   const { productId } = useParams();
+  const[cartItemId, setCartItemId] = useState(productId);
   const navigate = useNavigate();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [imgUrl, setImgUrl] = useState("");
@@ -76,9 +77,9 @@ const VisitingCard = () => {
 
   // get product details if id is present
   const getProductById = async () => {
-    if (productId) {
+    if (cartItemId) {
       try {
-        const res = await getCartItemById(productId);
+        const res = await getCartItemById(cartItemId);
         if (res.data.status) {
           const details = res.data.cartItem;
           setData((prev) => ({
@@ -166,6 +167,7 @@ const VisitingCard = () => {
       if (res.data.status) {
         setData((prev) => ({ ...prev, isInCart: true }));
         toast.success("Item added to cart");
+        setCartItemId(res.data.cartItem._id);
       } else {
         toast.error(res.data.error);
       }
@@ -181,7 +183,7 @@ const VisitingCard = () => {
     try {
       formData.append("category", "VISITING_CARD");
       formData.append("userId", localStorage.getItem("userId") || "");
-      const res = await updateCartItem(productId, formData);
+      const res = await updateCartItem(cartItemId, formData);
       if (res.data.status) {
         toast.success("Item updated in cart");
       } else {

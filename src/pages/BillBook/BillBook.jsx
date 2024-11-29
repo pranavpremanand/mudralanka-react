@@ -32,6 +32,7 @@ const quantities = [
 ];
 const BillBook = () => {
   const { productId } = useParams();
+  const [cartItemId, setCartItemId] = useState(productId);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const navigate = useNavigate();
   const [imgUrl, setImgUrl] = useState("");
@@ -56,9 +57,9 @@ const BillBook = () => {
 
   // get product details if id is present
   const getProductById = async () => {
-    if (productId) {
+    if (cartItemId) {
       try {
-        const res = await getCartItemById(productId);
+        const res = await getCartItemById(cartItemId);
         if (res.data.status) {
           const details = res.data.cartItem;
           setData((prev) => ({
@@ -109,7 +110,7 @@ const BillBook = () => {
         formData.append("amount", data.price);
         formData.append("imageFile", selectedFile);
         updateCartItemData();
-      }else{
+      } else {
         toast.success("Image selected");
       }
     }
@@ -148,6 +149,7 @@ const BillBook = () => {
       const res = await addToCart(formData);
       if (res.data.status) {
         setData((prev) => ({ ...prev, isInCart: true }));
+        setCartItemId(res.data.cartItem._id);
         toast.success("Item added to cart");
       } else {
         toast.error(res.data.error);
@@ -164,7 +166,7 @@ const BillBook = () => {
     try {
       formData.append("category", "BILLBOOK");
       formData.append("userId", localStorage.getItem("userId") || "");
-      const res = await updateCartItem(productId, formData);
+      const res = await updateCartItem(cartItemId, formData);
       if (res.data.status) {
         toast.success("Item updated in cart");
       } else {
