@@ -65,6 +65,7 @@ const StickerPrinting = () => {
   const [imgUrl, setImgUrl] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const formData = new FormData();
+  const [backgroundRemoved, setBackgroundRemoved] = useState(false);
   let selectedFile;
 
   const imgRef = useRef();
@@ -245,15 +246,10 @@ const StickerPrinting = () => {
       const formData = new FormData();
       formData.append("imageFile", data.file);
 
-      // const res = await fetch("/cart/removebackground", {
-      //   method: "POST",
-      //   body: formData,
-      // });
-
       const result = await removeBackgrounds(formData);
-      console.log(result, "thisisresult");
       if (result.status) {
         setImgUrl(result.data.processedImageUrl); // The new image URL returned after background removal
+        setBackgroundRemoved(true);
         toast.success("Background removed successfully");
       } else {
         toast.error(result.error || "Error removing background");
@@ -468,7 +464,7 @@ const StickerPrinting = () => {
               </div>
             )}
 
-            {imgUrl && (
+            {imgUrl && !backgroundRemoved && (
               <button style={{ marginTop: "20px" }} onClick={removeBackground}>
                 Click To Remove Background
               </button>

@@ -11,6 +11,7 @@ import { headerLinks, socialMediaLinks } from "../constant";
 import { Link, useLocation } from "react-router-dom";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
+import { FaCartShopping } from "react-icons/fa6";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,60 +20,6 @@ const Header = () => {
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
   };
-  // document.addEventListener("DOMContentLoaded", function () {
-  //   var navigationBox = document.querySelector(
-  //     ".main-navigation .navigation-box"
-  //   );
-
-  //   if (navigationBox) {
-  //     var mainNavToggler = document.querySelector(
-  //       ".header-navigation .menu-toggler"
-  //     );
-  //     var subNavTogglers = document.querySelectorAll(
-  //       ".main-navigation"
-  //     );
-
-  //     // Helper function to toggle animation
-  //     function toggleMenu(menu) {
-  //       if (menu.classList.contains("showen")) {
-  //         menu.style.maxHeight = null;
-  //         menu.style.opacity = "0";
-  //         setTimeout(() => menu.classList.remove("showen"), 300); // Match transition time
-  //       } else {
-  //         menu.style.maxHeight = menu.scrollHeight + "px";
-  //         menu.style.opacity = "1";
-  //         menu.classList.add("showen");
-  //       }
-  //     }
-
-  //     // Handle main menu toggle
-  //     if (mainNavToggler) {
-  //       mainNavToggler.addEventListener("click", function (event) {
-  //         event.preventDefault();
-  //         var menuSelector = this.getAttribute("data-target");
-  //         var menu = document.querySelector(menuSelector);
-
-  //         if (menu) {
-  //           toggleMenu(menu);
-  //         }
-  //       });
-  //     }
-
-  //     // Handle sub-navigation togglers
-  //     subNavTogglers.forEach(function (subNavToggler) {
-  //       subNavToggler.addEventListener("click", function (event) {
-  //         event.preventDefault();
-  //         var subMenu =
-  //           this.parentElement.parentElement.querySelector(".sub-menu");
-
-  //         if (subMenu) {
-  //           toggleMenu(subMenu);
-  //         }
-  //       });
-  //     });
-  //   }
-  // });
-
   return (
     <header className="site-header header-one">
       <div className="top-bar d-none d-lg-flex">
@@ -137,11 +84,14 @@ const Header = () => {
           </div>
 
           <div className="d-lg-none d-inline py-3">
+            <Link to="/cart" className="text-dark mr-4">
+              <FaCartShopping size={25} />
+            </Link>
             <Link to="/">
               <img
                 src="/images/resources/logo-1-1.png"
                 className="mr-3 mr-md-0"
-                style={{width:"4rem"}}
+                style={{ width: "4rem" }}
                 alt="logo"
               />
             </Link>
