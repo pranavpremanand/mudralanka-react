@@ -209,6 +209,10 @@ const VisitingCard = () => {
     }
   };
 
+  const handleImageSave = (newImageUrl) => {
+    setImgUrl(newImageUrl); // Update the imageUrl state
+  };
+
   return (
     <div class="page-wrapper">
       <Header />
@@ -381,7 +385,13 @@ const VisitingCard = () => {
               </div>
             )}
 
-            <VisitingCardEditor />
+            {/* <VisitingCardEditor image={imgUrl} /> */}
+            {imgUrl && (
+              <VisitingCardEditor
+                image={imgUrl}
+                onImageSave={handleImageSave}
+              />
+            )}
             {data.isInCart ? (
               <div
                 onClick={() => navigate("/cart")}
