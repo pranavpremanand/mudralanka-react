@@ -27,7 +27,7 @@
 /* Close button */
 .close-btn {
   position: absolute;
-  top: 20px;
+  top: 0px;
   right: 20px;
   padding: 10px;
   background-color: #ff0000;
@@ -43,4 +43,12 @@
   width: 100%;
   height: 100%;
   border: none;
+}
+
+.container-visitingcard button {
+  background-color: transparent;
+}
+
+.custom-modal button {
+  background: transparent;
 }

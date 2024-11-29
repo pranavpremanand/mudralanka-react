@@ -24,13 +24,13 @@ const VisitingCardEditor = ({ image, onImageSave }) => {
   };
 
   return (
-    <div>
+    <div className="container-visitingcard">
       <button onClick={openImgEditor}>Open Filerobot image editor</button>
       {isImgEditorShown && (
         <div className="custom-modal-overlay">
           <div className="custom-modal">
             <button onClick={closeImgEditor} className="close-btn">
-              X
+              Xclose
             </button>
 
             <FilerobotImageEditor
