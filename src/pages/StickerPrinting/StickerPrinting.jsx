@@ -12,7 +12,12 @@ import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { relatedProducts } from "../../constant";
 import toast from "react-hot-toast";
 import { SpinnerContext } from "../../components/SpinnerContext";
-import { addToCart, getCartItemById, updateCartItem } from "../../apiCalls";
+import {
+  addToCart,
+  getCartItemById,
+  removeBackgrounds,
+  updateCartItem,
+} from "../../apiCalls";
 
 const sizes = ["48x34", "72x34", "96x34", "120x34"];
 
@@ -132,7 +137,7 @@ const StickerPrinting = () => {
         formData.append("amount", data.price);
         formData.append("imageFile", selectedFile);
         updateCartItemData();
-      }else{
+      } else {
         toast.success("Image selected");
       }
     }
@@ -229,6 +234,36 @@ const StickerPrinting = () => {
     }
   };
 
+  const removeBackground = async () => {
+    if (!data.file) {
+      toast.error("Please select an image first");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("imageFile", data.file);
+
+      // const res = await fetch("/cart/removebackground", {
+      //   method: "POST",
+      //   body: formData,
+      // });
+
+      const result = await removeBackgrounds(formData);
+      console.log(result, "thisisresult");
+      if (result.status) {
+        setImgUrl(result.data.processedImageUrl); // The new image URL returned after background removal
+        toast.success("Background removed successfully");
+      } else {
+        toast.error(result.error || "Error removing background");
+      }
+    } catch (err) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="page-wrapper">
       <Header />
@@ -417,14 +452,26 @@ const StickerPrinting = () => {
                   display: "flex",
                   justifyContent: "center",
                   marginTop: "2rem",
+                  border: "1px solid #dfdfdf",
+                  borderRadius: "20px",
+                  padding: "30px 0",
                 }}
               >
                 <img
                   src={imgUrl}
-                  style={{ height: "15rem", objectFit: "cover" }}
+                  style={{
+                    height: "15rem",
+                    objectFit: "cover",
+                  }}
                   alt=""
                 />
               </div>
+            )}
+
+            {imgUrl && (
+              <button style={{ marginTop: "20px" }} onClick={removeBackground}>
+                Click To Remove Background
+              </button>
             )}
             {data.isInCart ? (
               <div
@@ -434,10 +481,7 @@ const StickerPrinting = () => {
                 Go to Cart
               </div>
             ) : (
-              <div
-                onClick={addItemToCart}
-                className="mt-4 secondary-btn"
-              >
+              <div onClick={addItemToCart} className="mt-4 secondary-btn">
                 Add to Cart
               </div>
             )}

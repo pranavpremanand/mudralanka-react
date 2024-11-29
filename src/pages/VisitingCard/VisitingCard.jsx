@@ -13,34 +13,35 @@ import { relatedProducts, sendEmailLink } from "../../constant";
 import toast from "react-hot-toast";
 import { SpinnerContext } from "../../components/SpinnerContext";
 import { addToCart, getCartItemById, updateCartItem } from "../../apiCalls";
+import VisitingCardEditor from "./VisitingCardEditor";
 
 const quantityOptions = [
   {
-    quantity: '100',
+    quantity: "100",
     price: 200.0,
     savings: "",
     recommended: false,
   },
   {
-    quantity: '200',
+    quantity: "200",
     price: 340.0,
     savings: "15% savings",
     recommended: true,
   },
   {
-    quantity: '300',
+    quantity: "300",
     price: 480.0,
     savings: "20% savings",
     recommended: false,
   },
   {
-    quantity: '400',
+    quantity: "400",
     price: 600.0,
     savings: "25% savings",
     recommended: false,
   },
   {
-    quantity: '500',
+    quantity: "500",
     price: 700.0,
     savings: "30% savings",
     recommended: false,
@@ -57,7 +58,7 @@ const images = [
 
 const VisitingCard = () => {
   const { productId } = useParams();
-  const[cartItemId, setCartItemId] = useState(productId);
+  const [cartItemId, setCartItemId] = useState(productId);
   const navigate = useNavigate();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [imgUrl, setImgUrl] = useState("");
@@ -128,7 +129,7 @@ const VisitingCard = () => {
         formData.append("amount", data.price);
         formData.append("imageFile", selectedFile);
         updateCartItemData();
-      }else{
+      } else {
         toast.success("Image selected");
       }
     }
@@ -379,6 +380,8 @@ const VisitingCard = () => {
                 />
               </div>
             )}
+
+            <VisitingCardEditor />
             {data.isInCart ? (
               <div
                 onClick={() => navigate("/cart")}

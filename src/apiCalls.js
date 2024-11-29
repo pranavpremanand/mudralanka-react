@@ -1,8 +1,8 @@
 import axios from "axios";
 export const convertUrlIntoFile = () => {};
 
-const baseUrl = "https://photoprinting-backend.vercel.app";
-
+const baseUrl = "http://localhost:7070";
+// "https://photoprinting-backend.vercel.app";
 export const apiInstance = axios.create({
   baseURL: baseUrl,
   validateStatus: (status) => status < 500,
@@ -41,9 +41,11 @@ export const deleteCartItem = (id) => {
   return apiInstance.delete("/cart/delete/" + id);
 };
 
-
-
-
+export const removeBackgrounds = (data) => {
+  return apiInstance.post("/cart/removebackground/", data, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+};
 
 // const sendMail = async () => {
 //     console.log("API Called!!");
