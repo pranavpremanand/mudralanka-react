@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import { SpinnerContext } from "../../components/SpinnerContext";
 import { addToCart, getCartItemById, updateCartItem } from "../../apiCalls";
 import VisitingCardEditor from "./VisitingCardEditor";
+import { convertBase64intoFile } from "../../utils/helper";
 
 const quantityOptions = [
   {
@@ -69,6 +70,7 @@ const VisitingCard = () => {
   const [data, setData] = useState({
     quantity: "",
     price: "",
+    isInCart: false,
   });
   const { setLoading } = useContext(SpinnerContext);
 
@@ -209,8 +211,17 @@ const VisitingCard = () => {
     }
   };
 
+  // handle image save after edit
   const handleImageSave = (newImageUrl) => {
+    const file = convertBase64intoFile(newImageUrl);
+    setData((prev) => ({ ...prev, file: file }));
     setImgUrl(newImageUrl); // Update the imageUrl state
+    if (data.isInCart) {
+      formData.append("imageFile", file);
+      formData.append("quantity", data.quantity);
+      formData.append("amount", data.price);
+      updateCartItemData();
+    }
   };
 
   return (

@@ -17,7 +17,6 @@ const VisitingCardEditor = ({ image, onImageSave }) => {
 
   const handleSave = (editedImageObject) => {
     if (editedImageObject) {
-      console.log(editedImageObject, "thisisieditimaeg");
       onImageSave(editedImageObject.imageBase64);
     }
     closeImgEditor();
@@ -25,13 +24,10 @@ const VisitingCardEditor = ({ image, onImageSave }) => {
 
   return (
     <div className="container-visitingcard">
-      <button onClick={openImgEditor}>Open Filerobot image editor</button>
+      <button onClick={openImgEditor} className="secondary-btn w-auto mx-auto mt-3">Edit This Image</button>
       {isImgEditorShown && (
         <div className="custom-modal-overlay">
           <div className="custom-modal">
-            <button onClick={closeImgEditor} className="close-btn">
-              Xclose
-            </button>
 
             <FilerobotImageEditor
               source={image}
@@ -83,6 +79,7 @@ const VisitingCardEditor = ({ image, onImageSave }) => {
                   },
                 ],
               }}
+              
               tabsIds={[TABS.ANNOTATE]}
               defaultTabId={TABS.ANNOTATE}
               defaultToolId={TOOLS.TEXT}

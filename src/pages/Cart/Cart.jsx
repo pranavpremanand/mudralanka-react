@@ -118,7 +118,6 @@ const Cart = () => {
                         <img
                           src={item.imageFile}
                           alt={item.category}
-                          // className="w-full h-40 object-contain"
                         />
                         <h4 className="text-dark">
                           {item.category.split("_").join(" ")}

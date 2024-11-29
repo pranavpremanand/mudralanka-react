@@ -32,11 +32,11 @@ html {
 }
 
 .secondary-btn{
-  background-color: #17354f;
+  background-color: #17354f !important;
   color: #fff;
   padding: 10px 20px;
   border-radius: 5px;
-  border: 1px solid #17354f;
+  border: 1px solid #17354f !important;
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease-in-out;
@@ -45,7 +45,7 @@ html {
 }
 
 .secondary-btn:hover{
-  background-color: #fff;
+  background-color: #fff !important;
   color: #17354f;
 }
 

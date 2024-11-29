@@ -33,25 +33,25 @@ const images = [
 const quantities = [
   {
     quantity: 24,
-    price: 940.0,
+    price: 940,
     isRecommended: false,
     savings: "2%",
   },
   {
     quantity: 48,
-    price: 1880.0,
+    price: 1880,
     isRecommended: true,
     savings: "4%",
   },
   {
     quantity: 96,
-    price: 3770.0,
+    price: 3770,
     isRecommended: false,
     savings: "6%",
   },
   {
     quantity: 144,
-    price: 5560.0,
+    price: 5560,
     isRecommended: false,
     savings: "8%",
   },
@@ -74,7 +74,6 @@ const StickerPrinting = () => {
     quantity: "",
     file: "",
     isInCart: false,
-    url: "",
     price: 0,
   });
   const { setLoading } = useContext(SpinnerContext);
@@ -90,14 +89,18 @@ const StickerPrinting = () => {
         const res = await getCartItemById(cartItemId);
         if (res.data.status) {
           const details = res.data.cartItem;
+          const itemQuantity = quantities.find(
+            (quantity) => quantity.price === details.amount
+          );
           setData((prev) => ({
             ...prev,
             size: details.size,
-            quantity: details.quantity,
+            quantity: itemQuantity.quantity,
             isInCart: true,
-            url: details.imageFile,
             price: details.amount,
+            file: details.imageFile,
           }));
+          setBackgroundRemoved(details.isBackgroundRemoved);
           setImgUrl(details.imageFile);
         }
       } catch (err) {
@@ -171,15 +174,24 @@ const StickerPrinting = () => {
     try {
       setLoading(true);
       formData.append("size", data.size);
-      formData.append("imageFile", data.file);
+      if (backgroundRemoved) {
+        formData.append("imageUrl", imgUrl);
+      } else {
+        formData.append("imageFile", data.file);
+      }
       formData.append("quantity", data.quantity);
       formData.append("category", "STICKER_PRINTING");
       formData.append("userId", localStorage.getItem("userId") || "");
       formData.append("amount", data.price);
+      formData.append("isBackgroundRemoved", backgroundRemoved);
 
       const res = await addToCart(formData);
       if (res.data.status) {
-        setData((prev) => ({ ...prev, isInCart: true }));
+        setData((prev) => ({
+          ...prev,
+          isInCart: true,
+          file: res.data.cartItem.imageFile,
+        }));
         toast.success("Item added to cart");
         setCartItemId(res.data.cartItem._id);
       } else {
@@ -197,6 +209,7 @@ const StickerPrinting = () => {
     try {
       formData.append("category", "STICKER_PRINTING");
       formData.append("userId", localStorage.getItem("userId") || "");
+      formData.append("isBackgroundRemoved", backgroundRemoved);
       const res = await updateCartItem(cartItemId, formData);
       if (res.data.status) {
         toast.success("Item updated in cart");
@@ -235,24 +248,28 @@ const StickerPrinting = () => {
     }
   };
 
+  // handle remove background when click remove background button
   const removeBackground = async () => {
     if (!data.file) {
       toast.error("Please select an image first");
       return;
     }
-
     try {
       setLoading(true);
       const formData = new FormData();
-      formData.append("imageFile", data.file);
-
+      if (cartItemId) {
+        formData.append("imageUrl", data.file);
+        formData.append("cartItemId", cartItemId);
+      } else {
+        formData.append("imageFile", data.file);
+      }
       const result = await removeBackgrounds(formData);
-      if (result.status) {
+      if (result.data.status) {
         setImgUrl(result.data.processedImageUrl); // The new image URL returned after background removal
         setBackgroundRemoved(true);
         toast.success("Background removed successfully");
       } else {
-        toast.error(result.error || "Error removing background");
+        toast.error(result.data.error || "Error removing background");
       }
     } catch (err) {
       toast.error(err.message);
