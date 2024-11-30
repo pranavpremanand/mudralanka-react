@@ -4,11 +4,14 @@ import FilerobotImageEditor, {
   TOOLS,
 } from "react-filerobot-image-editor";
 import "./VisitingCardEditor.css";
-const VisitingCardEditor = ({ image, onImageSave }) => {
+const VisitingCardEditor = ({ image, onImageSave, handleButtonClick }) => {
   const [isImgEditorShown, setIsImgEditorShown] = useState(false);
 
   const openImgEditor = () => {
-    setIsImgEditorShown(true);
+    !image && handleButtonClick();
+    if (image) {
+      setIsImgEditorShown(true);
+    }
   };
 
   const closeImgEditor = () => {
@@ -24,11 +27,15 @@ const VisitingCardEditor = ({ image, onImageSave }) => {
 
   return (
     <div className="container-visitingcard">
-      <button onClick={openImgEditor} className="secondary-btn w-auto mx-auto mt-3">Edit This Image</button>
+      <button
+        onClick={openImgEditor}
+        className="secondary-btn w-auto mx-auto mt-3"
+      >
+        {!image ? "Edit Visiting Card" : "open editor"}
+      </button>
       {isImgEditorShown && (
         <div className="custom-modal-overlay">
           <div className="custom-modal">
-
             <FilerobotImageEditor
               source={image}
               onSave={handleSave}
@@ -79,7 +86,6 @@ const VisitingCardEditor = ({ image, onImageSave }) => {
                   },
                 ],
               }}
-              
               tabsIds={[TABS.ANNOTATE]}
               defaultTabId={TABS.ANNOTATE}
               defaultToolId={TOOLS.TEXT}
