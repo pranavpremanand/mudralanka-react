@@ -2,7 +2,7 @@ import axios from "axios";
 export const convertUrlIntoFile = () => {};
 
 const baseUrl =
-  //  "http://localhost:7070";
+  // "http://localhost:7070";
   "https://photoprinting-backend.vercel.app";
 
 export const apiInstance = axios.create({
@@ -45,7 +45,9 @@ export const deleteCartItem = (id) => {
 
 export const removeBackgrounds = (data) => {
   return apiInstance.post("/cart/removebackground/", data, {
-    headers: { "Content-Type": "multipart/form-data" },
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
   });
 };
 
