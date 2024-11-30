@@ -43,14 +43,13 @@ export const deleteCartItem = (id) => {
   return apiInstance.delete("/cart/delete/" + id);
 };
 
-export const removeBackgrounds = (data) => { 
+export const removeBackgrounds = (data) => {
   return apiInstance.post("/cart/removebackground/", data, {
     headers: {
-      "Content-Type": "multipart/form-data"
+      "Content-Type": "multipart/form-data",
     },
   });
 };
-
 
 // const sendMail = async () => {
 //     console.log("API Called!!");

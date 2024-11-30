@@ -18,6 +18,9 @@ import {
   removeBackgrounds,
   updateCartItem,
 } from "../../apiCalls";
+import VisitingCardEditor from "../VisitingCard/VisitingCardEditor";
+import { convertBase64intoFile } from "../../utils/helper";
+import imageCompression from "browser-image-compression";
 
 const sizes = ["48x34", "72x34", "96x34", "120x34"];
 
@@ -177,7 +180,9 @@ const StickerPrinting = () => {
       if (backgroundRemoved) {
         formData.append("imageUrl", imgUrl);
       } else {
-        formData.append("imageFile", data.file);
+        const compressedFile = await compressImage(data.file);
+
+        formData.append("imageFile", compressedFile);
       }
       formData.append("quantity", data.quantity);
       formData.append("category", "STICKER_PRINTING");
@@ -186,6 +191,12 @@ const StickerPrinting = () => {
       formData.append("isBackgroundRemoved", backgroundRemoved);
 
       const res = await addToCart(formData);
+      console.log(res, "thalskdfjasdf");
+      if (res.data.status === false && res.data.error.code === "413") {
+        return !res.data.status
+          ? toast.error(res.data.error.message)
+          : toast.error(res.data.error);
+      }
       if (res.data.status) {
         setData((prev) => ({
           ...prev,
@@ -261,7 +272,8 @@ const StickerPrinting = () => {
         formData.append("imageUrl", data.file);
         formData.append("cartItemId", cartItemId);
       } else {
-        formData.append("imageFile", data.file);
+        const compressedFile = await compressImage(data.file);
+        formData.append("imageFile", compressedFile);
       }
       const result = await removeBackgrounds(formData);
       if (result.data.status) {
@@ -275,6 +287,32 @@ const StickerPrinting = () => {
       toast.error(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleImageSave = (newImageUrl) => {
+    const file = convertBase64intoFile(newImageUrl);
+    setData((prev) => ({ ...prev, file: file }));
+    setImgUrl(newImageUrl); // Update the imageUrl state
+    if (data.isInCart) {
+      formData.append("imageFile", file);
+      formData.append("quantity", data.quantity);
+      formData.append("amount", data.price);
+      updateCartItemData();
+    }
+  };
+
+  const compressImage = async (file) => {
+    const options = {
+      maxSizeMB: 1, // Maximum file size in MB
+      maxWidthOrHeight: 1920, // Resize to fit within this dimension
+      useWebWorker: true,
+    };
+    try {
+      const compressedFile = await imageCompression(file, options);
+      return compressedFile;
+    } catch (error) {
+      console.error("Image compression error:", error);
     }
   };
   return (
@@ -481,10 +519,45 @@ const StickerPrinting = () => {
               </div>
             )}
 
-            {imgUrl && !backgroundRemoved && (
-              <button style={{ marginTop: "20px" }} onClick={removeBackground}>
-                Click To Remove Background
-              </button>
+            {imgUrl ? (
+              <div
+                className="flex"
+                style={{ display: "flex", justifyContent: "space-between" }}
+              >
+                {/* {!backgroundRemoved && ( */}
+                <button
+                  className={`secondary-btn w-auto mt-3 ${
+                    backgroundRemoved && `opacity-20 cursor-none`
+                  }`}
+                  style={{
+                    marginTop: "20px",
+                    cursor: backgroundRemoved ? "not-allowed" : "pointer", // 'not-allowed' gives a disabled-like feel.
+                    opacity: backgroundRemoved ? 0.5 : 1, // Reduce opacity when disabled.
+                    pointerEvents: backgroundRemoved ? "none" : "auto", // Disable interaction when backgroundRemoved is true.
+                  }}
+                  onClick={() => !backgroundRemoved && removeBackground()}
+                >
+                  Click To Remove Background
+                </button>
+
+                <VisitingCardEditor
+                  image={imgUrl}
+                  onImageSave={handleImageSave}
+                  handleButtonClick={handleButtonClick}
+                />
+                {/* <button className="secondary-btn w-auto  mt-3">
+                  Edit Image
+                </button> */}
+              </div>
+            ) : (
+              !imgUrl && (
+                <button
+                  style={{ marginTop: "20px" }}
+                  onClick={handleButtonClick}
+                >
+                  Edit Image Here
+                </button>
+              )
             )}
             {data.isInCart ? (
               <div

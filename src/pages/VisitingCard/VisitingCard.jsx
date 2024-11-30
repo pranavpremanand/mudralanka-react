@@ -15,7 +15,7 @@ import { SpinnerContext } from "../../components/SpinnerContext";
 import { addToCart, getCartItemById, updateCartItem } from "../../apiCalls";
 import VisitingCardEditor from "./VisitingCardEditor";
 import { convertBase64intoFile } from "../../utils/helper";
-
+import imageCompression from "browser-image-compression";
 const quantityOptions = [
   {
     quantity: "100",
@@ -160,13 +160,19 @@ const VisitingCard = () => {
     }
     try {
       setLoading(true);
-      formData.append("imageFile", data.file);
+
+      const compressedFile = await compressImage(data.file);
+      formData.append("imageFile", compressedFile);
       formData.append("quantity", data.quantity);
       formData.append("category", "VISITING_CARD");
       formData.append("userId", localStorage.getItem("userId") || "");
       formData.append("amount", data.price);
 
       const res = await addToCart(formData);
+      console.log(res, "htiasdfikasdjf");
+      if (res.data.status === false && res.data.error.code === "413") {
+        return toast.error("The image file is too large.");
+      }
       if (res.data.status) {
         setData((prev) => ({ ...prev, isInCart: true }));
         toast.success("Item added to cart");
@@ -221,6 +227,20 @@ const VisitingCard = () => {
       formData.append("quantity", data.quantity);
       formData.append("amount", data.price);
       updateCartItemData();
+    }
+  };
+
+  const compressImage = async (file) => {
+    const options = {
+      maxSizeMB: 1, // Maximum file size in MB
+      maxWidthOrHeight: 1920, // Resize to fit within this dimension
+      useWebWorker: true,
+    };
+    try {
+      const compressedFile = await imageCompression(file, options);
+      return compressedFile;
+    } catch (error) {
+      console.error("Image compression error:", error);
     }
   };
 
@@ -397,12 +417,13 @@ const VisitingCard = () => {
             )}
 
             {/* <VisitingCardEditor image={imgUrl} /> */}
-            {imgUrl && (
-              <VisitingCardEditor
-                image={imgUrl}
-                onImageSave={handleImageSave}
-              />
-            )}
+
+            <VisitingCardEditor
+              image={imgUrl}
+              onImageSave={handleImageSave}
+              handleButtonClick={handleButtonClick}
+            />
+
             {data.isInCart ? (
               <div
                 onClick={() => navigate("/cart")}
