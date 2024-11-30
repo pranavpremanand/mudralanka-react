@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import WhatWeCanDo from "../components/WhatWeCanDo";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import { services } from "../constant";
 
 const OurServices = () => {
   return (
@@ -27,16 +28,16 @@ const OurServices = () => {
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="service-four__single content-margin-60">
                 <div class="service-four__icon">
-                  <img src="/images/icons/wall-sticker-1-1.jpg" alt="Pic" />
+                  <img src={services[0].image} alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
-                  <Link to="/sticker-printing">Sticker Printing</Link>
+                  <Link to={services[0].path}>{services[0].title}</Link>
                 </h3>
                 <p class="service-four__text">
                   We offer high-quality sticker printing with vibrant colors and
                   durable materials, perfect for personal or professional use.
                 </p>
-                <Link to="/sticker-printing" class="service-four__link">
+                <Link to={services[0].path} class="service-four__link">
                   Read More
                 </Link>
               </div>
@@ -44,17 +45,17 @@ const OurServices = () => {
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="service-four__single content-margin-60">
                 <div class="service-four__icon">
-                  <img src="/images/icons/id-card-1-1.jpg" alt="Pic" />
+                  <img src={services[1].image} alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
-                  <Link to="/pvcidcard">PVC ID Card</Link>
+                  <Link to={services[1].path}>{services[1].title}</Link>
                 </h3>
                 <p class="service-four__text">
                   Create high-quality PVC ID cards with customizable templates,
                   vibrant colors, and a professional finish, ideal for
                   businesses, schools, and events.
                 </p>
-                <Link to="/pvcidcard" class="service-four__link">
+                <Link to={services[1].path} class="service-four__link">
                   Read More
                 </Link>
               </div>
@@ -62,17 +63,17 @@ const OurServices = () => {
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="service-four__single content-margin-60">
                 <div class="service-four__icon">
-                  <img src="/images/icons/mobile-case-1-1.jpg" alt="Pic" />
+                  <img src={services[2].image} alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
-                  <Link to="/mobilecase">Mobile Case Printing</Link>
+                  <Link to={services[2].path}>{services[2].title}</Link>
                 </h3>
                 <p class="service-four__text">
                   Personalize your mobile cases with high-quality printing,
                   offering vibrant designs and durable finishes to protect and
                   style your device.
                 </p>
-                <Link to="/mobilecase" class="service-four__link">
+                <Link to={services[2].path} class="service-four__link">
                   Read More
                 </Link>
               </div>
@@ -80,17 +81,17 @@ const OurServices = () => {
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="service-four__single content-margin-60">
                 <div class="service-four__icon">
-                  <img src="/images/icons/visiting-card-1-1.jpg" alt="Pic" />
+                  <img src={services[3].image} alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
-                  <Link to="/visitingcard">Visiting Card</Link>
+                  <Link to={services[3].path}>{services[3].title}</Link>
                 </h3>
                 <p class="service-four__text">
                   Get professionally designed visiting cards with premium
                   quality printing, perfect for creating a lasting impression in
                   any business setting.
                 </p>
-                <Link to="/visitingcard" class="service-four__link">
+                <Link to={services[3].path} class="service-four__link">
                   Read More
                 </Link>
               </div>
@@ -98,17 +99,17 @@ const OurServices = () => {
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="service-four__single content-margin-60">
                 <div class="service-four__icon">
-                  <img src="/images/icons/accounting-book-1-1.jpg" alt="Pic" />
+                  <img src={services[4].image} alt="Pic" />
                 </div>
                 <h3 class="service-four__title">
-                  <Link to="/billbook">Billbook</Link>
+                  <Link to={services[4].path}>{services[4].title}</Link>
                 </h3>
                 <p class="service-four__text">
                   We provide customized billbooks with high-quality printing,
                   tailored to meet your business needs for professional
                   invoicing and record-keeping.
                 </p>
-                <Link to="/billbook" class="service-four__link">
+                <Link to={services[4].path} class="service-four__link">
                   Read More
                 </Link>
               </div>
